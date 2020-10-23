@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<anMethTypesLists>
+	
+	<!--from 2021-->
+	<selectionList id="BSE">
+		<selection code="AT06A">
+			<description>Screening</description>
+		</selection>
+		<selection code="AT08A">
+			<description>Confirmatory</description>
+		</selection>
+		<selection code="AT12A">
+			<description>Discriminatory</description>
+		</selection>
+	</selectionList>
+	<selectionList id="CWD">
+		<selection code="AT06A">
+			<description>Screening</description>
+		</selection>
+		<selection code="AT08A">
+			<description>Confirmatory</description>
+		</selection>
+		<selection code="AT11A">
+			<description>Isolate characterisation</description>
+		</selection>
+	</selectionList>
+	
+	<selectionList id="SCRAPIE">
+		<selection code="AT06A">
+			<description>Screening</description>
+		</selection>
+		<selection code="AT08A">
+			<description>Confirmatory</description>
+		</selection>
+		<selection code="AT12A">
+			<description>Discriminatory</description>
+		</selection>
+		<selection code="AT13A">
+			<description>Molecular characterisation/Genotyping</description>
+		</selection>
+	</selectionList>
+	
+	<selectionList id="RGT">
+		<selection code="AT13A">
+			<description>Molecular characterisation/Genotyping</description>
+		</selection>
+	</selectionList>
+	
+	<selectionList id="BSEOS">
+		<selection code="AT06A">
+			<description>Screening</description>
+		</selection>
+		<selection code="AT08A">
+			<description>Confirmatory</description>
+		</selection>
+		<selection code="AT11A">
+			<description>Isolate characterisation</description>
+		</selection>
+		<selection code="AT12A">
+			<description>Discriminatory</description>
+		</selection>
+	</selectionList>
+</anMethTypesLists>
