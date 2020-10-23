@@ -50,4 +50,42 @@
 			<description>ZZZZ</description>
 		</selection>
 	</selectionList>
+	<selectionList id="F01.A057P">
+		<selection code="NK">
+			<description>NK</description>
+		</selection>
+		<selection code="SK">
+			<description>SK</description>
+		</selection>
+		<selection code="DK">
+			<description>DK</description>
+		</selection>
+		<selection code="ZK">
+			<description>ZK</description>
+		</selection>
+		<selection code="NQ">
+			<description>NQ</description>
+		</selection>
+		<selection code="SQ">
+			<description>SQ</description>
+		</selection>
+		<selection code="DQ">
+			<description>DQ</description>
+		</selection>
+		<selection code="ZQ">
+			<description>ZQ</description>
+		</selection>
+		<selection code="NZ">
+			<description>NZ</description>
+		</selection>
+		<selection code="SZ">
+			<description>SZ</description>
+		</selection>
+		<selection code="DZ">
+			<description>DZ</description>
+		</selection>
+		<selection code="ZZ">
+			<description>ZZ</description>
+		</selection>
+	</selectionList>
 </alleleList>
