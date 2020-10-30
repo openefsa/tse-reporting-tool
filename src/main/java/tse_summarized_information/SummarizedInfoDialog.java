@@ -728,8 +728,11 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 			}
 		};
 
-		viewer.addHelp(TSEMessages.get("si.help.title")).addComposite("labelsComp", new GridLayout(1, false), null)
-				.addLabelToComposite("reportLabel", "labelsComp").addLabelToComposite("statusLabel", "labelsComp")
+		viewer
+			.addHelp(TSEMessages.get("si.help.title"))
+			.addComposite("labelsComp", new GridLayout(1, false), new GridData(SWT.FILL, SWT.FILL, true, false))
+				.addLabelToComposite("reportLabel", "labelsComp")
+				.addLabelToComposite("statusLabel", "labelsComp")
 				.addLabelToComposite("messageIdLabel", "labelsComp")
 				.addLabelToComposite("datasetIdLabel", "labelsComp");
 

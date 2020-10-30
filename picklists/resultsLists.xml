@@ -105,7 +105,7 @@
 			<description>Positive</description>
 		</selection>
 	</selectionList>
-	<selectionList id="CWDAT12A">
+	<selectionList id="CWDAT11A">
 		<selection code="RF-00004628-PAR$NEG">
 			<description>Negative</description>
 		</selection>
@@ -133,6 +133,11 @@
 		</selection>
 		<selection code="RF-00004628-PAR$POS">
 			<description>Positive</description>
+		</selection>
+	</selectionList>
+	<selectionList id="BSEOSAT11A">
+		<selection code="?$?">
+			<description>?</description>
 		</selection>
 	</selectionList>
 	<selectionList id="BSEOSAT12A">

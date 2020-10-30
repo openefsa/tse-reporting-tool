@@ -194,6 +194,7 @@ public class PredefinedResultService {
 		String sampEventAsses = caseReport.getCode(CustomStrings.SAMP_EVENT_ASSES_COL);
 		boolean confirmatoryTested = isConfirmatoryTested(recordType);
 
+		System.out.println("shahaal "+sampEventAsses);
 		// get the default value
 		PredefinedResult defaultResult = predResList.get(recordType, source, confirmatoryTested, sampEventAsses);
 		
@@ -269,7 +270,7 @@ public class PredefinedResultService {
 	public static boolean addParamAndResult(TableRow result, 
 			PredefinedResult defValues, 
 			PredefinedResultHeader codeCol) {
-		
+
 		String code = defValues.get(codeCol);
 		
 		// put the test aim

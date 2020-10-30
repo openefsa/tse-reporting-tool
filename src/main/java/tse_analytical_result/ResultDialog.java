@@ -283,8 +283,8 @@ public class ResultDialog extends TableDialogWithMenu {
 		String animalIdRow = TSEMessages.get("result.animal.id", animalId);
 		String caseIdRow = TSEMessages.get("result.case.id", caseId);
 
-		viewer.addHelp(TSEMessages.get("result.help.title")).addRowCreator(TSEMessages.get("result.add.record"))
-				.addComposite("labelsComp", new GridLayout(1, false), null);
+		viewer.addHelp(TSEMessages.get("result.help.title"))
+			.addComposite("labelsComp", new GridLayout(1, false), null);
 
 		if (!sampleId.isEmpty())
 			viewer.addLabelToComposite("sampLabel", sampleIdRow.toString(), "labelsComp");
@@ -295,7 +295,7 @@ public class ResultDialog extends TableDialogWithMenu {
 		if (!caseId.isEmpty())
 			viewer.addLabelToComposite("caseIdLabel", caseIdRow.toString(), "labelsComp");
 
-		viewer.addTable(CustomStrings.RESULT_SHEET, true, report, summInfo, caseInfo); // add parent to be able to solve
-																						// isVisible field
+		viewer.addRowCreator(TSEMessages.get("result.add.record"))
+			.addTable(CustomStrings.RESULT_SHEET, true, report, summInfo, caseInfo); 
 	}
 }

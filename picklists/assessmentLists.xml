@@ -18,7 +18,7 @@
 		<selection code="J051A">
 			<description>Negative sample</description>
 		</selection>
-		<selection code="?">
+		<selection code="J054A">
 			<description>Pending</description>
 		</selection>
 	</selectionList>
@@ -34,7 +34,7 @@
 			<description>CH1641-like</description>
 		</selection>
 		<selection code="J045A">
-			<description>Classical-scrapie (i.e. BSE-excluded in 1st Molecular test)</description>
+			<description>Classical scrapie</description>
 		</selection>
 		<selection code="J050A">
 			<description>Inconclusive case</description>
@@ -42,7 +42,7 @@
 		<selection code="J051A">
 			<description>Negative sample</description>
 		</selection>
-		<selection code="?">
+		<selection code="J054A">
 			<description>Pending</description>
 		</selection>
 	</selectionList>
@@ -60,7 +60,7 @@
 		<selection code="J051A">
 			<description>Negative sample</description>
 		</selection>
-		<selection code="?">
+		<selection code="J054A">
 			<description>Pending</description>
 		</selection>
 	</selectionList>
@@ -81,7 +81,7 @@
 		<selection code="J051A">
 			<description>Negative sample</description>
 		</selection>
-		<selection code="?">
+		<selection code="J054A">
 			<description>Pending</description>
 		</selection>
 	</selectionList>
