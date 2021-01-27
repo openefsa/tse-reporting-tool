@@ -53,6 +53,10 @@ public class SummarizedInfo extends TableRow {
 		return this.getType().equals(CustomStrings.SUMMARIZED_INFO_BSEOS_TYPE);
 	}
 	
+	public boolean isCWD() {
+		return this.getType().equals(CustomStrings.SUMMARIZED_INFO_CWD_TYPE);
+	}
+	
 	public String getProgId() {
 		return this.getLabel(CustomStrings.PROG_ID_COL);
 	}

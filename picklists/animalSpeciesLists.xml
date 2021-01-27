@@ -117,5 +117,8 @@
 		<selection code="F01.A0CTL">
 			<description>Taurotragus oryx</description>
 		</selection>
+		<selection code="F01.A056T">
+			<description>Rupicapra rupicapra L.</description>
+		</selection>
 	</selectionList>
 </animalSpeciesLists>

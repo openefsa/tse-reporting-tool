@@ -76,6 +76,7 @@ public class CustomStrings {
 	
 	public static final String CONFIRMATORY_TEST_CODE = "AT08A";
 	public static final String DISCRIMINATORY_TEST_CODE = "AT12A";
+	public static final String DISCRIMINATORY_TEST_CODE_CWD = "AT11A";
 	public static final String MOLECULAR_TEST_CODE = "AT13A";
 
 	public static final String STATUS_HERD_COL = "statusHerd";
@@ -107,6 +108,7 @@ public class CustomStrings {
 	public static final String DEFAULT_ASSESS_CBSE_CASE_CODE = "J046A";
 	public static final String DEFAULT_ASSESS_NEG_CASE_CODE = "J051A";
 	public static final String DEFAULT_ASSESS_INC_CASE_CODE = "J050A";
+	public static final String DEFAULT_ASSESS_PEN_CASE_CODE = "J054A";
 	public static final String DEFAULT_ASSESS_INC_CASE_LABEL = "Inconclusive";
 	
 	public static final String BIRTH_YEAR_COL = "birthYear";

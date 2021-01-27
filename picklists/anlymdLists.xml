@@ -6,7 +6,7 @@
 		<selection code="F639A">
 			<description>Bio-Rad TeSeE SAP rapid test</description>
 		</selection>
-		<selection code="?">
+		<selection code="F696A">
 			<description>Prionics Check LIA test</description>
 		</selection>
 		<selection code="F642A">
@@ -71,13 +71,13 @@
 		</selection>
 	</selectionList>
 	<selectionList id="SCRAPIE$AT12A">
-		<selection code="F659A">
+		<selection code="F622A">
 			<description>ANSES Discriminatory Western blot method</description>
 		</selection>
 		<selection code="F661A">
 			<description>APHA Bio-Rad TeSeE-based Hybrid Western blotting method</description>
 		</selection>
-		<selection code="F662A">
+		<selection code="F624A">
 			<description>APHA Prionics-based Hybrid Western blotting method</description>
 		</selection>
 		<selection code="F625A">
@@ -92,7 +92,7 @@
 		<selection code="F629A">
 			<description>ISS-Discriminatory Western blot method</description>
 		</selection>
-		<selection code="?">
+		<selection code="F697A">
 			<description>Secondary molecular testing</description>
 		</selection>
 		<selection code="F108A">
@@ -140,7 +140,7 @@
 		<selection code="F639A">
 			<description>Bio-Rad TeSeE SAP rapid test</description>
 		</selection>
-		<selection code="?">
+		<selection code="F696A">
 			<description>Prionics Check LIA test</description>
 		</selection>
 		<selection code="F642A">
@@ -192,13 +192,13 @@
 		<selection code="F072A">
 			<description>Western blot</description>
 		</selection>
-		<selection code="F659A">
+		<selection code="F622A">
 			<description>ANSES Discriminatory Western blot method</description>
 		</selection>
 		<selection code="F661A">
 			<description>APHA Bio-Rad TeSeE-based Hybrid Western blotting method</description>
 		</selection>
-		<selection code="F662A">
+		<selection code="F624A">
 			<description>APHA Prionics-based Hybrid Western blotting method</description>
 		</selection>
 		<selection code="F625A">
@@ -213,7 +213,7 @@
 		<selection code="F629A">
 			<description>ISS-Discriminatory Western blot method</description>
 		</selection>
-		<selection code="?">
+		<selection code="F697A">
 			<description>Secondary molecular testing</description>
 		</selection>
 		<selection code="F108A">

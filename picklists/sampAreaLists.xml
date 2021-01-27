@@ -1257,4 +1257,15 @@
 			<description>Mardin, Batman, Sirnak, Siirt</description>
 		</selection>
 	</selectionList>
+	<selectionList id="EU">
+		<selection code="SI03">
+			<description>Vzhodna Slovenija</description>
+		</selection>
+		<selection code="SI04">
+			<description>Zahodna Slovenija</description>
+		</selection>
+		<selection code="SIZZ">
+			<description>Extra-Regio NUTS 2</description>
+		</selection>
+	</selectionList>
 </sampAreaLists>

@@ -66,14 +66,11 @@
 	</selectionList>
 	
 	<selectionList id="BSEOS">
-		<selection code="J046A">
-			<description>C-BSE</description>
+		<selection code="J055A">
+			<description>Positive (Other TSE)</description>
 		</selection>
-		<selection code="J047A">
-			<description>L-BSE</description>
-		</selection>
-		<selection code="J048A">
-			<description>H-BSE</description>
+		<selection code="J044A">
+			<description>BSE-not excluded (i.e. BSE like)</description>
 		</selection>
 		<selection code="J050A">
 			<description>Inconclusive case</description>

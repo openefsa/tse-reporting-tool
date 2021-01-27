@@ -60,12 +60,14 @@ public class PredefinedResultService {
 		if (r != null)
 			results.add(r);
 		
-		
-		r = createDefaultResult(report, summInfo, caseReport, 
-				PredefinedResultHeader.DISCRIMINATORY,
-				CustomStrings.DISCRIMINATORY_TEST_CODE);
-		if (r != null)
-			results.add(r);
+		// create discriminatory predefined results only for non CWD records
+		if(!summInfo.isCWD()) {
+			r = createDefaultResult(report, summInfo, caseReport, 
+					PredefinedResultHeader.DISCRIMINATORY,
+					CustomStrings.DISCRIMINATORY_TEST_CODE);
+			if (r != null)
+				results.add(r);
+		}
 		
 		r = createDefaultResult(report, summInfo, caseReport, 
 				PredefinedResultHeader.GENOTYPING_BASE_TERM,
@@ -194,7 +196,6 @@ public class PredefinedResultService {
 		String sampEventAsses = caseReport.getCode(CustomStrings.SAMP_EVENT_ASSES_COL);
 		boolean confirmatoryTested = isConfirmatoryTested(recordType);
 
-		System.out.println("shahaal "+sampEventAsses);
 		// get the default value
 		PredefinedResult defaultResult = predResList.get(recordType, source, confirmatoryTested, sampEventAsses);
 		

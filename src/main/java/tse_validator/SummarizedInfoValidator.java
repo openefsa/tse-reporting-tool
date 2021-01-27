@@ -66,8 +66,9 @@ public class SummarizedInfoValidator extends SimpleRowValidatorLabelProvider {
 	private static double getPositiveCasesNumber(Collection<TableRow> cases) {
 		int neg = getDistinctCaseIndex(cases, CustomStrings.DEFAULT_ASSESS_NEG_CASE_CODE, false);
 		int inc = getDistinctCaseIndex(cases, CustomStrings.DEFAULT_ASSESS_INC_CASE_CODE, false);
+		int pen = getDistinctCaseIndex(cases, CustomStrings.DEFAULT_ASSESS_PEN_CASE_CODE, false);
 
-		double posNum = (getDistinctCasesNumber(cases) - neg - inc);
+		double posNum = (getDistinctCasesNumber(cases) - neg - inc -pen);
 
 		return posNum;
 	}
@@ -110,10 +111,11 @@ public class SummarizedInfoValidator extends SimpleRowValidatorLabelProvider {
 				// declared inc/pos
 				int incSamples = row.getNumLabel(CustomStrings.TOT_SAMPLE_INCONCLUSIVE_COL);
 				int posSamples = row.getNumLabel(CustomStrings.TOT_SAMPLE_POSITIVE_COL);
-
+				
 				// detailed inc
 				int detailedIncSamples = getDistinctCaseIndex(cases, CustomStrings.DEFAULT_ASSESS_INC_CASE_CODE, false);
-
+				detailedIncSamples += getDistinctCaseIndex(cases, CustomStrings.DEFAULT_ASSESS_PEN_CASE_CODE, false);
+				
 				double detailedPosSamples = getPositiveCasesNumber(cases);
 
 				if (detailedPosSamples > posSamples)

@@ -113,5 +113,8 @@
 		<selection code="GB">
 			<description>United Kingdom</description>
 		</selection>
+		<selection code="EU">
+			<description>EFSA</description>
+		</selection>
 	</selectionList>
 </countryList>
