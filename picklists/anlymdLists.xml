@@ -125,7 +125,7 @@
 		</selection>
 	</selectionList>
 	<selectionList id="CWD$AT11A">
-		<selection code="F001A">
+		<selection code="F500A">
 			<description>Classification not possible</description>
 		</selection>
 	</selectionList>
@@ -221,7 +221,7 @@
 		</selection>
 	</selectionList>
 	<selectionList id="BSEOS$AT11A">
-		<selection code="F001A">
+		<selection code="F500A">
 			<description>Classification not possible</description>
 		</selection>
 	</selectionList>

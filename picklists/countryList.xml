@@ -114,7 +114,13 @@
 			<description>United Kingdom</description>
 		</selection>
 		<selection code="EU">
-			<description>EFSA</description>
+			<description>European Union</description>
+		</selection>
+		<selection code="XE">
+			<description>Non-European Union</description>
+		</selection>
+		<selection code="XX">
+			<description>Unknown</description>
 		</selection>
 	</selectionList>
 </countryList>

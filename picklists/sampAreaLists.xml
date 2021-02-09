@@ -1258,13 +1258,17 @@
 		</selection>
 	</selectionList>
 	<selectionList id="EU">
-		<selection code="SI03">
-			<description>Vzhodna Slovenija</description>
+		<selection code="MTZZ">
+			<description>Extra-Regio NUTS 2</description>
 		</selection>
-		<selection code="SI04">
-			<description>Zahodna Slovenija</description>
+	</selectionList>
+	<selectionList id="XE">
+		<selection code="MTZZ">
+			<description>Extra-Regio NUTS 2</description>
 		</selection>
-		<selection code="SIZZ">
+	</selectionList>
+	<selectionList id="XX">
+		<selection code="MTZZ">
 			<description>Extra-Regio NUTS 2</description>
 		</selection>
 	</selectionList>
