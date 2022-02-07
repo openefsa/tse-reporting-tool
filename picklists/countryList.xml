@@ -113,6 +113,12 @@
 		<selection code="GB">
 			<description>United Kingdom</description>
 		</selection>
+		<selection code="XI">
+			<description>United Kingdom (Northern Ireland)</description>
+		</selection>
+		<selection code="XU">
+			<description>United Kingdom (excluding Northern Ireland)</description>
+		</selection>
 		<selection code="EU">
 			<description>European Union</description>
 		</selection>
