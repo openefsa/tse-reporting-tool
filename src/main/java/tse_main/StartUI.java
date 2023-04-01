@@ -67,8 +67,11 @@ public class StartUI {
 
 		Collection<TableRow> data = dao.getAll(TableSchemaList.getByName(tableName));
 
-		if (data.isEmpty())
+		if (data.isEmpty()) {
+			LOGGER.info("There are no data to check");
 			return false;
+		}
+			
 
 		TableRow firstRow = data.iterator().next();
 
@@ -110,16 +113,20 @@ public class StartUI {
 		// get the settings
 		TableRow settings = dao.getAll(settingsSchema).iterator().next();
 
-		if (settings == null)
+		if (settings == null) {
+			LOGGER.info("There are no settings to login");
 			return;
-
+		}
+	
 		// get credentials
 		TableCell usernameVal = settings.get(CustomStrings.SETTINGS_USERNAME);
 		TableCell passwordVal = settings.get(CustomStrings.SETTINGS_PASSWORD);
 		TableCell orgVal = settings.get(CustomStrings.SETTINGS_ORG_CODE);
 
-		if (usernameVal == null || passwordVal == null)
+		if (usernameVal == null || passwordVal == null){
+			LOGGER.info("The username or the password is empty");
 			return;
+		}
 
 		// login the user
 		String username = usernameVal.getLabel();
@@ -139,7 +146,7 @@ public class StartUI {
 	 */
 	private void shutdown(Database db) {
 
-		LOGGER.info("Application closed " + System.currentTimeMillis());
+		LOGGER.info("Application closed : " + System.currentTimeMillis());
 
 		if (display != null)
 			display.dispose();
@@ -190,8 +197,8 @@ public class StartUI {
 			Database db = main.launch();
 			main.shutdown(db);
 		} catch (Throwable e) {
-			e.printStackTrace();
 			LOGGER.fatal("Generic error occurred", e);
+			e.printStackTrace();
 
 			Warnings.createFatal(TSEMessages.get("generic.error", PropertiesReader.getSupportEmail()))
 					.open(new Shell());
@@ -201,7 +208,7 @@ public class StartUI {
 	private Database launch() {
 
 		// application start-up message. Usage of System.err used for red chars
-		LOGGER.info("Application started " + System.currentTimeMillis());
+		LOGGER.info("Application started : " + System.currentTimeMillis());
 
 		// connect to the database application
 		Database db = new Database();
@@ -209,7 +216,7 @@ public class StartUI {
 		try {
 			db.connect();
 		} catch (IOException e) {
-			LOGGER.error("Database not found or incompatible", e);
+			LOGGER.fatal("Database not found or incompatible", e);
 			showInitError(TSEMessages.get("db.init.error", e.getMessage()));
 			return null;
 		}
@@ -230,7 +237,8 @@ public class StartUI {
 			return db;
 		} catch (DatabaseVersionException e) {
 
-			LOGGER.warn("Old version of the database found", e);
+			LOGGER.error("Old version of the database found", e);
+			e.printStackTrace();
 
 			int val = ask(TSEMessages.get("db.need.removal"));
 
@@ -249,7 +257,9 @@ public class StartUI {
 				db.connect();
 
 			} catch (IOException e1) {
-				LOGGER.fatal(e1);
+				LOGGER.fatal("Unable to delete database", e1);
+				e1.printStackTrace();
+				
 				showInitError(TSEMessages.get("db.removal.error"));
 
 				return db;
@@ -282,8 +292,8 @@ public class StartUI {
 			MainPanel mainPanel = new MainPanel(shell, reportService, daoService, formulaService);
 			mainPanel.create();
 		} catch (Throwable e) {
-			e.printStackTrace();
 			LOGGER.fatal("Generic error occurred", e);
+			e.printStackTrace();
 
 			Warnings.createFatal(TSEMessages.get("generic.error", PropertiesReader.getSupportEmail())).open(shell);
 
@@ -320,8 +330,8 @@ public class StartUI {
 					return db;
 				}
 			} catch (FormulaException e) {
-				e.printStackTrace();
 				LOGGER.error("Cannot check if preferences were set", e);
+				e.printStackTrace();
 			}
 		}
 
@@ -336,8 +346,8 @@ public class StartUI {
 				if (!reportService.getMandatoryFieldNotFilled(settings).isEmpty())
 					return db;
 			} catch (FormulaException e) {
-				e.printStackTrace();
 				LOGGER.error("Cannot check if settings were set", e);
+				e.printStackTrace();
 			}
 
 			LOGGER.debug("Opening new report dialog");

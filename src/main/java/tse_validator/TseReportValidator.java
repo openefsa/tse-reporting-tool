@@ -60,7 +60,7 @@ public class TseReportValidator extends ReportValidator {
 
 	@Override
 	public Collection<ReportError> validate() {
-
+		
 		Collection<ReportError> errors = new ArrayList<>();
 
 		ArrayList<TableRow> reportRecords = this.reportService.getAllRecords(report);
@@ -75,6 +75,7 @@ public class TseReportValidator extends ReportValidator {
 			try {
 				errors.addAll(checkMandatoryFields(row));
 			} catch (FormulaException e) {
+				LOGGER.error("Error occurred", e);
 				e.printStackTrace();
 			}
 
@@ -562,8 +563,8 @@ public class TseReportValidator extends ReportValidator {
 				break;
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
 			LOGGER.error("Cannot check age class", e);
+			e.printStackTrace();
 		}
 
 		return errors;
@@ -603,6 +604,7 @@ public class TseReportValidator extends ReportValidator {
 			if (analysisDate.compareTo(reportDate) < 0)
 				errors.add(new WrongAnalysisYearError(rowId, analysisDate, reportDate));
 		} catch (NumberFormatException e) {
+			LOGGER.error("Error in parsing a non-numeric String", e);
 			e.printStackTrace();
 		}
 

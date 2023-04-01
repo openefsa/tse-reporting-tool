@@ -42,7 +42,7 @@ public class TSEFormulaDecomposer extends FormulaDecomposer {
 		default:
 			break;
 		}
-		
+		LOGGER.debug("Row values" +  values);
 		return values;
 	}
 	
@@ -66,7 +66,7 @@ public class TSEFormulaDecomposer extends FormulaDecomposer {
 			
 			rowValues.put(elem.getId(), colVal);
 		}
-
+        
 		return rowValues;
 	}
 	
@@ -118,7 +118,7 @@ public class TSEFormulaDecomposer extends FormulaDecomposer {
 			String columnId = getColumnByHeader(facetHeader);
 			
 			if (columnId == null) {
-				LOGGER.error("Not supported facet header " + facetHeader);
+				LOGGER.error("This facet header is not supported: " + facetHeader);
 				continue;
 			}
 			
@@ -161,7 +161,7 @@ public class TSEFormulaDecomposer extends FormulaDecomposer {
 		default:
 			break;
 		}
-		
+		LOGGER.debug("column Id of the row schema" +  columnId);
 		return columnId;
 	}
 }

@@ -1,5 +1,7 @@
 package tse_config;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.eclipse.swt.SWT;
 
 import app_config.PropertiesReader;
@@ -11,9 +13,12 @@ import message.SendMessageErrorType;
 import message.SendMessageException;
 import table_database.TableDao;
 import table_skeleton.TableRowList;
+import tse_components.TableDialogWithMenu;
 import xlsx_reader.TableSchemaList;
 
 public class TSEWarnings {
+	
+	static final Logger LOGGER = LogManager.getLogger(TSEWarnings.class);
 
 	public static Message getSendMessageWarning(SendMessageException sendE, IDataset... reports) {
 
@@ -54,7 +59,7 @@ public class TSEWarnings {
 					TSEMessages.get("send.message.failed", messageError, PropertiesReader.getSupportEmail()), reports);
 			break;
 		}
-
+		LOGGER.info("Message Warning: ", msg);
 		return msg;
 	}
 }

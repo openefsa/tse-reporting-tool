@@ -33,8 +33,8 @@ public class GetReportLatestDatasetThread extends Thread {
 			if (listener != null)
 				listener.finished(this);
 		} catch (DetailedSOAPException e) {
-			e.printStackTrace();
 			LOGGER.error("Cannot retrieve latest dataset of report=" + report.getSenderId(), e);
+			e.printStackTrace();
 			if (listener != null)
 				listener.terminated(this, e);
 		}

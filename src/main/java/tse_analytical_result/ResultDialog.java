@@ -156,12 +156,12 @@ public class ResultDialog extends TableDialogWithMenu {
 							SWT.ICON_WARNING);
 				}
 
-				LOGGER.info("Default results created");
+				LOGGER.info("Default results created: ", results);
 
 			} catch (IOException e) {
-				e.printStackTrace();
 				LOGGER.error("Cannot create predefined results for case with sampId="
 						+ caseInfo.getCode(CustomStrings.SAMPLE_ID_COL), e);
+				e.printStackTrace();
 			}
 		}
 	}
@@ -179,8 +179,6 @@ public class ResultDialog extends TableDialogWithMenu {
 		boolean editableReport = datasetStatus.isEditable();
 		panel.setTableEditable(editableReport);
 		panel.setRowCreatorEnabled(editableReport);
-
-		LOGGER.info("GUI updated");
 	}
 
 	/**
@@ -192,15 +190,13 @@ public class ResultDialog extends TableDialogWithMenu {
 	 */
 	@Override
 	public TableRow createNewRow(TableSchema schema, Selection element) {
-
-		LOGGER.info("Creating a new result");
-
 		TableRow row = new TableRow(schema);
 
 		Relation.injectParent(report, row);
 		Relation.injectParent(summInfo, row);
 		Relation.injectParent(caseInfo, row);
 
+		LOGGER.info("Creating a new row: ", row);
 		return row;
 	}
 
@@ -241,6 +237,7 @@ public class ResultDialog extends TableDialogWithMenu {
 			try {
 				candidateMax = Integer.valueOf(seq);
 			} catch (NumberFormatException e) {
+				LOGGER.error("Trying to parse new row but could not get integer value from seq ", e);
 				e.printStackTrace();
 				candidateMax = 0;
 			}
