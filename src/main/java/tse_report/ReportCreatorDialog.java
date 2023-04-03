@@ -73,8 +73,8 @@ public class ReportCreatorDialog extends TableDialog {
 		try {
 			Relation.injectGlobalParent(row, CustomStrings.PREFERENCES_SHEET);
 		} catch (IOException e) {
-			e.printStackTrace();
 			LOGGER.error("Cannot inject global parent=" + CustomStrings.PREFERENCES_SHEET, e);
+			e.printStackTrace();
 		}
 		
 		row.Initialise();
@@ -109,9 +109,9 @@ public class ReportCreatorDialog extends TableDialog {
 				msg = getErrorMessage(error, report);
 			
 		} catch (DetailedSOAPException e) {
+			LOGGER.error("Cannot create report", e);
 			e.printStackTrace();
 			
-			LOGGER.error("Cannot create report", e);
 			msg = Warnings.createSOAPWarning(e);
 		}
 		finally {

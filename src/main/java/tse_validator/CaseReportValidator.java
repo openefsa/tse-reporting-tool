@@ -174,8 +174,8 @@ public class CaseReportValidator extends SimpleRowValidatorLabelProvider {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
 			LOGGER.error("Cannot check if the case is correct", e);
+			e.printStackTrace();
 		}
 
 		return level;
@@ -230,8 +230,8 @@ public class CaseReportValidator extends SimpleRowValidatorLabelProvider {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
 			LOGGER.error("Cannot check if the case is correct", e);
+			e.printStackTrace();
 		}
 
 		if (text == null)
@@ -276,8 +276,8 @@ public class CaseReportValidator extends SimpleRowValidatorLabelProvider {
 				break;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
 			LOGGER.error("Cannot check if the case is correct", e);
+			e.printStackTrace();
 		}
 
 		if (color == null)

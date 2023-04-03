@@ -81,8 +81,10 @@ public class SettingsDialog extends OptionsDialog {
 		
 		TableRow settings = rows.iterator().next();
 		
-		if (settings == null)
+		if (settings == null) {
+			LOGGER.info("No settings found to apply");
 			return closeWindow;
+		}
 		
 		login(settings);
 		
@@ -96,8 +98,10 @@ public class SettingsDialog extends OptionsDialog {
 		TableCell passwordVal = settings.get(CustomStrings.SETTINGS_PASSWORD);
 		TableCell orgVal = settings.get(CustomStrings.SETTINGS_ORG_CODE);
 
-		if (usernameVal == null || passwordVal == null)
+		if (usernameVal == null || passwordVal == null) {
+			LOGGER.info("The username or password is empty");
 			return false;
+		}
 		
 		// login the user
 		String username = usernameVal.getLabel();
@@ -182,12 +186,13 @@ public class SettingsDialog extends OptionsDialog {
 		try {
 			mandatoryFilled = settings == null || reportService.getMandatoryFieldNotFilled(settings).isEmpty();
 		} catch (FormulaException e1) {
+			LOGGER.error("Error in getting mandatory fields not filled");
 			e1.printStackTrace();
 		}
 		
 		if (!mandatoryFilled) {
 			
-			LOGGER.error("Cannot perform test connection. Credentials missing.");
+			LOGGER.error("Cannot perform test connection. Credentials may be missing.");
 			
 			Warnings.warnUser(getDialog(), 
 					TSEMessages.get("error.title"), 
@@ -244,40 +249,34 @@ public class SettingsDialog extends OptionsDialog {
 			LOGGER.info("Test connection successfully completed");
 			
 		} catch (DetailedSOAPException e) {
-
-			e.printStackTrace();
-			
 			LOGGER.error("Test connection failed", e);
+			e.printStackTrace();
 
 			msg = Warnings.createSOAPWarning(e);
-		} catch (ParserConfigurationException | SAXException | IOException e) {
-			e.printStackTrace();
-			
+		} catch (ParserConfigurationException | SAXException | IOException e) {			
 			LOGGER.error("Test connection failed", e);
+			e.printStackTrace();
 			
 			msg = Warnings.createFatal(TSEMessages.get("test.connection.fail3", 
 					PropertiesReader.getSupportEmail()), report);
 			
 		} catch (SendMessageException e) {
-			
+			LOGGER.error("Test connection failed", e);
 			// here we got TRXKO
 			e.printStackTrace();
-			
-			LOGGER.error("Test connection failed", e);
 			
 			msg = TSEWarnings.getSendMessageWarning(e, report);
 			
 		} catch (ReportException e) {
+			LOGGER.error("Test connection failed", e);
 			// There an invalid operation was used
 			e.printStackTrace();
-			
-			LOGGER.error("Test connection failed", e);
 			
 			msg = Warnings.createFatal(TSEMessages.get("test.connection.fail2",
 					PropertiesReader.getSupportEmail()), report);
 		} catch (AmendException e) {
-			e.printStackTrace();
 			LOGGER.error("This should never happen (amendments are not processed in the test connection)", e);
+			e.printStackTrace();
 		}
 		finally {
 			

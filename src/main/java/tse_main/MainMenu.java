@@ -117,8 +117,10 @@ public class MainMenu {
 
 				TableSchema schema = TseReport.getReportSchema();
 
-				if (schema == null)
+				if (schema == null) {
+					LOGGER.info("Schema was not found in report.");
 					return;
+				}
 
 				TableDao dao = new TableDao();
 
@@ -156,9 +158,8 @@ public class MainMenu {
 				try {
 					dialog.open();
 				} catch (IOException e) {
+					LOGGER.error("Cannot open proxy dialog", e);
 					e.printStackTrace();
-
-					LOGGER.error("Cannot find the proxy configuration file", e);
 
 					Message m = Warnings.createFatal(
 							TSEMessages.get("proxy.config.file.not.found.error", PropertiesReader.getSupportEmail()));
@@ -206,8 +207,10 @@ public class MainMenu {
 
 				TseReport report = dialog.getSelectedReport();
 
-				if (report == null)
+				if (report == null){
+					LOGGER.info("There is no report to continue");
 					return;
+				}
 
 				LOGGER.info("Opening report=" + report.getSenderId());
 
@@ -273,14 +276,18 @@ public class MainMenu {
 				// import the report into the opened report
 				TableRow report = dialog.getSelectedReport();
 
-				if (report == null)
+				if (report == null){
+					LOGGER.info("There is no report to continue");
 					return;
+				}
 
 				// copy the report summarized information into the opened one
 				TableSchema childSchema = TableSchemaList.getByName(CustomStrings.SUMMARIZED_INFO_SHEET);
 
-				if (childSchema == null)
+				if (childSchema == null) {
+					LOGGER.info("Could not find schema");
 					return;
+				}
 
 				LOGGER.info("Importing summarized information from report="
 						+ report.getCode(CustomStrings.SENDER_DATASET_ID_COL) + " to report="
@@ -371,8 +378,8 @@ public class MainMenu {
 				try {
 					downloader.download();
 				} catch (DetailedSOAPException e) {
-					e.printStackTrace();
 					LOGGER.error("Download report failed", e);
+					e.printStackTrace();
 					Warnings.showSOAPWarning(shell, e);
 				}
 			}
@@ -384,10 +391,13 @@ public class MainMenu {
 
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
+				
+				LOGGER.debug("Opening export report dialog");
 
 				TseReport report = mainPanel.getOpenedReport();
 
 				if (report == null) {
+					LOGGER.info("There is no report to continue");
 					Warnings.warnUser(shell, TSEMessages.get("error.title"), TSEMessages.get("report.noreport.error"));
 					return;
 				}
@@ -397,8 +407,10 @@ public class MainMenu {
 				String filename = TableVersion.mergeNameAndVersion(report.getSenderId(), report.getVersion());
 				File exportFile = fileDialog.saveXml(filename);
 				
-				if (exportFile == null)
+				if (exportFile == null){
+					LOGGER.info("Could not find file to export");
 					return;
+				}
 
 				shell.setCursor(shell.getDisplay().getSystemCursor(SWT.CURSOR_WAIT));
 
@@ -407,7 +419,7 @@ public class MainMenu {
 					Dataset dataset = reportService.getDataset(report);
 					opSendType = reportService.getSendOperation(report, dataset);
 				} catch (DetailedSOAPException e1) {
-
+					LOGGER.error("Error in Report Send Operation", e1);
 					shell.setCursor(shell.getDisplay().getSystemCursor(SWT.CURSOR_ARROW));
 					e1.printStackTrace();
 
@@ -433,8 +445,10 @@ public class MainMenu {
 					opType = opSendType.getOpType();
 				}
 
-				if (opType == null)
+				if (opType == null) {
+					LOGGER.info("Operation Type not found");
 					return;
+				}	
 
 				LOGGER.info("Exporting report=" + report.getSenderId());
 
@@ -445,8 +459,8 @@ public class MainMenu {
 				try {
 					reportService.export(report, messageConfig);
 				} catch (IOException | ParserConfigurationException | SAXException | ReportException e) {
-					e.printStackTrace();
 					LOGGER.error("Export report failed", e);
+					e.printStackTrace();
 				} catch (AmendException e) {
 					LOGGER.error("Export report failed", e);
 					e.printStackTrace();
@@ -526,10 +540,14 @@ public class MainMenu {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 
+				LOGGER.debug("Opening 'Print report versions' dialog");
+				
 				TseReport report = mainPanel.getOpenedReport();
 
-				if (report == null)
+				if (report == null){
+					LOGGER.info("There is no report to continue");
 					return;
+				}
 
 				LOGGER.debug("Report versions=" + report.getAllVersions(daoService));
 			}
@@ -546,9 +564,12 @@ public class MainMenu {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 
+				LOGGER.debug("Opening 'Export report' dialog");
+				
 				TseReport report = mainPanel.getOpenedReport();
 
 				if (report == null) {
+					LOGGER.info("There is no report to continue");
 					Warnings.warnUser(shell, TSEMessages.get("error.title"), TSEMessages.get("report.noreport.error"));
 					return;
 				}
@@ -558,8 +579,10 @@ public class MainMenu {
 
 				OperationType opType = (OperationType) dialog.getSelection();
 
-				if (opType == null)
+				if (opType == null) {
+					LOGGER.info("Operation Type not found");
 					return;
+				}	
 
 				LOGGER.debug("Exporting report " + report.getSenderId());
 				MessageConfigBuilder messageConfig = reportService.getSendMessageConfiguration(report);
@@ -568,8 +591,8 @@ public class MainMenu {
 					reportService.export(report, messageConfig);
 				} catch (IOException | ParserConfigurationException | SAXException | ReportException
 						| AmendException e) {
-					e.printStackTrace();
 					LOGGER.error("Export report failed", e);
+					e.printStackTrace();
 				}
 			}
 
@@ -588,11 +611,15 @@ public class MainMenu {
 				ReportListDialog dialog = new ReportListDialog(shell, "Delete a report");
 				dialog.setButtonText("Delete");
 				dialog.open();
+				
+				LOGGER.debug("Opening 'Delete report' dialog");
 
 				TseReport report = dialog.getSelectedReport();
 
-				if (report == null)
+				if (report == null) {
+					LOGGER.info("There is no report to continue");
 					return;
+				}
 
 				LOGGER.debug("Report " + report.getSenderId() + " deleted from disk");
 
@@ -610,6 +637,9 @@ public class MainMenu {
 
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
+				
+				LOGGER.debug("Opening 'Print current data collection' dialog");
+				
 				TseReport report = mainPanel.getOpenedReport();
 
 				String dcCode = report == null ? PropertiesReader.getDataCollectionCode()
@@ -628,17 +658,23 @@ public class MainMenu {
 		importReport1.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
+				
+				LOGGER.debug("Opening 'Import first version .xml report' dialog");
+				
 				TseFileDialog fileDialog = new TseFileDialog(shell);
 				File file1 = fileDialog.loadXml();
 
-				if (file1 == null)
+				if (file1 == null){
+					LOGGER.info("File not found to import");
 					return;
+				}
 
 				try {
 					TseReportImporter imp = new TseReportImporter(reportService, daoService);
 					imp.importFirstDatasetVersion(file1);
 
 				} catch (XMLStreamException | IOException | FormulaException | ParseException e) {
+					LOGGER.error("Import report failed", e);
 					e.printStackTrace();
 				}
 			}

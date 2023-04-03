@@ -45,7 +45,7 @@ public class PredefinedResultService {
 	 */
 	public TableRowList createDefaultResults(Report report, 
 			SummarizedInfo summInfo, CaseReport caseReport) throws IOException {
-
+		
 		TableRowList results = new TableRowList();
 		
 		AnalyticalResult r = createDefaultResult(report, summInfo, caseReport, 
@@ -199,6 +199,7 @@ public class PredefinedResultService {
 		// get the default value
 		PredefinedResult defaultResult = predResList.get(recordType, source, confirmatoryTested, sampEventAsses);
 		
+		LOGGER.info("PredefinedResult: ", defaultResult);
 		return defaultResult;
 	}
 	
@@ -256,7 +257,7 @@ public class PredefinedResultService {
 			
 			return resultRow;
 		}
-		
+		LOGGER.info("No default result for this particular test has been created: ", resultRow, defaultResult, test);
 		return null;
 	}
 	

@@ -135,8 +135,8 @@ public class SummarizedInfoValidator extends SimpleRowValidatorLabelProvider {
 			}
 
 		} catch (NumberFormatException e) {
-			e.printStackTrace();
 			LOGGER.error("Cannot check if the summarized information is correct", e);
+			e.printStackTrace();
 		}
 
 		// check children errors

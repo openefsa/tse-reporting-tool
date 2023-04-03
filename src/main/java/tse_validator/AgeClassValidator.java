@@ -2,8 +2,12 @@ package tse_validator;
 
 import java.io.IOException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import date_comparator.TseDate;
 import tse_config.CatalogLists;
+import tse_summarized_information.SummarizedInfoDialog;
 import xml_catalog_reader.Selection;
 import xml_catalog_reader.XmlContents;
 import xml_catalog_reader.XmlLoader;
@@ -15,6 +19,8 @@ import xml_catalog_reader.XmlLoader;
  *
  */
 public class AgeClassValidator {
+	
+	protected static final Logger LOGGER = LogManager.getLogger(AgeClassValidator.class);
 
 	private final static String GTE = "gte";
 	private final static String LT = "lt";

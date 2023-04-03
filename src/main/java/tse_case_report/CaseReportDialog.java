@@ -119,7 +119,7 @@ public class CaseReportDialog extends TableDialogWithMenu {
 				&& !reportService.hasChildren(summInfo, TableSchemaList.getByName(CustomStrings.CASE_INFO_SHEET))
 				&& (hasExpectedCases || isRGT);
 
-		LOGGER.debug("Can ask=" + canAsk);
+		LOGGER.debug("Can ask for default = " + canAsk);
 
 		// create default cases if no cases
 		// and cases were set in the aggregated data
@@ -138,9 +138,9 @@ public class CaseReportDialog extends TableDialogWithMenu {
 				try {
 					reportService.createDefaultCases(report, summInfo);
 				} catch (IOException e) {
-					e.printStackTrace();
 					LOGGER.error("Cannot create default cases in summarized info with progId=" + summInfo.getProgId(),
 							e);
+					e.printStackTrace();
 				}
 			} else if (isRGT) {
 				reportService.createDefaultRGTCase(report, summInfo);
@@ -160,6 +160,7 @@ public class CaseReportDialog extends TableDialogWithMenu {
 		int inconclusive = summInfo.getNumLabel(CustomStrings.TOT_SAMPLE_INCONCLUSIVE_COL);
 		int total = positive + inconclusive;
 
+		LOGGER.info("Number of expected cases in current row ", total);
 		return total;
 	}
 
@@ -304,8 +305,10 @@ public class CaseReportDialog extends TableDialogWithMenu {
 		
 		TableRow row = getSelection();
 
-		if (row == null)
+		if (row == null) {
+			LOGGER.info("There are no other rows in table");
 			return;
+		}	
 
 		Relation.emptyCache();
 

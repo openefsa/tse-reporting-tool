@@ -1,5 +1,7 @@
 package tse_components;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.SWT;
@@ -17,6 +19,7 @@ import table_dialog.TableDialog;
 import table_dialog.TableView;
 import table_skeleton.TableColumn;
 import table_skeleton.TableRow;
+import tse_case_report.CaseReportDialog;
 import tse_config.DebugConfig;
 
 /**
@@ -28,6 +31,8 @@ import tse_config.DebugConfig;
  *
  */
 public abstract class TableDialogWithMenu extends TableDialog {
+	
+	static final Logger LOGGER = LogManager.getLogger(TableDialogWithMenu.class);
 
 	/**
 	 * Create a dialog with a {@link HelpViewer}, a {@link TableView} and possibly a
@@ -49,6 +54,8 @@ public abstract class TableDialogWithMenu extends TableDialog {
 	public Menu createMenu() {
 
 		Menu menu = new Menu(getDialog());
+		
+		String lineSeparator = System.getProperty("line.separator");
 
 		if (DebugConfig.debug) {
 			MenuItem button = new MenuItem(menu, SWT.PUSH);
@@ -60,11 +67,12 @@ public abstract class TableDialogWithMenu extends TableDialog {
 
 					TableRow row = getSelection();
 
-					if (row == null)
+					if (row == null) {
+						LOGGER.info("Upon selecting widget 'Print row', row is empty.");
 						return;
-
-					System.out.println("ROW==================");
-					System.out.println(row);
+					}					
+					
+					LOGGER.info("Row: " + lineSeparator, row);
 				}
 
 				@Override
@@ -81,13 +89,14 @@ public abstract class TableDialogWithMenu extends TableDialog {
 
 					TableRow row = getSelection();
 
-					if (row == null)
+					if (row == null) {
+						LOGGER.info("Upon selecting widget 'Print row solved', row is empty.");
 						return;
+					}	
 
 					row.updateFormulas();
 
-					System.out.println("ROW==================");
-					System.out.println(row);
+					LOGGER.info("Row: " + lineSeparator, row);
 				}
 
 				@Override
@@ -104,11 +113,12 @@ public abstract class TableDialogWithMenu extends TableDialog {
 
 					TableRow row = getSelection();
 
-					if (row == null)
+					if (row == null) {
+						LOGGER.info("Upon selecting widget 'Print row schema', row is empty.");
 						return;
+					}
 
-					System.out.println("ROW==================");
-					System.out.println(row.getSchema());
+					LOGGER.info("Row schema: " + lineSeparator, row.getSchema());
 				}
 
 				@Override
@@ -125,14 +135,16 @@ public abstract class TableDialogWithMenu extends TableDialog {
 
 					TableRow row = getSelection();
 
-					if (row == null)
+					if (row == null) {
+						LOGGER.info("Upon selecting widget 'Check mandatory fields', row is empty.");
 						return;
+					}
 
-					System.out.println("ROW PROPERTIES==================");
-					System.out.println("are mandatory filled = " + row.areMandatoryFilled());
+					LOGGER.info("Row properties that are mandatory filled: " + lineSeparator, row.areMandatoryFilled());
+	
 
 					for (TableColumn col : getSchema()) {
-						System.out.println(col.getId() + "; mandatory= " + col.isMandatory(row) + " with formula "
+						LOGGER.info(col.getId() + "; mandatory= " + col.isMandatory(row) + " with formula "
 								+ col.getMandatoryFormula());
 					}
 				}
@@ -151,11 +163,13 @@ public abstract class TableDialogWithMenu extends TableDialog {
 
 					TableRow row = getSelection();
 
-					if (row == null)
+					if (row == null) {
+						LOGGER.info("Upon selecting widget 'Check editability', row is empty.");
 						return;
+					}
 
 					for (TableColumn col : getSchema()) {
-						System.out.println(col.getId() + "; editable=" + col.isEditable(row) + " with formula "
+						LOGGER.info(col.getId() + "; editable=" + col.isEditable(row) + " with formula "
 								+ col.getEditableFormula());
 					}
 				}
@@ -174,11 +188,13 @@ public abstract class TableDialogWithMenu extends TableDialog {
 
 					TableRow row = getSelection();
 
-					if (row == null)
+					if (row == null) {
+						LOGGER.info("Upon selecting widget 'Check visibility', row is empty.");
 						return;
+					}
 
 					for (TableColumn col : getSchema()) {
-						System.out.println(col.getId() + "; visible=" + col.isVisible(row) + " with formula "
+						LOGGER.info(col.getId() + "; visible=" + col.isVisible(row) + " with formula "
 								+ col.getVisibleFormula());
 					}
 				}
@@ -231,7 +247,7 @@ public abstract class TableDialogWithMenu extends TableDialog {
 			public void widgetDefaultSelected(SelectionEvent arg0) {
 			}
 		});
-
+        LOGGER.debug("Adding Remove menu item to menu.");
 		return remove;
 	}
 
@@ -271,7 +287,7 @@ public abstract class TableDialogWithMenu extends TableDialog {
 			public void widgetDefaultSelected(SelectionEvent arg0) {
 			}
 		});
-
+		LOGGER.debug("Adding Clone menu item to menu.");
 		return clone;
 	}
 }

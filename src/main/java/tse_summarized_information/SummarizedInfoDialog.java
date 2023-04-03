@@ -281,8 +281,8 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 			Relation.injectGlobalParent(si, CustomStrings.PREFERENCES_SHEET);
 			Relation.injectParent(report, si);
 		} catch (IOException e) {
-			e.printStackTrace();
 			LOGGER.error("Cannot create a new summarized information", e);
+			e.printStackTrace();
 		}
 
 		return si;
@@ -320,8 +320,10 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 			public void widgetSelected(SelectionEvent arg0) {
 
 				// if no report opened, stop
-				if (report == null)
+				if (report == null) {
+					LOGGER.info("There is no report to continue upon adding widgets");
 					return;
+				}
 
 				IndeterminateProgressDialog progressBar = new IndeterminateProgressDialog(getDialog(),
 						SWT.APPLICATION_MODAL, TSEMessages.get("refresh.status.progress.bar.label"));
@@ -380,8 +382,10 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 			public void widgetSelected(SelectionEvent arg0) {
 
 				// if no report opened, stop
-				if (report == null)
+				if (report == null){
+					LOGGER.info("There is no report to continue for editListener");
 					return;
+				}
 
 				int val = warnUser(TSEMessages.get("warning.title"), TSEMessages.get("edit.confirm"),
 						SWT.ICON_WARNING | SWT.YES | SWT.NO);
@@ -402,8 +406,10 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 
-				if (report == null)
+				if (report == null){
+					LOGGER.info("There is no report to continue for checkListener");
 					return;
+				}
 
 				// validate and show the errors in the browser
 				TseReportValidator validator = new TseReportValidator(report, reportService, daoService);
@@ -430,9 +436,9 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 
 				} catch (IOException e) {
 					getDialog().setCursor(getDialog().getDisplay().getSystemCursor(SWT.CURSOR_ARROW));
-					e.printStackTrace();
 
 					LOGGER.error("Cannot validate the report=" + report.getSenderId(), e);
+					e.printStackTrace();
 
 					warnUser(TSEMessages.get("error.title"),
 							TSEMessages.get("check.report.error", Warnings.getStackTrace(e)));
@@ -444,9 +450,10 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 
-				if (report == null)
+				if (report == null){
+					LOGGER.info("There is no report to continue");
 					return;
-
+				}
 				boolean ok = askConfirmation(ReportAction.SEND);
 
 				if (!ok)
@@ -478,6 +485,7 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 				Shell shell = getDialog();
 
 				if (report == null) {
+					LOGGER.info("There is no report to continue for exportListener");
 					Warnings.warnUser(shell, TSEMessages.get("error.title"), TSEMessages.get("report.noreport.error"));
 					return;
 				}
@@ -497,8 +505,10 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 				String filename = TableVersion.mergeNameAndVersion(report.getSenderId(), report.getVersion());
 				File exportFile = fileDialog.saveXlsx(filename);
 
-				if (exportFile == null)
+				if (exportFile == null) {
+					LOGGER.info("There is no file to export");
 					return;
+				}	
 
 				shell.setCursor(shell.getDisplay().getSystemCursor(SWT.CURSOR_WAIT));
 				exporter.dumpWorkbookToAFile(shell, wb, exportFile);
@@ -531,8 +541,10 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 
-				if (report == null)
+				if (report == null){
+					LOGGER.info("There is no report to continue for submitListener");
 					return;
+				}
 
 				ReportActions actions = new TseReportActions(getDialog(), report, reportService);
 
@@ -554,8 +566,10 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 
-				if (report == null)
+				if (report == null){
+					LOGGER.info("There is no report to continue for displayAckListener");
 					return;
+				}
 
 				IndeterminateProgressDialog progressBar = new IndeterminateProgressDialog(getDialog(),
 						SWT.APPLICATION_MODAL, TSEMessages.get("display.ack.progress.bar.label"));
@@ -623,15 +637,19 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 
-				if (report == null)
+				if (report == null){
+					LOGGER.info("There is no report to continue for amendListener");
 					return;
+				}
 
 				TseReportActions actions = new TseReportActions(getDialog(), report, reportService);
 
 				Report newVersion = actions.amend();
 
-				if (newVersion == null)
+				if (newVersion == null){
+					LOGGER.info("There is no new version to continue");
 					return;
+				}
 
 				// open the new version in the tool
 				setParentFilter(newVersion);
@@ -649,8 +667,10 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 
 				RCLDatasetStatus status = (RCLDatasetStatus) dialog.getSelection();
 
-				if (status == null)
+				if (status == null){
+					LOGGER.info("There is no status to continue for changeStatusListener");
 					return;
+				}
 
 				// update the report status and UI
 				report.setStatus(status);

@@ -1,5 +1,7 @@
 package report_converter;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -7,7 +9,9 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
 import java.io.*;
+import java.util.Arrays;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -25,6 +29,8 @@ import javax.xml.transform.stream.StreamResult;
  */
 
 public class ExcelXmlConverter {
+	
+	private static final Logger LOGGER = LogManager.getLogger(ExcelXmlConverter.class);
 
 	/**
 	 * the method convert an excel file into xml format and save it
@@ -161,12 +167,13 @@ public class ExcelXmlConverter {
 
 				transformer.transform(domSource, streamResult);
 
-				System.out.println("\nConvertion from xlsx to xml completed!");
+				File newFile = new File(xmlPath);
+				LOGGER.info("Convertion from xlsx to xml file completed!", newFile);
 
-				return new File(xmlPath);
+				return newFile;
 			}
 		}
-
+		LOGGER.info("File was not found in ExcelXmlConverter.", excelFile);
 		return null;
 	}
 	/*

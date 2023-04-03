@@ -85,8 +85,8 @@ public class PredefinedResultList extends ArrayList<PredefinedResult> {
 				predefinedResultsCache = reader.getResults();
 				
 			} catch (IOException e) {
-				e.printStackTrace();
 				LOGGER.error("Cannot retrieve predefined results list", e);
+				e.printStackTrace();
 			}
 		}
 

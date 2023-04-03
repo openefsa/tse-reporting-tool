@@ -79,7 +79,7 @@ public class TseReportService extends ReportService {
 
 		ArrayList<Formula> formulas = solver.solveAll(XlsxHeader.LABEL_FORMULA.getHeaderName());
 
-		System.out.println(Arrays.asList(formulas));
+		LOGGER.info("Formulas: ", Arrays.asList(formulas));
 
 		for (Formula f : formulas) {
 			if (f.getColumn().getId().equals(CustomStrings.SAMPLE_ID_COL))
@@ -103,6 +103,7 @@ public class TseReportService extends ReportService {
 
 		boolean rgtParamCode = paramBaseTerm.equals(CustomStrings.RGT_PARAM_CODE);
 
+		LOGGER.info("Αnalytical result is related to random genotyping: ", rgtParamCode);
 		return rgtParamCode;
 	}
 
@@ -133,7 +134,7 @@ public class TseReportService extends ReportService {
 		default:
 			break;
 		}
-
+		LOGGER.debug("Row type: ", type);
 		return type;
 	}
 
@@ -167,7 +168,8 @@ public class TseReportService extends ReportService {
 			if (split.length >= 1)
 				return split[0];
 		}
-
+		
+		LOGGER.info("Samp orig id=" + cell.getCode() + " for " + result);
 		// return the sampOrigId
 		return cell.getCode();
 	}
@@ -275,6 +277,7 @@ public class TseReportService extends ReportService {
 
 			messageParents.add(settings);
 		} catch (IOException e) {
+			LOGGER.error("Error in setting message data", e);
 			e.printStackTrace();
 		}
 
@@ -297,6 +300,7 @@ public class TseReportService extends ReportService {
 
 			messageParents.add(settings);
 		} catch (IOException e) {
+			LOGGER.error("Error in setting Accept Dwh Beta message data", e);
 			e.printStackTrace();
 		}
 
@@ -389,7 +393,7 @@ public class TseReportService extends ReportService {
 			if (!isResult)
 				elements.addAll(children);
 		}
-
+        LOGGER.info("Amended report : ", amendedReport);
 		return amendedReport;
 	}
 
@@ -459,6 +463,7 @@ public class TseReportService extends ReportService {
 		try {
 			Relation.injectGlobalParent(report, CustomStrings.PREFERENCES_SHEET, getDaoService());
 		} catch (IOException e) {
+			LOGGER.error("Error in injecting the parent foreign key into the child row" , e);
 			e.printStackTrace();
 		}
 
@@ -480,7 +485,7 @@ public class TseReportService extends ReportService {
 		 * 
 		 * } catch (FormulaException e) { e.printStackTrace(); }
 		 */
-
+        LOGGER.info("The report creation by this dataset :" + dataset + "is completed!", report);
 		return report;
 
 	}
