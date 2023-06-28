@@ -110,40 +110,29 @@ public class CaseReportDialog extends TableDialogWithMenu {
 	}
 
 	public void askForDefault() {
-
 		boolean isRGT = summInfo.isRGT();
-		boolean hasExpectedCases = !isRGT // cannot compute expected cases for RGT
-				&& getNumberOfExpectedCases(summInfo) > 0;
+		boolean noChildrenFound = !reportService.hasChildren(summInfo, TableSchemaList.getByName(CustomStrings.CASE_INFO_SHEET));
+		boolean hasExpectedCases = !isRGT && getNumberOfExpectedCases(summInfo) > 0;
+		
+		boolean canAsk = isEditable() && noChildrenFound && (hasExpectedCases || isRGT);
+		LOGGER.debug("Can ask for default = {}", canAsk);
 
-		boolean canAsk = isEditable() && !summInfo.isBSEOS()
-				&& !reportService.hasChildren(summInfo, TableSchemaList.getByName(CustomStrings.CASE_INFO_SHEET))
-				&& (hasExpectedCases || isRGT);
-
-		LOGGER.debug("Can ask for default = " + canAsk);
-
-		// create default cases if no cases
-		// and cases were set in the aggregated data
 		if (canAsk) {
-
 			if (!isRGT) {
 				LOGGER.debug("Warn user");
-
-				Warnings.warnUser(getDialog(), TSEMessages.get("warning.title"), TSEMessages.get("case.check.default"),
-						SWT.ICON_INFORMATION);
-
+				Warnings.warnUser(getDialog(), TSEMessages.get("warning.title"), TSEMessages.get("case.check.default"), SWT.ICON_INFORMATION);
 				LOGGER.debug("End warn user");
 			}
 
-			if (hasExpectedCases) {
-				try {
+			try {
+				if (hasExpectedCases) {
 					reportService.createDefaultCases(report, summInfo);
-				} catch (IOException e) {
-					LOGGER.error("Cannot create default cases in summarized info with progId=" + summInfo.getProgId(),
-							e);
-					e.printStackTrace();
+				} else if (isRGT) {
+					reportService.createDefaultRGTCase(report, summInfo);
 				}
-			} else if (isRGT) {
-				reportService.createDefaultRGTCase(report, summInfo);
+			} catch (IOException e) {
+				LOGGER.error("Cannot create default cases in summarized info with progId= {} {}", summInfo.getProgId(), e);
+				e.printStackTrace();
 			}
 		}
 	}
@@ -155,31 +144,23 @@ public class CaseReportDialog extends TableDialogWithMenu {
 	 * @return
 	 */
 	private static int getNumberOfExpectedCases(TableRow summInfo) {
-
 		int positive = summInfo.getNumLabel(CustomStrings.TOT_SAMPLE_POSITIVE_COL);
 		int inconclusive = summInfo.getNumLabel(CustomStrings.TOT_SAMPLE_INCONCLUSIVE_COL);
 		int total = positive + inconclusive;
 
-		LOGGER.info("Number of expected cases in current row ", total);
+		LOGGER.info("Number of expected cases in current row {}", total);
 		return total;
 	}
 
 	@Override
 	public Menu createMenu() {
-
 		Menu menu = super.createMenu();
 
 		MenuItem openResults = new MenuItem(menu, SWT.PUSH);
 		openResults.setText(TSEMessages.get("case.open.results"));
 		openResults.setEnabled(false);
 
-		addTableSelectionListener(new ISelectionChangedListener() {
-
-			@Override
-			public void selectionChanged(SelectionChangedEvent arg0) {
-				openResults.setEnabled(!isTableEmpty());
-			}
-		});
+		addTableSelectionListener(arg0 -> openResults.setEnabled(!isTableEmpty()));
 
 		openResults.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -189,8 +170,6 @@ public class CaseReportDialog extends TableDialogWithMenu {
 		});
 
 		addRemoveMenuItem(menu);
-		// addCloneMenuItem(menu);
-
 		return menu;
 	}
 
@@ -218,7 +197,6 @@ public class CaseReportDialog extends TableDialogWithMenu {
 	 */
 	@Override
 	public TableRow createNewRow(TableSchema schema, Selection element) {
-
 		// return the new row
 		TableRow caseRow = new TableRow(schema);
 
@@ -255,7 +233,6 @@ public class CaseReportDialog extends TableDialogWithMenu {
 
 	@Override
 	public void addWidgets(DialogBuilder viewer) {
-
 		String reportMonth = report.getLabel(AppPaths.REPORT_MONTH_COL);
 		String reportYear = report.getLabel(AppPaths.REPORT_YEAR_COL);
 		String source = summInfo.getLabel(CustomStrings.SOURCE_COL);
@@ -302,7 +279,6 @@ public class CaseReportDialog extends TableDialogWithMenu {
 
 	@Override
 	public void nextLevel() {
-		
 		TableRow row = getSelection();
 
 		if (row == null) {
@@ -332,6 +308,5 @@ public class CaseReportDialog extends TableDialogWithMenu {
 		// update children errors
 		reportService.updateChildrenErrors(caseReport);
 		replace(caseReport);
-		
 	}
 }
