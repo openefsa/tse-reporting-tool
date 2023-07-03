@@ -1,7 +1,6 @@
 package tse_summarized_information;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Collection;
 
 import org.apache.logging.log4j.LogManager;
@@ -280,7 +279,7 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 			Relation.injectGlobalParent(si, CustomStrings.SETTINGS_SHEET);
 			Relation.injectGlobalParent(si, CustomStrings.PREFERENCES_SHEET);
 			Relation.injectParent(report, si);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			LOGGER.error("Cannot create a new summarized information", e);
 			e.printStackTrace();
 		}
@@ -434,7 +433,7 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 						warnUser(TSEMessages.get("error.title"), TSEMessages.get("check.report.failed"));
 					}
 
-				} catch (IOException e) {
+				} catch (Exception e) {
 					getDialog().setCursor(getDialog().getDisplay().getSystemCursor(SWT.CURSOR_ARROW));
 
 					LOGGER.error("Cannot validate the report=" + report.getSenderId(), e);

@@ -1,6 +1,5 @@
 package tse_report;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -72,7 +71,7 @@ public class ReportCreatorDialog extends TableDialog {
 		// add preferences to the report
 		try {
 			Relation.injectGlobalParent(row, CustomStrings.PREFERENCES_SHEET);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			LOGGER.error("Cannot inject global parent=" + CustomStrings.PREFERENCES_SHEET, e);
 			e.printStackTrace();
 		}
