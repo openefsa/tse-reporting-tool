@@ -38,11 +38,9 @@ import xml_catalog_reader.Selection;
  *
  */
 public class ReportCreatorDialog extends TableDialog {
-	
 	private static final Logger LOGGER = LogManager.getLogger(ReportCreatorDialog.class);
 	
-	private IReportService reportService;
-	private RestoreableWindow window;
+	private final IReportService reportService;
 	private static final String WINDOW_CODE = "ReportCreator";
 	
 	public ReportCreatorDialog(Shell parent, IReportService reportService) {
@@ -52,8 +50,8 @@ public class ReportCreatorDialog extends TableDialog {
 		super.create();
 		
 		this.reportService = reportService;
-		
-		this.window = new RestoreableWindow(getDialog(), WINDOW_CODE);
+
+		RestoreableWindow window = new RestoreableWindow(getDialog(), WINDOW_CODE);
 		window.restore(TSERestoreableWindowDao.class);
 		window.saveOnClosure(TSERestoreableWindowDao.class);
 	}
@@ -94,23 +92,17 @@ public class ReportCreatorDialog extends TableDialog {
 	
 	@Override
 	public boolean apply(TableSchema schema, Collection<TableRow> rows, TableRow selectedRow) {
-		
 		TseReport report = (TseReport) rows.iterator().next();
-
 		Message msg = null;
-		
 		getDialog().setCursor(getDialog().getDisplay().getSystemCursor(SWT.CURSOR_WAIT));
 		
 		try {
 			RCLError error = reportService.create(report);
-			
 			if (error != null)
 				msg = getErrorMessage(error, report);
-			
 		} catch (DetailedSOAPException e) {
 			LOGGER.error("Cannot create report", e);
 			e.printStackTrace();
-			
 			msg = Warnings.createSOAPWarning(e);
 		}
 		finally {
@@ -118,7 +110,6 @@ public class ReportCreatorDialog extends TableDialog {
 		}
 		
 		boolean errorOccurred = msg != null;
-		
 		if (msg == null) {
 			msg = Warnings.create(TSEMessages.get("success.title"), 
 					TSEMessages.get("new.report.success"), 
@@ -126,12 +117,10 @@ public class ReportCreatorDialog extends TableDialog {
 		}
 		
 		msg.open(getDialog());
-		
 		return !errorOccurred;
 	}
 	
 	private static Message getErrorMessage(RCLError error, TseReport report) {
-		
 		IDataset oldReport = (IDataset) error.getData();
 
 		String message = null;
@@ -163,7 +152,6 @@ public class ReportCreatorDialog extends TableDialog {
 		}
 		
 		Message msg = fatal ? Warnings.createFatal(message, report, oldReport) : Warnings.create(message);
-		
 		return message != null ? msg : null;
 	}
 

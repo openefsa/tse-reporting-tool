@@ -34,15 +34,18 @@ public class CustomStrings {
 	public static final String PREFERENCES_SCREENING_BSE = "defScreeningBSE";
 	public static final String PREFERENCES_SCREENING_SCRAPIE = "defScreeningSCRAPIE";
 	public static final String PREFERENCES_SCREENING_CWD = "defScreeningCWD";
-	
+	public static final String PREFERENCES_SCREENING_BSE_OS = "defScreeningBSEOS";
+
 	public static final String PREFERENCES_CONFIRMATORY_BSE = "defConfirmatoryBSE";
 	public static final String PREFERENCES_CONFIRMATORY_SCRAPIE = "defConfirmatorySCRAPIE";
 	public static final String PREFERENCES_CONFIRMATORY_CWD = "defConfirmatoryCWD";
-	
+	public static final String PREFERENCES_CONFIRMATORY_BSE_OS = "defConfirmatoryBSEOS";
+
 	public static final String PREFERENCES_DISCRIMINATORY_BSE = "defDiscriminatoryBSE";
 	public static final String PREFERENCES_DISCRIMINATORY_SCRAPIE = "defDiscriminatorySCRAPIE";
 	public static final String PREFERENCES_DISCRIMINATORY_CWD = "defDiscriminatoryCWD";
-	
+	public static final String PREFERENCES_DISCRIMINATORY_BSE_OS = "defDiscriminatoryBSEOS";
+
 	public static final String SUMMARIZED_INFO_TYPE = "type";
 	public static final String SOURCE_COL = "source";
 	public static final String PART_COL = "part";
