@@ -145,7 +145,7 @@ public class ReportCreatorDialog extends TableDialog {
 			break;
 		case "ERR300":
 			fatal = true;
-			message = TSEMessages.get("new.report.failed", PropertiesReader.getSupportEmail());
+			message = TSEMessages.get("new.report.failed", oldReport.getId(), PropertiesReader.getSupportEmail());
 			break;
 		default:
 			break;

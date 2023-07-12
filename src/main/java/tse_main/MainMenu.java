@@ -59,7 +59,6 @@ import xlsx_reader.TableSchemaList;
  *
  */
 public class MainMenu {
-
 	static final Logger LOGGER = LogManager.getLogger(MainMenu.class);
 
 	protected TseReportService reportService;
@@ -148,7 +147,7 @@ public class MainMenu {
 				ProxySettingsDialog dialog = new ProxySettingsDialog(shell, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
 				try {
 					dialog.open();
-				} catch (IOException e) {
+				} catch (Exception e) {
 					LOGGER.error("Cannot open proxy dialog", e);
 					e.printStackTrace();
 

@@ -240,7 +240,7 @@ public class StartUI {
 			LOGGER.error("Old version of the database found", e);
 			e.printStackTrace();
 
-			int val = ask(TSEMessages.get("db.need.removal"));
+			int val = ask(TSEMessages.get("db.need.removal", PropertiesReader.getSupportEmail()));
 
 			// close application
 			if (val == SWT.NO)

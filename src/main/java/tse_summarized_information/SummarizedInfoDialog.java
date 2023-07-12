@@ -440,7 +440,7 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 					e.printStackTrace();
 
 					warnUser(TSEMessages.get("error.title"),
-							TSEMessages.get("check.report.error", Warnings.getStackTrace(e)));
+							TSEMessages.get("check.report.error", PropertiesReader.getSupportEmail()));
 				}
 			}
 		};
