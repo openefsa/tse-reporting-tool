@@ -371,7 +371,7 @@ public class MainMenu {
 				TseFileDialog fileDialog = new TseFileDialog(shell);
 				String filename = TableVersion.mergeNameAndVersion(report.getSenderId(), report.getVersion());
 				File exportFile = fileDialog.saveXml(filename);
-				if (exportFile == null){
+				if (exportFile == null) {
 					LOGGER.info("Could not find file to export");
 					return;
 				}

@@ -97,7 +97,8 @@ public class TseReportValidator extends ReportValidator {
 		errors.addAll(checkNationalCaseId(reportRecords));
 		errors.addAll(checkAnimalId(reportRecords));
 		errors.addAll(checkUnknownAgeClass(reportRecords));
-
+		errors.addAll(checkUngeneratedSampleDataAndAnalyticalResults(reportRecords));
+		errors.addAll(checkDateValidity(reportRecords));
 		return errors;
 	}
 
@@ -640,4 +641,110 @@ public class TseReportValidator extends ReportValidator {
 
 		return errors;
 	}
-}
+
+	public static Collection<ReportError> checkUngeneratedSampleDataAndAnalyticalResults(ArrayList<TableRow> reportRecords) {
+		Collection<ReportError> errors = new ArrayList<>();
+
+		if (reportRecords.size() == 1) {
+			TableRow currentRow = reportRecords.get(0);
+			int negSamples = currentRow.getNumLabel(CustomStrings.TOT_SAMPLE_NEGATIVE_COL);
+			int testedSamples = currentRow.getNumLabel(CustomStrings.TOT_SAMPLE_TESTED_COL);
+			String currentId = currentRow.getLabel(CustomStrings.SI_ID_COL);
+
+			if (negSamples < testedSamples) {
+				errors.add(new MissingSampleData(currentId));
+			}
+		} else {
+			for (int i = 0; i < reportRecords.size(); i++) {
+				boolean generatedSampleData = false;
+
+				TableRow currentRow = reportRecords.get(i);
+				int negSamples = currentRow.getNumLabel(CustomStrings.TOT_SAMPLE_NEGATIVE_COL);
+				int testedSamples = currentRow.getNumLabel(CustomStrings.TOT_SAMPLE_TESTED_COL);
+				String currentId = currentRow.getLabel(CustomStrings.SI_ID_COL);
+
+				String type = currentRow.getCode(CustomStrings.SUMMARIZED_INFO_TYPE);
+				boolean isScrapie = false;
+				if (type.equals(CustomStrings.SUMMARIZED_INFO_SCRAPIE_TYPE)) {
+					isScrapie = true;
+				}				
+
+				if (negSamples < testedSamples) {
+					for (int j = 0; j < reportRecords.size(); j++) {
+						boolean generatedResultData = false;
+						boolean hasGenotype = false;
+
+						TableRow nextRow = reportRecords.get(j);
+						RowType nextRowType = TseReportService.getRowType(nextRow);
+						if (nextRowType == RowType.CASE) {
+							String summarizedInformationId = nextRow.getLabel(CustomStrings.SI_ID_COL);
+							String reportId = nextRow.getLabel(CustomStrings.REPORT_ID_COL);
+							String casesInformationId = nextRow.getLabel(CustomStrings.CASE_ID_COL);
+							if (currentId.equals(summarizedInformationId)) {
+								generatedSampleData = true;
+							}
+
+							for (int z = 0; z < reportRecords.size(); z++) {
+								TableRow zRow = reportRecords.get(z);
+								RowType zRowType = TseReportService.getRowType(zRow);
+
+								String summarizedInformationId_2 = zRow.getLabel(CustomStrings.SI_ID_COL);
+								String casesInformationId_2 = zRow.getLabel(CustomStrings.CASE_ID_COL);
+								String anMethCode = zRow.getLabel(CustomStrings.AN_METH_CODE_COL);
+								if (zRowType == RowType.RESULT) {
+									if (summarizedInformationId.equals(summarizedInformationId_2) && casesInformationId.equals(casesInformationId_2)) { 
+										generatedResultData = true;
+										if (isScrapie && anMethCode.equals(CustomStrings.AN_METH_CODE_GENOTYPING_TYPE)) {
+											hasGenotype = true;
+										}
+									} 
+								} // end if = RowType.RESULT
+							}
+
+							if (!generatedResultData && generatedSampleData) {
+								errors.add(new MissingResultData(casesInformationId));
+							}
+							
+							if (isScrapie && !hasGenotype) {
+								errors.add(new MissingGenotypingForScrapieType());
+							}
+						} // end if = RowType.CASE
+					} // end for 2
+					if (!generatedSampleData) {
+						errors.add(new MissingSampleData(currentId));
+					}
+				}
+			} // end for
+		}
+
+		return errors;
+	}
+
+	public static Collection<ReportError> checkDateValidity(ArrayList<TableRow> reportRecords) {
+		Collection<ReportError> errors = new ArrayList<>();
+		for (int i = 0; i < reportRecords.size(); i++) {
+
+			TableRow currentRow = reportRecords.get(i);
+			RowType currentRowType = TseReportService.getRowType(currentRow);
+
+			if (currentRowType == RowType.CASE) {
+
+				int sampCode = currentRow.getNumCode(CustomStrings.SAMP_DAY_COL);
+				int sampBirthMonth = currentRow.getNumCode(CustomStrings.BIRTH_MONTH_COL);
+				int sampBirthYear = currentRow.getNumCode(CustomStrings.BIRTH_YEAR_COL);
+
+				if (sampCode > 0 && sampBirthMonth > 0 && sampBirthMonth > 0) {
+
+					DateValidator dateValidator = new DateValidator();
+					boolean validDate = dateValidator.validate(sampCode, sampBirthMonth, sampBirthYear);
+
+					if (!validDate) {
+						errors.add(new DateInvalidError(sampCode, sampBirthMonth, sampBirthYear));
+					}
+				}
+
+			}
+		}
+
+		return errors;
+	}}

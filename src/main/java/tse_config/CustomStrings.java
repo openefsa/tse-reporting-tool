@@ -12,7 +12,8 @@ public class CustomStrings {
 	public static final String CASE_ID_COL = "CasesInformationId";
 	public static final String SETTINGS_ID_COL = "SettingsId";
 	public static final String PREFERENCES_ID_COL = "PreferencesId";
-	
+	public static final String ANALYTICAL_RESULT_ID_COL = "AnalyticalResultsId";
+
 	// sheets names
 	public static final String RESULT_SHEET = "AnalyticalResults";
 	public static final String CASE_INFO_SHEET = "CasesInformation";
@@ -136,6 +137,7 @@ public class CustomStrings {
 	public static final String TEST_AIM_COL = "testAim";
 	public static final String AN_METH_CODE_COL = "anMethCode";
 	public static final String AN_METH_CODE_GENOTYPING = "F089A";
+	public static final String AN_METH_CODE_GENOTYPING_TYPE = "Genotyping";
 	
 	public static final String PARAM_TYPE_COL = "paramType";
 	public static final String PARAM_CODE_BASE_TERM_COL = "paramCodeBaseTerm";
