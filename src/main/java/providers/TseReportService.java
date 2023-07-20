@@ -343,7 +343,7 @@ public class TseReportService extends ReportService {
 		return target;
 	}
 
-	private void amendTseReport(TseReport target, TseReport source) {
+	private void amendTseReport(TseReport source, TseReport target) {
 		// increase version starting from the current
 		String newVersion = TableVersion.createNewVersion(source.getVersion());
 		target.setVersion(newVersion);
