@@ -1,5 +1,6 @@
 package tse_validator;
 
+import java.util.Arrays;
 import java.util.Collection;
 
 import i18n_messages.TSEMessages;
@@ -7,6 +8,11 @@ import report_validator.ReportError;
 
 public class MissingGenotypingForScrapieType implements ReportError {
 
+	private final String rowId;
+
+	public MissingGenotypingForScrapieType(String rowId) {
+		this.rowId = rowId;
+	}
 	@Override
 	public ErrorType getTypeOfError() {
 		return ErrorType.ERROR;
@@ -19,7 +25,7 @@ public class MissingGenotypingForScrapieType implements ReportError {
 
 	@Override
 	public Collection<String> getInvolvedRowsIdsMessage() {
-		return null;
+		return Arrays.asList(rowId);
 	}
 
 	@Override

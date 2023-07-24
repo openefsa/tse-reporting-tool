@@ -6,8 +6,6 @@ import java.util.Collection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -16,8 +14,6 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
@@ -90,9 +86,7 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 
 	protected TseReport report;
 
-	public SummarizedInfoDialog(Shell parent, TseReportService reportService, ITableDaoService daoService,
-			IFormulaService formulaService) {
-
+	public SummarizedInfoDialog(Shell parent, TseReportService reportService, ITableDaoService daoService, IFormulaService formulaService) {
 		super(parent, "", false, false);
 
 		this.reportService = reportService;
@@ -114,14 +108,12 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 			addHeight(300);
 
 		setEditorListener(new EditorListener() {
-
 			@Override
 			public void editStarted() {
 			}
 
 			@Override
 			public void editEnded(TableRow row, TableColumn field, boolean changed) {
-
 				if (changed) {
 					switch (field.getId()) {
 					/*
@@ -138,34 +130,24 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 				}
 			}
 		});
-
 	}
 
 	@Override
 	public Menu createMenu() {
-
 		Menu menu = super.createMenu();
 
 		MenuItem addCase = new MenuItem(menu, SWT.PUSH);
 		addCase.setText(TSEMessages.get("si.open.cases"));
 		addCase.setEnabled(false);
 
-		addTableSelectionListener(new ISelectionChangedListener() {
+		addTableSelectionListener(arg0 -> {
+			// check if RGT, if this the case doesn't enable the open sample form
+			TableRow rowSelected = getSelection();
+			if (rowSelected != null) {
+				boolean isRGT = rowSelected.getCode(CustomStrings.SUMMARIZED_INFO_TYPE)
+						.equals(CustomStrings.SUMMARIZED_INFO_RGT_TYPE);
 
-			@Override
-			public void selectionChanged(SelectionChangedEvent arg0) {
-
-				// check if RGT, if this the case doesn't enable the open sample form
-				TableRow rowSelected = getSelection();
-
-				// check if row has been selected
-				if (rowSelected != null) {
-					// check if row is RGT
-					boolean isRGT = rowSelected.getCode(CustomStrings.SUMMARIZED_INFO_TYPE)
-							.equals(CustomStrings.SUMMARIZED_INFO_RGT_TYPE);
-
-					addCase.setEnabled(!isTableEmpty() && !isRGT);
-				}
+				addCase.setEnabled(!isTableEmpty() && !isRGT);
 			}
 		});
 
@@ -178,7 +160,6 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 
 		addRemoveMenuItem(menu);
 		addCloneMenuItem(menu);
-
 		return menu;
 	}
 
@@ -189,12 +170,10 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 	 * @return
 	 */
 	boolean validate(TableRow summInfo) {
-
 		if (!summInfo.areMandatoryFilled() && report.isEditable()) {
 			warnUser(TSEMessages.get("error.title"), TSEMessages.get("si.open.cases.error"));
 			return false;
 		}
-
 		return true;
 	}
 
@@ -202,32 +181,22 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 	 * Open the cases dialog of the summarized information
 	 */
 	void openCases(SummarizedInfo summInfo) {
-
 		Relation.emptyCache();
 
 		// create a case passing also the report information
-		CaseReportDialog dialog = new CaseReportDialog(getDialog(), this.report, summInfo, reportService, daoService,
-				formulaService);
-
+		CaseReportDialog dialog = new CaseReportDialog(getDialog(), this.report, summInfo, reportService, daoService, formulaService);
 		// filter the records by the clicked summarized information
 		dialog.setParentFilter(summInfo);
-
 		dialog.open();
-
 		// set case errors if present
 		reportService.updateChildrenErrors(summInfo);
-
 		replace(summInfo);
 	}
 
 	@Override
 	public void setParentFilter(TableRow parentFilter) {
-
 		this.report = new TseReport(parentFilter);
-
-		// update ui with report data
 		updateUI();
-
 		super.setParentFilter(parentFilter);
 	}
 
@@ -256,25 +225,10 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 	 */
 	@Override
 	public TableRow createNewRow(TableSchema schema, Selection element) {
-
 		TableCell value = new TableCell(element);
-
-		/*
-		 * monguma: removed now more RGT rows can be created // if random genotyping if
-		 * (value.getCode().equals(CustomStrings.SUMMARIZED_INFO_RGT_TYPE)) { // check
-		 * if already inserted for (TableRow row : this.getLoadedRows()) { if
-		 * (row.getCode(CustomStrings.SUMMARIZED_INFO_TYPE).equals(CustomStrings.
-		 * SUMMARIZED_INFO_RGT_TYPE)) { // cannot add two RGT!
-		 * 
-		 * Warnings.warnUser(getDialog(), TSEMessages.get("warning.title"),
-		 * TSEMessages.get("cannot.have.two.rgt"), SWT.ICON_WARNING);
-		 * 
-		 * return null; } } }
-		 */
 
 		// create a new summarized information
 		SummarizedInfo si = new SummarizedInfo(CustomStrings.SUMMARIZED_INFO_TYPE, value);
-
 		try {
 			Relation.injectGlobalParent(si, CustomStrings.SETTINGS_SHEET);
 			Relation.injectGlobalParent(si, CustomStrings.PREFERENCES_SHEET);
@@ -313,11 +267,9 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 
 	@Override
 	public void addWidgets(DialogBuilder viewer) {
-
 		SelectionListener refreshStateListener = new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-
 				// if no report opened, stop
 				if (report == null) {
 					LOGGER.info("There is no report to continue upon adding widgets");
@@ -326,48 +278,30 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 
 				IndeterminateProgressDialog progressBar = new IndeterminateProgressDialog(getDialog(),
 						SWT.APPLICATION_MODAL, TSEMessages.get("refresh.status.progress.bar.label"));
-
 				progressBar.open();
 
 				RefreshStatusThread refreshStatus = new RefreshStatusThread(report, reportService);
-
 				refreshStatus.setListener(new ThreadFinishedListener() {
-
 					@Override
 					public void finished(Runnable thread) {
-
-						getDialog().getDisplay().asyncExec(new Runnable() {
-
-							@Override
-							public void run() {
-								updateUI();
-
-								progressBar.close();
-
-								Message log = refreshStatus.getLog();
-
-								if (log != null)
-									log.open(getDialog());
-							}
+						getDialog().getDisplay().asyncExec(() -> {
+							updateUI();
+							progressBar.close();
+							Message log = refreshStatus.getLog();
+							if (log != null)
+								log.open(getDialog());
 						});
 					}
 
 					@Override
 					public void terminated(Runnable thread, Exception e) {
-
-						getDialog().getDisplay().asyncExec(new Runnable() {
-
-							@Override
-							public void run() {
-								progressBar.close();
-
-								Message msg = (e instanceof DetailedSOAPException)
-										? Warnings.createSOAPWarning((DetailedSOAPException) e)
-										: Warnings.createFatal(TSEMessages.get("refresh.status.error",
-												PropertiesReader.getSupportEmail()), report);
-
-								msg.open(getDialog());
-							}
+						getDialog().getDisplay().asyncExec(() -> {
+							progressBar.close();
+							Message msg = (e instanceof DetailedSOAPException)
+									? Warnings.createSOAPWarning((DetailedSOAPException) e)
+									: Warnings.createFatal(TSEMessages.get("refresh.status.error",
+											PropertiesReader.getSupportEmail()), report);
+							msg.open(getDialog());
 						});
 					}
 				});
@@ -379,8 +313,6 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 		SelectionListener editListener = new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-
-				// if no report opened, stop
 				if (report == null){
 					LOGGER.info("There is no report to continue for editListener");
 					return;
@@ -404,7 +336,6 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 		SelectionListener checkListener = new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-
 				if (report == null){
 					LOGGER.info("There is no report to continue for checkListener");
 					return;
@@ -413,12 +344,10 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 				// validate and show the errors in the browser
 				TseReportValidator validator = new TseReportValidator(report, reportService, daoService);
 				try {
-
 					getDialog().setCursor(getDialog().getDisplay().getSystemCursor(SWT.CURSOR_WAIT));
 
 					// validate the report
 					Collection<ReportError> errors = validator.validate();
-
 					getDialog().setCursor(getDialog().getDisplay().getSystemCursor(SWT.CURSOR_ARROW));
 
 					// if no errors update report status
@@ -426,21 +355,16 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 						report.setStatus(RCLDatasetStatus.LOCALLY_VALIDATED);
 						report.update();
 						updateUI();
-						warnUser(TSEMessages.get("success.title"), TSEMessages.get("check.success"),
-								SWT.ICON_INFORMATION);
+						warnUser(TSEMessages.get("success.title"), TSEMessages.get("check.success"), SWT.ICON_INFORMATION);
 					} else { // otherwise show them to the user
 						validator.show(errors);
 						warnUser(TSEMessages.get("error.title"), TSEMessages.get("check.report.failed"));
 					}
-
 				} catch (Exception e) {
 					getDialog().setCursor(getDialog().getDisplay().getSystemCursor(SWT.CURSOR_ARROW));
-
 					LOGGER.error("Cannot validate the report=" + report.getSenderId(), e);
 					e.printStackTrace();
-
-					warnUser(TSEMessages.get("error.title"),
-							TSEMessages.get("check.report.error", PropertiesReader.getSupportEmail()));
+					warnUser(TSEMessages.get("error.title"), TSEMessages.get("check.report.error", PropertiesReader.getSupportEmail()));
 				}
 			}
 		};
@@ -448,31 +372,23 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 		SelectionListener sendListener = new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-
 				if (report == null){
 					LOGGER.info("There is no report to continue");
 					return;
 				}
-				boolean ok = askConfirmation(ReportAction.SEND);
 
+				boolean ok = askConfirmation(ReportAction.SEND);
 				if (!ok)
 					return;
 
 				String dc = PropertiesReader.getDataCollectionCode(report.getYear());
 				int val = Warnings.warnUser(getDialog(), TSEMessages.get("warning.title"),
 						TSEMessages.get("send.confirm.dc", dc), SWT.ICON_WARNING | SWT.YES | SWT.NO);
-
 				if (val != SWT.YES)
 					return;
 
 				ReportActions actions = new TseReportActions(getDialog(), report, reportService);
-				actions.send(reportService.getSendMessageConfiguration(report), new Listener() {
-
-					@Override
-					public void handleEvent(Event arg01) {
-						updateUI();
-					}
-				});
+				actions.send(reportService.getSendMessageConfiguration(report), arg01 -> updateUI());
 			}
 		};
 		
@@ -480,9 +396,7 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-
 				Shell shell = getDialog();
-
 				if (report == null) {
 					LOGGER.info("There is no report to continue for exportListener");
 					Warnings.warnUser(shell, TSEMessages.get("error.title"), TSEMessages.get("report.noreport.error"));
@@ -490,8 +404,7 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 				}
 
 				// get records from summarized information
-				Collection<TableRow> records = report.getRecords(daoService,
-						TableSchemaList.getByName(CustomStrings.SUMMARIZED_INFO_SHEET));
+				Collection<TableRow> records = report.getRecords(daoService, TableSchemaList.getByName(CustomStrings.SUMMARIZED_INFO_SHEET));
 				// get headers from summarized information
 				Collection<TableColumn> headers = records.iterator().next().getVisibleColumns();
 				// initiate the summarized information exporter
@@ -539,32 +452,23 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 		SelectionListener submitListener = new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-
 				if (report == null){
 					LOGGER.info("There is no report to continue for submitListener");
 					return;
 				}
 
 				ReportActions actions = new TseReportActions(getDialog(), report, reportService);
-
 				MessageConfigBuilder config = reportService.getSendMessageConfiguration(report);
 				config.setOpType(OperationType.SUBMIT);
 
 				// reject the report and update the ui
-				actions.perform(config, new Listener() {
-
-					@Override
-					public void handleEvent(Event arg01) {
-						updateUI();
-					}
-				});
+				actions.perform(config, arg01 -> updateUI());
 			}
 		};
 
 		SelectionListener displayAckListener = new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-
 				if (report == null){
 					LOGGER.info("There is no report to continue for displayAckListener");
 					return;
@@ -572,37 +476,24 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 
 				IndeterminateProgressDialog progressBar = new IndeterminateProgressDialog(getDialog(),
 						SWT.APPLICATION_MODAL, TSEMessages.get("display.ack.progress.bar.label"));
-
 				progressBar.open();
 
 				DisplayAckThread displayAck = new DisplayAckThread(report, reportService);
-
 				displayAck.setListener(new ThreadFinishedListener() {
-
 					@Override
 					public void finished(Runnable thread) {
+						getDialog().getDisplay().asyncExec(() -> {
+							updateUI();
+							progressBar.close();
 
-						getDialog().getDisplay().asyncExec(new Runnable() {
-
-							@Override
-							public void run() {
-								updateUI();
-
-								progressBar.close();
-
-								DisplayAckResult log = displayAck.getDisplayAckResult();
-
-								if (log != null) {
-
-									for (Message m : log.getMessages())
-										m.open(getDialog());
-
-									// open the ack in the browser to see it formatted
-									if (log.getDownloadedAck() != null) {
-
-										HtmlViewer viewer1 = new HtmlViewer();
-										viewer1.open(log.getDownloadedAck());
-									}
+							DisplayAckResult log = displayAck.getDisplayAckResult();
+							if (log != null) {
+								for (Message m : log.getMessages())
+									m.open(getDialog());
+								// open the ack in the browser to see it formatted
+								if (log.getDownloadedAck() != null) {
+									HtmlViewer viewer1 = new HtmlViewer();
+									viewer1.open(log.getDownloadedAck());
 								}
 							}
 						});
@@ -610,20 +501,13 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 
 					@Override
 					public void terminated(Runnable thread, Exception e) {
-						getDialog().getDisplay().asyncExec(new Runnable() {
-
-							@Override
-							public void run() {
-
-								progressBar.close();
-
-								Message msg = (e instanceof DetailedSOAPException)
-										? Warnings.createSOAPWarning((DetailedSOAPException) e)
-										: Warnings.createFatal(TSEMessages.get("display.ack.error",
-												PropertiesReader.getSupportEmail()), report);
-
-								msg.open(getDialog());
-							}
+						getDialog().getDisplay().asyncExec(() -> {
+							progressBar.close();
+							Message msg = (e instanceof DetailedSOAPException)
+									? Warnings.createSOAPWarning((DetailedSOAPException) e)
+									: Warnings.createFatal(TSEMessages.get("display.ack.error",
+											PropertiesReader.getSupportEmail()), report);
+							msg.open(getDialog());
 						});
 					}
 				});
@@ -635,16 +519,13 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 		SelectionListener amendListener = new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-
 				if (report == null){
 					LOGGER.info("There is no report to continue for amendListener");
 					return;
 				}
 
 				TseReportActions actions = new TseReportActions(getDialog(), report, reportService);
-
 				Report newVersion = actions.amend();
-
 				if (newVersion == null){
 					LOGGER.info("There is no new version to continue");
 					return;
@@ -659,7 +540,6 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-
 				EnumPicker<RCLDatasetStatus> dialog = new EnumPicker<>(getDialog(), RCLDatasetStatus.class);
 				dialog.setDefaultValue(report.getRCLStatus());
 				dialog.open();
@@ -706,7 +586,6 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-
 				NumberInputDialog dialog = new NumberInputDialog(getDialog());
 				dialog.setDefaultValue(report.getMessageId());
 				Integer messageIdNumeric = dialog.open();
@@ -717,7 +596,6 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 				}
 
 				if (!dialog.wasCancelled()) {
-
 					report.setMessageId(messageId);
 					report.update();
 					updateUI();
@@ -729,7 +607,6 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-
 				NumberInputDialog dialog = new NumberInputDialog(getDialog());
 				dialog.setDefaultValue(report.getId());
 				Integer dataIdNumeric = dialog.open();
@@ -812,9 +689,7 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 	 * Initialise the labels to their initial state
 	 */
 	private void initUI() {
-
 		DialogBuilder panel = getPanelBuilder();
-
 		// disable refresh until a report is opened
 		panel.setEnabled("refreshBtn", false);
 		panel.setEnabled("validateBtn", false);
@@ -878,9 +753,7 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 
 		panel.setLabelText("reportLabel", TSEMessages.get("si.report.void"));
 		panel.setLabelText("statusLabel", TSEMessages.get("si.dataset.status", TSEMessages.get("si.no.data")));
-
 		panel.setLabelText("messageIdLabel", TSEMessages.get("si.message.id", TSEMessages.get("si.no.data")));
-
 		panel.setLabelText("datasetIdLabel", TSEMessages.get("si.dataset.id", TSEMessages.get("si.no.data")));
 
 		if (DebugConfig.debug)
@@ -890,11 +763,8 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 
 	/**
 	 * Update the ui using the report information
-	 * 
-	 * @param report
 	 */
 	public void updateUI() {
-
 		String reportMonth = report.getLabel(AppPaths.REPORT_MONTH_COL);
 		String reportYear = report.getYear();
 		String status = report.getRCLStatus().getLabel();
@@ -914,13 +784,9 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 		}
 
 		String statusRow = TSEMessages.get("si.dataset.status", checkField(status, RCLDatasetStatus.DRAFT.getLabel()));
-
 		String messageRow = TSEMessages.get("si.message.id", checkField(messageId, TSEMessages.get("si.missing.data")));
-
 		String datasetRow = TSEMessages.get("si.dataset.id", checkField(datasetId, TSEMessages.get("si.missing.data")));
-
-		String senderDatasetId = TSEMessages.get("si.sender.dataset.id",
-				checkField(senderId, TSEMessages.get("si.missing.data")));
+		String senderDatasetId = TSEMessages.get("si.sender.dataset.id", checkField(senderId, TSEMessages.get("si.missing.data")));
 
 		DialogBuilder panel = getPanelBuilder();
 		panel.setLabelText("reportLabel", reportRow);
@@ -955,7 +821,6 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 	}
 
 	protected boolean askConfirmation(ReportAction action) {
-
 		String title = TSEMessages.get("warning.title");
 		String message = null;
 		switch (action) {
@@ -983,7 +848,6 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 			return false;
 
 		int val = Warnings.warnUser(getDialog(), title, message, SWT.ICON_WARNING | SWT.YES | SWT.NO);
-
 		return val == SWT.YES;
 	}
 
@@ -996,39 +860,24 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 	 * @return
 	 */
 	private static String checkField(String field, String defaultValue) {
-
-		String out = null;
-
-		if (field != null && !field.isEmpty())
-			out = field;
-		else
-			out = defaultValue;
-
-		return out;
+		return field != null && !field.isEmpty() ? field : defaultValue;
 	}
 
 	@Override
 	public void nextLevel() {
-
 		TableRow row = getSelection();
-
 		if (row == null)
 			return;
 
-		// check if row is RGT
-		boolean isRGT = row.getCode(CustomStrings.SUMMARIZED_INFO_TYPE).equals(CustomStrings.SUMMARIZED_INFO_RGT_TYPE);
-
 		// if the row is RGT dont open the sample case
+		boolean isRGT = row.getCode(CustomStrings.SUMMARIZED_INFO_TYPE).equals(CustomStrings.SUMMARIZED_INFO_RGT_TYPE);
 		if (isRGT)
 			return;
 
 		SummarizedInfo summInfo = new SummarizedInfo(row);
-
-		// first validate the content of the row
 		if (!validate(summInfo) && isEditable())
 			return;
 
 		openCases(summInfo);
-
 	}
 }
