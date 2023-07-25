@@ -1,24 +1,19 @@
 package tse_validator;
 
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 
 import i18n_messages.TSEMessages;
 import report_validator.ReportError;
 
 public class DateInvalidError implements ReportError {
 
-	private int sampDay;
-	private int sampMonth;
-	private int sampYear;
+	private final String date;
+	private final String invalidRow;
 
-	private String date;
-
-	public DateInvalidError(int sampDay, int sampMonth, int sampYear) {
-		this.sampDay = sampDay;
-		this.sampMonth = sampMonth;
-		this.sampYear = sampYear;
-		this.date = String.valueOf(this.sampDay) + "/" + String.valueOf(this.sampMonth) + "/" + String.valueOf(this.sampYear);
+	public DateInvalidError(String invalidRow, int sampDay, int sampMonth, int sampYear) {
+		this.invalidRow = invalidRow;
+		this.date = String.format("%s/%s/%s", sampDay, sampMonth, sampYear);
 	}
 
 	@Override
@@ -33,7 +28,7 @@ public class DateInvalidError implements ReportError {
 
 	@Override
 	public Collection<String> getInvolvedRowsIdsMessage() {
-		return null;
+		return Collections.singletonList(invalidRow);
 	}
 
 	@Override
@@ -43,7 +38,7 @@ public class DateInvalidError implements ReportError {
 
 	@Override
 	public Collection<String> getErroneousValues() {
-		return Arrays.asList(date);
+		return Collections.singletonList(date);
 	}
 
 }

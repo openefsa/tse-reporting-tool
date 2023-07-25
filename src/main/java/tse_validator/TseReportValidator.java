@@ -576,8 +576,9 @@ public class TseReportValidator extends ReportValidator {
 			TableRow currentRow = reportRecords.get(0);
 			int negSamples = currentRow.getNumLabel(CustomStrings.TOT_SAMPLE_NEGATIVE_COL);
 			int testedSamples = currentRow.getNumLabel(CustomStrings.TOT_SAMPLE_TESTED_COL);
+			String type = currentRow.getCode(CustomStrings.SUMMARIZED_INFO_TYPE);
 
-			if (negSamples < testedSamples) {
+			if (!type.equals(CustomStrings.SUMMARIZED_INFO_RGT_TYPE) && negSamples < testedSamples) {
 				errors.add(new MissingSampleData(getStackTrace(currentRow)));
 			}
 		} else {
@@ -610,7 +611,7 @@ public class TseReportValidator extends ReportValidator {
 
 						String caseReportId = caseReport.getLabel(CustomStrings.CASE_ID_COL);
 						for (AnalyticalResult analyticalResult : analyticalResults) {
-							String analyticalReportCaseReportId = analyticalResult.getLabel(CustomStrings.ANALYTICAL_RESULT_ID_COL);
+							String analyticalReportCaseReportId = analyticalResult.getLabel(CustomStrings.CASE_ID_COL);
 							// if not child report > continue
 							if (!analyticalReportCaseReportId.equals(caseReportId)) {
 								continue;
@@ -623,7 +624,7 @@ public class TseReportValidator extends ReportValidator {
 							}
 						}
 
-						if (!isGenotyping || !generatedResultData) {
+						if (!isGenotyping && !generatedResultData) {
 							errors.add(new MissingResultData(getStackTrace(caseReport)));
 						}
 
@@ -658,7 +659,7 @@ public class TseReportValidator extends ReportValidator {
 					boolean validDate = dateValidator.validate(sampCode, sampBirthMonth, sampBirthYear);
 
 					if (!validDate) {
-						errors.add(new DateInvalidError(sampCode, sampBirthMonth, sampBirthYear));
+						errors.add(new DateInvalidError(getStackTrace(currentRow), sampCode, sampBirthMonth, sampBirthYear));
 					}
 				}
 			}
