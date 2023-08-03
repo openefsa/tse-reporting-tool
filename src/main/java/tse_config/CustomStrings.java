@@ -12,6 +12,7 @@ public class CustomStrings {
 	public static final String CASE_ID_COL = "CasesInformationId";
 	public static final String SETTINGS_ID_COL = "SettingsId";
 	public static final String PREFERENCES_ID_COL = "PreferencesId";
+	public static final String ANALYTICAL_RESULT_ID_COL = "AnalyticalResultsId";
 	
 	// sheets names
 	public static final String RESULT_SHEET = "AnalyticalResults";
@@ -27,6 +28,8 @@ public class CustomStrings {
 	public static final String SETTINGS_ORG_CODE = "orgCode";
 	
 	public static final String REPORT_COUNTRY = "country";
+	public static final String REPORT_MONTH = "reportMonth";
+	public static final String REPORT_YEAR = "reportYear";
 	public static final String CWD_EXTENDED_CONTEXT = "cwdExtCont";
 	
 	public static final String PREFERENCES_COUNTRY = "country";
@@ -34,14 +37,17 @@ public class CustomStrings {
 	public static final String PREFERENCES_SCREENING_BSE = "defScreeningBSE";
 	public static final String PREFERENCES_SCREENING_SCRAPIE = "defScreeningSCRAPIE";
 	public static final String PREFERENCES_SCREENING_CWD = "defScreeningCWD";
+	public static final String PREFERENCES_SCREENING_BSE_OS = "defScreeningBSEOS";
 	
 	public static final String PREFERENCES_CONFIRMATORY_BSE = "defConfirmatoryBSE";
 	public static final String PREFERENCES_CONFIRMATORY_SCRAPIE = "defConfirmatorySCRAPIE";
 	public static final String PREFERENCES_CONFIRMATORY_CWD = "defConfirmatoryCWD";
+	public static final String PREFERENCES_CONFIRMATORY_BSE_OS = "defConfirmatoryBSEOS";
 	
 	public static final String PREFERENCES_DISCRIMINATORY_BSE = "defDiscriminatoryBSE";
 	public static final String PREFERENCES_DISCRIMINATORY_SCRAPIE = "defDiscriminatorySCRAPIE";
 	public static final String PREFERENCES_DISCRIMINATORY_CWD = "defDiscriminatoryCWD";
+	public static final String PREFERENCES_DISCRIMINATORY_BSE_OS = "defDiscriminatoryBSEOS";
 	
 	public static final String SUMMARIZED_INFO_TYPE = "type";
 	public static final String SOURCE_COL = "source";
@@ -133,6 +139,7 @@ public class CustomStrings {
 	public static final String TEST_AIM_COL = "testAim";
 	public static final String AN_METH_CODE_COL = "anMethCode";
 	public static final String AN_METH_CODE_GENOTYPING = "F089A";
+	public static final String AN_METH_CODE_GENOTYPING_TYPE = "Genotyping";
 	
 	public static final String PARAM_TYPE_COL = "paramType";
 	public static final String PARAM_CODE_BASE_TERM_COL = "paramCodeBaseTerm";

@@ -27,9 +27,9 @@ import tse_report.TseReport;
 
 public class TseReportActions extends ReportActions {
 
-	private TseReportService reportService;
-	private TseReport report;
-	private Shell shell;
+	private final TseReportService reportService;
+	private final TseReport report;
+	private final Shell shell;
 	
 	public TseReportActions(Shell shell, TseReport report, 
 			TseReportService reportService) {
@@ -41,9 +41,6 @@ public class TseReportActions extends ReportActions {
 	
 	/**
 	 * Amend a report
-	 * @param shell
-	 * @param report
-	 * @param listener
 	 */
 	public TseReport amend() {
 		
@@ -119,7 +116,7 @@ public class TseReportActions extends ReportActions {
 		}
 		else if (e instanceof ReportException) {
 			String title = TSEMessages.get("error.title");
-			String message = TSEMessages.get("report.unsupported.action");
+			String message = TSEMessages.get("report.unsupported.action", PropertiesReader.getSupportEmail());
 			msg = Warnings.create(title, message, SWT.ICON_ERROR);
 		}
 		else {
@@ -169,7 +166,7 @@ public class TseReportActions extends ReportActions {
 	
 	private void unsupportedEnd() {
 		String title = TSEMessages.get("error.title");
-		String message = TSEMessages.get("report.unsupported.action");
+		String message = TSEMessages.get("report.unsupported.action", PropertiesReader.getSupportEmail());
 		Warnings.warnUser(shell, title, message);
 	}
 	
@@ -225,7 +222,7 @@ public class TseReportActions extends ReportActions {
 			message = TSEMessages.get("send.warning.processing", datasetId);
 			break;
 		default:
-			message = TSEMessages.get("send.error.acc.dcf", PropertiesReader.getSupportEmail());
+			message = TSEMessages.get("send.error.acc.dcf", datasetId, PropertiesReader.getSupportEmail());
 			fatal = true;
 			break;
 		}
@@ -293,7 +290,7 @@ public class TseReportActions extends ReportActions {
 			break;
 		default:
 			title = TSEMessages.get("error.title");
-			message = TSEMessages.get("send.error.acc.dcf", PropertiesReader.getSupportEmail());
+			message = TSEMessages.get("send.error.acc.dcf", operation.getDataset().getId(), PropertiesReader.getSupportEmail());
 			msg = Warnings.createFatal(message, operation.getDataset());
 			goOn = false;
 			break;

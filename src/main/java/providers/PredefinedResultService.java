@@ -25,11 +25,10 @@ import tse_summarized_information.SummarizedInfo;
  *
  */
 public class PredefinedResultService {
-
 	private static final Logger LOGGER = LogManager.getLogger(PredefinedResultService.class);
 	
-	private ITableDaoService daoService;
-	private IFormulaService formulaService;
+	private final ITableDaoService daoService;
+	private final IFormulaService formulaService;
 	
 	public PredefinedResultService(ITableDaoService daoService, IFormulaService formulaService) {
 		this.daoService = daoService;
@@ -43,9 +42,7 @@ public class PredefinedResultService {
 	 * @param caseReport
 	 * @throws IOException
 	 */
-	public TableRowList createDefaultResults(Report report, 
-			SummarizedInfo summInfo, CaseReport caseReport) throws IOException {
-		
+	public TableRowList createDefaultResults(Report report, SummarizedInfo summInfo, CaseReport caseReport) {
 		TableRowList results = new TableRowList();
 		
 		AnalyticalResult r = createDefaultResult(report, summInfo, caseReport, 
@@ -85,39 +82,34 @@ public class PredefinedResultService {
 	 * @return
 	 * @throws IOException
 	 */
-	public boolean isConfirmatoryTested(String type) throws IOException {
-
-		String confirmatory = "";
-		
+	public boolean isConfirmatoryTested(String type) {
+		String column;
 		switch(type) {
 		case CustomStrings.SUMMARIZED_INFO_BSE_TYPE:
-			confirmatory = Relation.getGlobalParent(CustomStrings.PREFERENCES_SHEET, daoService)
-					.getCode(CustomStrings.PREFERENCES_CONFIRMATORY_BSE);
+				column = CustomStrings.PREFERENCES_CONFIRMATORY_BSE;
 			break;
 		case CustomStrings.SUMMARIZED_INFO_SCRAPIE_TYPE:
-			confirmatory = Relation.getGlobalParent(CustomStrings.PREFERENCES_SHEET, daoService)
-			.getCode(CustomStrings.PREFERENCES_CONFIRMATORY_SCRAPIE);
+				column = CustomStrings.PREFERENCES_CONFIRMATORY_SCRAPIE;
 			break;
 		case CustomStrings.SUMMARIZED_INFO_CWD_TYPE:
-			confirmatory = Relation.getGlobalParent(CustomStrings.PREFERENCES_SHEET, daoService)
-			.getCode(CustomStrings.PREFERENCES_CONFIRMATORY_CWD);
+				column = CustomStrings.PREFERENCES_CONFIRMATORY_CWD;
+				break;
+			case CustomStrings.SUMMARIZED_INFO_BSEOS_TYPE:
+				column = CustomStrings.PREFERENCES_CONFIRMATORY_BSE_OS;
 			break;
 		default:
-			break;
+				return false;
 		}
-		
-		return !confirmatory.isEmpty();
+		return ! Relation.getGlobalParent(CustomStrings.PREFERENCES_SHEET, daoService)
+					.getCode(column)
+					.isEmpty();
 	}
 	
-	public static String getPreferredTestType(String testType) throws IOException {
-		
-		return Relation.getGlobalParent(CustomStrings.PREFERENCES_SHEET)
-				.getCode(testType);
+	public static String getPreferredTestType(String testType) {
+		return Relation.getGlobalParent(CustomStrings.PREFERENCES_SHEET).getCode(testType);
 	}
 
-	public static String getPreferredTestType(String recordType, String testType) 
-			throws IOException {
-		
+	public static String getPreferredTestType(String recordType, String testType) {
 		String preferredTestType = null;
 		
 		switch(testType) {
@@ -135,6 +127,10 @@ public class PredefinedResultService {
 				preferredTestType = getPreferredTestType( 
 						CustomStrings.PREFERENCES_SCREENING_CWD);
 				break;
+			case CustomStrings.SUMMARIZED_INFO_BSEOS_TYPE:
+					preferredTestType = getPreferredTestType(
+							CustomStrings.PREFERENCES_SCREENING_BSE_OS);
+					break;
 			default:
 				break;
 			}
@@ -152,6 +148,10 @@ public class PredefinedResultService {
 			case CustomStrings.SUMMARIZED_INFO_CWD_TYPE:
 				preferredTestType = getPreferredTestType( 
 						CustomStrings.PREFERENCES_CONFIRMATORY_CWD);
+				break;
+			case CustomStrings.SUMMARIZED_INFO_BSEOS_TYPE:
+				preferredTestType = getPreferredTestType(
+						CustomStrings.PREFERENCES_CONFIRMATORY_BSE_OS);
 				break;
 			default:
 				break;
@@ -171,6 +171,10 @@ public class PredefinedResultService {
 				preferredTestType = getPreferredTestType( 
 						CustomStrings.PREFERENCES_DISCRIMINATORY_CWD);
 				break;
+			case CustomStrings.SUMMARIZED_INFO_BSEOS_TYPE:
+				preferredTestType = getPreferredTestType(
+						CustomStrings.PREFERENCES_DISCRIMINATORY_BSE_OS);
+				break;
 			default:
 				break;
 			}
@@ -185,8 +189,7 @@ public class PredefinedResultService {
 		return preferredTestType;
 	}
 	
-	public PredefinedResult getPredefinedResult(SummarizedInfo summInfo, TableRow caseReport) throws IOException {
-		
+	public PredefinedResult getPredefinedResult(SummarizedInfo summInfo, TableRow caseReport) {
 		// put the predefined value for the param code and the result
 		PredefinedResultList predResList = PredefinedResultList.getAll();
 
@@ -208,14 +211,11 @@ public class PredefinedResultService {
 	 * @param report
 	 * @param summInfo
 	 * @param caseReport
-	 * @param codeCol
 	 * @param testTypeCode
 	 * @throws IOException
 	 */
-	private AnalyticalResult createDefaultResult(Report report, 
-			SummarizedInfo summInfo, TableRow caseReport, 
-			PredefinedResultHeader test, 
-			String testTypeCode) throws IOException {
+	private AnalyticalResult createDefaultResult(Report report, SummarizedInfo summInfo, TableRow caseReport,
+			PredefinedResultHeader test, String testTypeCode) {
 		
 		AnalyticalResult resultRow = new AnalyticalResult();
 		
@@ -231,7 +231,6 @@ public class PredefinedResultService {
 		boolean added = addParamAndResult(resultRow, defaultResult, test);
 		
 		if (added) {
-			
 			// code crack to save the row id for the resId field
 			// otherwise its default value will be corrupted
 			daoService.add(resultRow);
@@ -269,10 +268,7 @@ public class PredefinedResultService {
 	 * @param codeCol
 	 * @return
 	 */
-	public static boolean addParamAndResult(TableRow result, 
-			PredefinedResult defValues, 
-			PredefinedResultHeader codeCol) {
-
+	private boolean addParamAndResult(TableRow result, PredefinedResult defValues, PredefinedResultHeader codeCol) {
 		String code = defValues.get(codeCol);
 		
 		// put the test aim
@@ -284,17 +280,15 @@ public class PredefinedResultService {
 		return addParamAndResult(result, code);
 	}
 	
-
-	
 	/**
 	 * Add param and result. These values are taken from the test code
 	 * which is composed of paramBaseTerm$resultValue
+	 *
 	 * @param result
 	 * @param testCode
 	 * @return
 	 */
 	public static boolean addParamAndResult(TableRow result, String testCode) {
-		
 		if (testCode == null)
 			return false;
 		
