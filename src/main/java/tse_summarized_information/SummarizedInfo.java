@@ -93,4 +93,12 @@ public class SummarizedInfo extends TableRow {
 		
 		return listId;
 	}
+
+	public int getNegativeSamples() {
+		return getNumLabel(CustomStrings.TOT_SAMPLE_NEGATIVE_COL);
+	}
+
+	public int getTotalTestedSamples() {
+		return getNumLabel(CustomStrings.TOT_SAMPLE_TESTED_COL);
+	}
 }

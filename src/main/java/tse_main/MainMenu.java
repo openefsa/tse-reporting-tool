@@ -12,8 +12,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.MessageBox;
@@ -43,6 +41,7 @@ import table_skeleton.TableVersion;
 import test_case.EnumPicker;
 import tse_config.CustomStrings;
 import tse_config.DebugConfig;
+import tse_main.listeners.CopySelectionListener;
 import tse_options.PreferencesDialog;
 import tse_options.SettingsDialog;
 import tse_report.ReportCreatorDialog;
@@ -60,7 +59,6 @@ import xlsx_reader.TableSchemaList;
  *
  */
 public class MainMenu {
-
 	static final Logger LOGGER = LogManager.getLogger(MainMenu.class);
 
 	protected TseReportService reportService;
@@ -82,6 +80,7 @@ public class MainMenu {
 	protected MenuItem openReport;
 	protected MenuItem closeReport;
 	protected MenuItem importReport;
+	protected MenuItem copyReport;
 	protected MenuItem downloadReport;
 	protected MenuItem exportReport;
 	protected MenuItem exitApplication;
@@ -99,31 +98,22 @@ public class MainMenu {
 	}
 
 	public void create() {
+		main = new Menu(shell, SWT.BAR);
+		fileMenu = new Menu(shell, SWT.DROP_DOWN);
 
-		// create menus
-		this.main = new Menu(shell, SWT.BAR);
-		this.fileMenu = new Menu(shell, SWT.DROP_DOWN);
-
-		this.file = new MenuItem(main, SWT.CASCADE);
-		this.file.setText(TSEMessages.get("file.item"));
-		this.file.setMenu(fileMenu);
-
-		this.fileMenu.addListener(SWT.Show, new Listener() {
-
-			@Override
-			public void handleEvent(Event arg0) {
+		file = new MenuItem(main, SWT.CASCADE);
+		file.setText(TSEMessages.get("file.item"));
+		file.setMenu(fileMenu);
 
 				// enable report only if there is a report in the database
-
+		fileMenu.addListener(SWT.Show, arg0 -> {
 				TableSchema schema = TseReport.getReportSchema();
-
 				if (schema == null) {
 					LOGGER.info("Schema was not found in report.");
 					return;
 				}
 
 				TableDao dao = new TableDao();
-
 				boolean hasReport = !dao.getAll(schema).isEmpty();
 				boolean isReportOpened = mainPanel.getOpenedReport() != null;
 				boolean editable = isReportOpened && mainPanel.getOpenedReport().isEditable();
@@ -136,28 +126,28 @@ public class MainMenu {
 				// can only export valid reports
 				exportReport.setEnabled(isReportOpened && mainPanel.getOpenedReport().getRCLStatus().isValid());
 				importReport.setEnabled(!DebugConfig.disableFileFuncs && editable);
+			copyReport.setEnabled(isReportOpened && editable);
 
 				// TODO enable import excel report if not report is currently opened
 				// importExcelReport.setEnabled(editable);
-			}
 		});
 
-		this.preferences = new MenuItem(main, SWT.PUSH);
-		this.preferences.setText(TSEMessages.get("pref.item"));
+		preferences = new MenuItem(main, SWT.PUSH);
+		preferences.setText(TSEMessages.get("pref.item"));
 
-		this.settings = new MenuItem(main, SWT.PUSH);
-		this.settings.setText(TSEMessages.get("settings.item"));
+		settings = new MenuItem(main, SWT.PUSH);
+		settings.setText(TSEMessages.get("settings.item"));
 
-		this.proxyConfig = new MenuItem(main, SWT.PUSH);
-		this.proxyConfig.setText(TSEMessages.get("proxy.config.item"));
+		proxyConfig = new MenuItem(main, SWT.PUSH);
+		proxyConfig.setText(TSEMessages.get("proxy.config.item"));
 
-		this.proxyConfig.addSelectionListener(new SelectionAdapter() {
+		proxyConfig.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				ProxySettingsDialog dialog = new ProxySettingsDialog(shell, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
 				try {
 					dialog.open();
-				} catch (IOException e) {
+				} catch (Exception e) {
 					LOGGER.error("Cannot open proxy dialog", e);
 					e.printStackTrace();
 
@@ -170,11 +160,9 @@ public class MainMenu {
 		});
 
 		// add buttons to the file menu
-		this.newReport = new MenuItem(fileMenu, SWT.PUSH);
-		this.newReport.setText(TSEMessages.get("new.report.item"));
-
-		this.newReport.addSelectionListener(new SelectionListener() {
-
+		newReport = new MenuItem(fileMenu, SWT.PUSH);
+		newReport.setText(TSEMessages.get("new.report.item"));
+		newReport.addSelectionListener(new SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 
@@ -190,36 +178,26 @@ public class MainMenu {
 			}
 		});
 
-		this.openReport = new MenuItem(fileMenu, SWT.PUSH);
-		this.openReport.setText(TSEMessages.get("open.report.item"));
-
-		this.openReport.addSelectionListener(new SelectionListener() {
-
+		openReport = new MenuItem(fileMenu, SWT.PUSH);
+		openReport.setText(TSEMessages.get("open.report.item"));
+		openReport.addSelectionListener(new SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-
 				LOGGER.debug("Opening open report dialog");
-
 				ReportListDialog dialog = new ReportListDialog(shell, TSEMessages.get("open.report.title"));
 				dialog.setButtonText(TSEMessages.get("open.report.button"));
-
 				dialog.open();
 
 				TseReport report = dialog.getSelectedReport();
-
 				if (report == null){
 					LOGGER.info("There is no report to continue");
 					return;
 				}
-
 				LOGGER.info("Opening report=" + report.getSenderId());
 
 				mainPanel.setEnabled(true);
-
 				shell.setCursor(shell.getDisplay().getSystemCursor(SWT.CURSOR_WAIT));
-
 				mainPanel.openReport(report);
-
 				shell.setCursor(shell.getDisplay().getSystemCursor(SWT.CURSOR_ARROW));
 			}
 
@@ -228,16 +206,12 @@ public class MainMenu {
 			}
 		});
 
-		this.closeReport = new MenuItem(fileMenu, SWT.PUSH);
-		this.closeReport.setText(TSEMessages.get("close.report.item"));
-
-		this.closeReport.addSelectionListener(new SelectionListener() {
-
+		closeReport = new MenuItem(fileMenu, SWT.PUSH);
+		closeReport.setText(TSEMessages.get("close.report.item"));
+		closeReport.addSelectionListener(new SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-
-				LOGGER.info("Closing report=" + mainPanel.getOpenedReport().getSenderId());
-
+				LOGGER.info("Closing report={}", mainPanel.getOpenedReport().getSenderId());
 				mainPanel.closeReport();
 			}
 
@@ -247,19 +221,16 @@ public class MainMenu {
 		});
 
 		// by default we do not have a report opened at the beginning
-		this.closeReport.setEnabled(false);
+		closeReport.setEnabled(false);
 
 		// add buttons to the file menu
-		this.importReport = new MenuItem(fileMenu, SWT.PUSH);
-		this.importReport.setText(TSEMessages.get("import.report.item"));
-		this.importReport.setEnabled(false);
-		this.importReport.addSelectionListener(new SelectionListener() {
-
+		importReport = new MenuItem(fileMenu, SWT.PUSH);
+		importReport.setText(TSEMessages.get("import.report.item"));
+		importReport.setEnabled(false);
+		importReport.addSelectionListener(new SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-
 				LOGGER.debug("Opening import report dialog");
-
 				ReportListDialog dialog = new ReportListDialog(shell, TSEMessages.get("import.report.title"));
 				dialog.setButtonText(TSEMessages.get("import.report.button"));
 				dialog.open();
@@ -275,7 +246,6 @@ public class MainMenu {
 
 				// import the report into the opened report
 				TableRow report = dialog.getSelectedReport();
-
 				if (report == null){
 					LOGGER.info("There is no report to continue");
 					return;
@@ -283,7 +253,6 @@ public class MainMenu {
 
 				// copy the report summarized information into the opened one
 				TableSchema childSchema = TableSchemaList.getByName(CustomStrings.SUMMARIZED_INFO_SHEET);
-
 				if (childSchema == null) {
 					LOGGER.info("Could not find schema");
 					return;
@@ -292,16 +261,12 @@ public class MainMenu {
 				LOGGER.info("Importing summarized information from report="
 						+ report.getCode(CustomStrings.SENDER_DATASET_ID_COL) + " to report="
 						+ mainPanel.getOpenedReport().getSenderId());
-
 				shell.setCursor(shell.getDisplay().getSystemCursor(SWT.CURSOR_WAIT));
-
 				TseSummarizedInfoImporter importer = new TseSummarizedInfoImporter(daoService, formulaService);
-
 				// copy the data into the selected report
 				importer.copyByParent(childSchema, report, mainPanel.getOpenedReport());
 
 				mainPanel.refresh();
-
 				shell.setCursor(shell.getDisplay().getSystemCursor(SWT.CURSOR_ARROW));
 			}
 
@@ -309,6 +274,12 @@ public class MainMenu {
 			public void widgetDefaultSelected(SelectionEvent arg0) {
 			}
 		});
+
+		// add Copy Report button to the file menu
+		copyReport = new MenuItem(fileMenu, SWT.PUSH);
+		copyReport.setText(TSEMessages.get("copy.report.item"));
+		copyReport.setEnabled(false);
+		copyReport.addSelectionListener(new CopySelectionListener(reportService, mainPanel, shell));
 
 		/*
 		 * TODO to be concluded the import excel function
@@ -366,14 +337,12 @@ public class MainMenu {
 		 * } });
 		 */
 
-		this.downloadReport = new MenuItem(fileMenu, SWT.PUSH);
-		this.downloadReport.setText(TSEMessages.get("download.report.item"));
-		this.downloadReport.addSelectionListener(new SelectionAdapter() {
+		downloadReport = new MenuItem(fileMenu, SWT.PUSH);
+		downloadReport.setText(TSEMessages.get("download.report.item"));
+		downloadReport.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-
 				LOGGER.debug("Opening download report dialog");
-
 				TseReportDownloader downloader = new TseReportDownloader(shell, reportService, daoService);
 				try {
 					downloader.download();
@@ -385,17 +354,13 @@ public class MainMenu {
 			}
 		});
 
-		this.exportReport = new MenuItem(fileMenu, SWT.PUSH);
+		exportReport = new MenuItem(fileMenu, SWT.PUSH);
 		exportReport.setText(TSEMessages.get("export.report.item"));
 		exportReport.addSelectionListener(new SelectionListener() {
-
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				
 				LOGGER.debug("Opening export report dialog");
-
 				TseReport report = mainPanel.getOpenedReport();
-
 				if (report == null) {
 					LOGGER.info("There is no report to continue");
 					Warnings.warnUser(shell, TSEMessages.get("error.title"), TSEMessages.get("report.noreport.error"));
@@ -406,8 +371,7 @@ public class MainMenu {
 				TseFileDialog fileDialog = new TseFileDialog(shell);
 				String filename = TableVersion.mergeNameAndVersion(report.getSenderId(), report.getVersion());
 				File exportFile = fileDialog.saveXml(filename);
-				
-				if (exportFile == null){
+				if (exportFile == null) {
 					LOGGER.info("Could not find file to export");
 					return;
 				}
@@ -475,25 +439,21 @@ public class MainMenu {
 			}
 		});
 
-		this.exitApplication = new MenuItem(fileMenu, SWT.PUSH);
-		this.exitApplication.setText(TSEMessages.get("close.app.item"));
-		this.exitApplication.addSelectionListener(new SelectionAdapter() {
+		exitApplication = new MenuItem(fileMenu, SWT.PUSH);
+		exitApplication.setText(TSEMessages.get("close.app.item"));
+		exitApplication.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-
 				shell.close();
 				shell.dispose();
 			}
 		});
 
 		// open preferences
-		this.preferences.addSelectionListener(new SelectionListener() {
-
+		preferences.addSelectionListener(new SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-
 				LOGGER.debug("Opening preferences dialog");
-
 				PreferencesDialog dialog = new PreferencesDialog(shell);
 				dialog.open();
 			}
@@ -504,13 +464,10 @@ public class MainMenu {
 		});
 
 		// open settings
-		this.settings.addSelectionListener(new SelectionListener() {
-
+		settings.addSelectionListener(new SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-
 				LOGGER.debug("Opening settings dialog");
-
 				SettingsDialog dialog = new SettingsDialog(shell, reportService, daoService);
 				dialog.open();
 			}
@@ -525,30 +482,24 @@ public class MainMenu {
 		}
 
 		// set the menu
-		this.shell.setMenuBar(main);
+		shell.setMenuBar(main);
 	}
 
 	/**
 	 * Add some debug functionalities
 	 */
 	private void addDebugItems() {
-
 		MenuItem reportVersions = new MenuItem(fileMenu, SWT.PUSH);
 		reportVersions.setText("[DEBUG] Print report versions");
 		reportVersions.addSelectionListener(new SelectionListener() {
-
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-
 				LOGGER.debug("Opening 'Print report versions' dialog");
-				
 				TseReport report = mainPanel.getOpenedReport();
-
 				if (report == null){
 					LOGGER.info("There is no report to continue");
 					return;
 				}
-
 				LOGGER.debug("Report versions=" + report.getAllVersions(daoService));
 			}
 
@@ -560,14 +511,10 @@ public class MainMenu {
 		MenuItem exportReport1 = new MenuItem(fileMenu, SWT.PUSH);
 		exportReport1.setText("[DEBUG] Export report");
 		exportReport1.addSelectionListener(new SelectionListener() {
-
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-
 				LOGGER.debug("Opening 'Export report' dialog");
-				
 				TseReport report = mainPanel.getOpenedReport();
-
 				if (report == null) {
 					LOGGER.info("There is no report to continue");
 					Warnings.warnUser(shell, TSEMessages.get("error.title"), TSEMessages.get("report.noreport.error"));
@@ -578,7 +525,6 @@ public class MainMenu {
 				dialog.open();
 
 				OperationType opType = (OperationType) dialog.getSelection();
-
 				if (opType == null) {
 					LOGGER.info("Operation Type not found");
 					return;
@@ -604,25 +550,20 @@ public class MainMenu {
 		MenuItem deleteReport = new MenuItem(fileMenu, SWT.PUSH);
 		deleteReport.setText("[DEBUG] Delete report");
 		deleteReport.addSelectionListener(new SelectionListener() {
-
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-
 				ReportListDialog dialog = new ReportListDialog(shell, "Delete a report");
 				dialog.setButtonText("Delete");
 				dialog.open();
-				
 				LOGGER.debug("Opening 'Delete report' dialog");
 
 				TseReport report = dialog.getSelectedReport();
-
 				if (report == null) {
 					LOGGER.info("There is no report to continue");
 					return;
 				}
 
 				LOGGER.debug("Report " + report.getSenderId() + " deleted from disk");
-
 				report.delete();
 			}
 
@@ -634,17 +575,13 @@ public class MainMenu {
 		MenuItem getDc = new MenuItem(fileMenu, SWT.PUSH);
 		getDc.setText("[DEBUG] Print current data collection");
 		getDc.addSelectionListener(new SelectionListener() {
-
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				
 				LOGGER.debug("Opening 'Print current data collection' dialog");
-				
 				TseReport report = mainPanel.getOpenedReport();
-
-				String dcCode = report == null ? PropertiesReader.getDataCollectionCode()
+				String dcCode = report == null
+						? PropertiesReader.getDataCollectionCode()
 						: PropertiesReader.getDataCollectionCode(report.getYear());
-
 				LOGGER.debug("The tool points to the data collection=" + dcCode);
 			}
 
@@ -658,13 +595,10 @@ public class MainMenu {
 		importReport1.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				
 				LOGGER.debug("Opening 'Import first version .xml report' dialog");
-				
 				TseFileDialog fileDialog = new TseFileDialog(shell);
 				File file1 = fileDialog.loadXml();
-
-				if (file1 == null){
+				if (file1 == null) {
 					LOGGER.info("File not found to import");
 					return;
 				}
@@ -672,17 +606,11 @@ public class MainMenu {
 				try {
 					TseReportImporter imp = new TseReportImporter(reportService, daoService);
 					imp.importFirstDatasetVersion(file1);
-
 				} catch (XMLStreamException | IOException | FormulaException | ParseException e) {
 					LOGGER.error("Import report failed", e);
 					e.printStackTrace();
 				}
 			}
 		});
-
-	}
-
-	public Menu getMenu() {
-		return main;
 	}
 }
