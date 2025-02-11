@@ -69,7 +69,7 @@
 			<description>Prov. West-Vlaanderen (2021 and 2022)</description>
 		</selection>
 		<selection code="BE31">
-			<description>Prov. Brabant Wallon (2021 and 2022)</description>
+			<description>Prov. Brabant wallon (2021 and 2022)</description>
 		</selection>
 		<selection code="BE32">
 			<description>Prov. Hainaut (2021 and 2022)</description>
@@ -992,13 +992,13 @@
 		<selection code="NL23">
 			<description>Flevoland (2021 and 2022)</description>
 		</selection>
-		<selection code="NL31">
+		<selection code="NL35">
 			<description>Utrecht (2021 and 2022)</description>
 		</selection>
 		<selection code="NL32">
 			<description>Noord-Holland (2021 and 2022)</description>
 		</selection>
-		<selection code="NL33">
+		<selection code="NL36">
 			<description>Zuid-Holland (2021 and 2022)</description>
 		</selection>
 		<selection code="NL34">
@@ -1031,7 +1031,7 @@
 			<description>Vestlandet (2021)</description>
 		</selection>
 		<selection code="NO06">
-			<description>Trøndelag (2021 and 2022)</description>
+			<description>Trøndelag/Trööndelage (2021 and 2022)</description>
 		</selection>
 		<selection code="NO07">
 			<description>Nord-Norge (2021 and 2022)</description>
@@ -1112,14 +1112,23 @@
 		<selection code="PT15">
 			<description>Algarve (2021 and 2022)</description>
 		</selection>
-		<selection code="PT16">
+		<selection code="PT19">
 			<description>Centro (PT) (2021 and 2022)</description>
 		</selection>
-		<selection code="PT17">
+		<!-- <selection code="PT17">
 			<description>Lisboa (2021 and 2022)</description>
+		</selection> -->
+		<selection code="PT1A">
+			<description>Grande Lisboa (2021 and 2022)</description>
 		</selection>
-		<selection code="PT18">
+		<selection code="PT1B">
+			<description>Península de Setúbal (2021 and 2022)</description>
+		</selection>
+		<selection code="PT1C">
 			<description>Alentejo (2021 and 2022)</description>
+		</selection>
+		<selection code="PT1D">
+			<description>Oeste e Vale do Tejo (2021 and 2022)</description>
 		</selection>
 		<selection code="PT20">
 			<description>Região Autónoma dos Açores (2021 and 2022)</description>
