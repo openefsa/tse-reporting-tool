@@ -1,0 +1,1314 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sampAreaLists
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<selectionList id="AL">
+		<selection code="AL01">
+			<description>Veri (2021 and 2022)</description>
+		</selection>
+		<selection code="AL02">
+			<description>Qender (2021 and 2022)</description>
+		</selection>
+		<selection code="AL03">
+			<description>Jug (2021 and 2022)</description>
+		</selection>
+	</selectionList>
+	<selectionList id="AT">
+		<selection code="AT11">
+			<description>Burgenland (AT) (2021 and 2022)</description>
+		</selection>
+		<selection code="AT12">
+			<description>Niederösterreich (2021 and 2022)</description>
+		</selection>
+		<selection code="AT13">
+			<description>Wien (2021 and 2022)</description>
+		</selection>
+		<selection code="AT21">
+			<description>Kärnten (2021 and 2022)</description>
+		</selection>
+		<selection code="AT22">
+			<description>Steiermark (2021 and 2022)</description>
+		</selection>
+		<selection code="AT31">
+			<description>Oberösterreich (2021 and 2022)</description>
+		</selection>
+		<selection code="AT32">
+			<description>Salzburg (2021 and 2022)</description>
+		</selection>
+		<selection code="AT33">
+			<description>Tirol (2021 and 2022)</description>
+		</selection>
+		<selection code="AT34">
+			<description>Vorarlberg (2021 and 2022)</description>
+		</selection>
+		<selection code="ATZZ">
+			<description>Extra-Regio NUTS 2 (2021 and 2022)</description>
+		</selection>
+	</selectionList>
+	<selectionList id="BA">
+		<selection code="BA">
+			<description>Bosnia and Herzegovina</description>
+		</selection>
+	</selectionList>
+	<selectionList id="BE">
+		<selection code="BE10">
+			<description>Région de Bruxelles-Capitale / Brussels Hoofdstedelijk Gewest (2021 and 2022)</description>
+		</selection>
+		<selection code="BE21">
+			<description>Prov. Antwerpen (2021 and 2022)</description>
+		</selection>
+		<selection code="BE22">
+			<description>Prov. Limburg (BE) (2021 and 2022)</description>
+		</selection>
+		<selection code="BE23">
+			<description>Prov. Oost-Vlaanderen (2021 and 2022)</description>
+		</selection>
+		<selection code="BE24">
+			<description>Prov. Vlaams-Brabant (2021 and 2022)</description>
+		</selection>
+		<selection code="BE25">
+			<description>Prov. West-Vlaanderen (2021 and 2022)</description>
+		</selection>
+		<selection code="BE31">
+			<description>Prov. Brabant Wallon (2021 and 2022)</description>
+		</selection>
+		<selection code="BE32">
+			<description>Prov. Hainaut (2021 and 2022)</description>
+		</selection>
+		<selection code="BE33">
+			<description>Prov. Liège (2021 and 2022)</description>
+		</selection>
+		<selection code="BE34">
+			<description>Prov. Luxembourg (BE) (2021 and 2022)</description>
+		</selection>
+		<selection code="BE35">
+			<description>Prov. Namur (2021 and 2022)</description>
+		</selection>
+		<selection code="BEZZ">
+			<description>Extra-Regio NUTS 2 (2021 and 2022)</description>
+		</selection>
+	</selectionList>
+	<selectionList id="BG">
+		<selection code="BG31">
+			<description>Северозападен (2021 and 2022)</description>
+		</selection>
+		<selection code="BG32">
+			<description>Северен централен (2021 and 2022)</description>
+		</selection>
+		<selection code="BG33">
+			<description>Североизточен (2021 and 2022)</description>
+		</selection>
+		<selection code="BG34">
+			<description>Югоизточен (2021 and 2022)</description>
+		</selection>
+		<selection code="BG41">
+			<description>Югозападен (2021 and 2022)</description>
+		</selection>
+		<selection code="BG42">
+			<description>Южен централен (2021 and 2022)</description>
+		</selection>
+		<selection code="BGZZ">
+			<description>Extra-Regio NUTS 2 (2021 and 2022)</description>
+		</selection>
+	</selectionList>
+	<selectionList id="CH">
+		<selection code="CH01">
+			<description>Région Lémanique (2021 and 2022)</description>
+		</selection>
+		<selection code="CH02">
+			<description>Espace Mittelland (2021 and 2022)</description>
+		</selection>
+		<selection code="CH03">
+			<description>Nordwestschweiz (2021 and 2022)</description>
+		</selection>
+		<selection code="CH04">
+			<description>Zürich (2021 and 2022)</description>
+		</selection>
+		<selection code="CH05">
+			<description>Ostschweiz (2021 and 2022)</description>
+		</selection>
+		<selection code="CH06">
+			<description>Zentralschweiz (2021 and 2022)</description>
+		</selection>
+		<selection code="CH07">
+			<description>Ticino (2021 and 2022)</description>
+		</selection>
+	</selectionList>
+	<selectionList id="CY">
+		<selection code="CY00">
+			<description>Κύπρος (2021 and 2022)</description>
+		</selection>
+		<selection code="CYZZ">
+			<description>Extra-Regio NUTS 2 (2021 and 2022)</description>
+		</selection>
+	</selectionList>
+	<selectionList id="CZ">
+		<selection code="CZ01">
+			<description>Praha (2021 and 2022)</description>
+		</selection>
+		<selection code="CZ02">
+			<description>Střední Čechy (2021 and 2022)</description>
+		</selection>
+		<selection code="CZ03">
+			<description>Jihozápad (2021 and 2022)</description>
+		</selection>
+		<selection code="CZ04">
+			<description>Severozápad (2021 and 2022)</description>
+		</selection>
+		<selection code="CZ05">
+			<description>Severovýchod (2021 and 2022)</description>
+		</selection>
+		<selection code="CZ06">
+			<description>Jihovýchod (2021 and 2022)</description>
+		</selection>
+		<selection code="CZ07">
+			<description>Střední Morava (2021 and 2022)</description>
+		</selection>
+		<selection code="CZ08">
+			<description>Moravskoslezsko (2021 and 2022)</description>
+		</selection>
+		<selection code="CZZZ">
+			<description>Extra-Regio NUTS 2 (2021 and 2022)</description>
+		</selection>
+	</selectionList>
+	<selectionList id="DE">
+		<selection code="DE11">
+			<description>Stuttgart (2021 and 2022)</description>
+		</selection>
+		<selection code="DE12">
+			<description>Karlsruhe (2021 and 2022)</description>
+		</selection>
+		<selection code="DE13">
+			<description>Freiburg (2021 and 2022)</description>
+		</selection>
+		<selection code="DE14">
+			<description>Tübingen (2021 and 2022)</description>
+		</selection>
+		<selection code="DE21">
+			<description>Oberbayern (2021 and 2022)</description>
+		</selection>
+		<selection code="DE22">
+			<description>Niederbayern (2021 and 2022)</description>
+		</selection>
+		<selection code="DE23">
+			<description>Oberpfalz (2021 and 2022)</description>
+		</selection>
+		<selection code="DE24">
+			<description>Oberfranken (2021 and 2022)</description>
+		</selection>
+		<selection code="DE25">
+			<description>Mittelfranken (2021 and 2022)</description>
+		</selection>
+		<selection code="DE26">
+			<description>Unterfranken (2021 and 2022)</description>
+		</selection>
+		<selection code="DE27">
+			<description>Schwaben (2021 and 2022)</description>
+		</selection>
+		<selection code="DE30">
+			<description>Berlin (2021 and 2022)</description>
+		</selection>
+		<selection code="DE40">
+			<description>Brandenburg (2021 and 2022)</description>
+		</selection>
+		<selection code="DE50">
+			<description>Bremen (2021 and 2022)</description>
+		</selection>
+		<selection code="DE60">
+			<description>Hamburg (2021 and 2022)</description>
+		</selection>
+		<selection code="DE71">
+			<description>Darmstadt (2021 and 2022)</description>
+		</selection>
+		<selection code="DE72">
+			<description>Gießen (2021 and 2022)</description>
+		</selection>
+		<selection code="DE73">
+			<description>Kassel (2021 and 2022)</description>
+		</selection>
+		<selection code="DE80">
+			<description>Mecklenburg-Vorpommern (2021 and 2022)</description>
+		</selection>
+		<selection code="DE91">
+			<description>Braunschweig (2021 and 2022)</description>
+		</selection>
+		<selection code="DE92">
+			<description>Hannover (2021 and 2022)</description>
+		</selection>
+		<selection code="DE93">
+			<description>Lüneburg (2021 and 2022)</description>
+		</selection>
+		<selection code="DE94">
+			<description>Weser-Ems (2021 and 2022)</description>
+		</selection>
+		<selection code="DEA1">
+			<description>Düsseldorf (2021 and 2022)</description>
+		</selection>
+		<selection code="DEA2">
+			<description>Köln (2021 and 2022)</description>
+		</selection>
+		<selection code="DEA3">
+			<description>Münster (2021 and 2022)</description>
+		</selection>
+		<selection code="DEA4">
+			<description>Detmold (2021 and 2022)</description>
+		</selection>
+		<selection code="DEA5">
+			<description>Arnsberg (2021 and 2022)</description>
+		</selection>
+		<selection code="DEB1">
+			<description>Koblenz (2021 and 2022)</description>
+		</selection>
+		<selection code="DEB2">
+			<description>Trier (2021 and 2022)</description>
+		</selection>
+		<selection code="DEB3">
+			<description>Rheinhessen-Pfalz (2021 and 2022)</description>
+		</selection>
+		<selection code="DEC0">
+			<description>Saarland (2021 and 2022)</description>
+		</selection>
+		<selection code="DED2">
+			<description>Dresden (2021 and 2022)</description>
+		</selection>
+		<selection code="DED4">
+			<description>Chemnitz (2021 and 2022)</description>
+		</selection>
+		<selection code="DED5">
+			<description>Leipzig (2021 and 2022)</description>
+		</selection>
+		<selection code="DEE0">
+			<description>Sachsen-Anhalt (2021 and 2022)</description>
+		</selection>
+		<selection code="DEF0">
+			<description>Schleswig-Holstein (2021 and 2022)</description>
+		</selection>
+		<selection code="DEG0">
+			<description>Thüringen (2021 and 2022)</description>
+		</selection>
+		<selection code="DEZZ">
+			<description>Extra-Regio NUTS 2 (2021 and 2022)</description>
+		</selection>
+	</selectionList>
+	<selectionList id="DK">
+		<selection code="DK01">
+			<description>Hovedstaden (2021 and 2022)</description>
+		</selection>
+		<selection code="DK02">
+			<description>Sjælland (2021 and 2022)</description>
+		</selection>
+		<selection code="DK03">
+			<description>Syddanmark (2021 and 2022)</description>
+		</selection>
+		<selection code="DK04">
+			<description>Midtjylland (2021 and 2022)</description>
+		</selection>
+		<selection code="DK05">
+			<description>Nordjylland (2021 and 2022)</description>
+		</selection>
+		<selection code="DKZZ">
+			<description>Extra-Regio NUTS 2 (2021 and 2022)</description>
+		</selection>
+	</selectionList>
+	<selectionList id="EE">
+		<selection code="EE00">
+			<description>Eesti (2021 and 2022)</description>
+		</selection>
+		<selection code="EEZZ">
+			<description>Extra-Regio NUTS 2 (2021 and 2022)</description>
+		</selection>
+	</selectionList>
+	<selectionList id="ES">
+		<selection code="ES11">
+			<description>Galicia (2021 and 2022)</description>
+		</selection>
+		<selection code="ES12">
+			<description>Principado de Asturias (2021 and 2022)</description>
+		</selection>
+		<selection code="ES13">
+			<description>Cantabria (2021 and 2022)</description>
+		</selection>
+		<selection code="ES21">
+			<description>País Vasco (2021 and 2022)</description>
+		</selection>
+		<selection code="ES22">
+			<description>Comunidad Foral de Navarra (2021 and 2022)</description>
+		</selection>
+		<selection code="ES23">
+			<description>La Rioja (2021 and 2022)</description>
+		</selection>
+		<selection code="ES24">
+			<description>Aragón (2021 and 2022)</description>
+		</selection>
+		<selection code="ES30">
+			<description>Comunidad de Madrid (2021 and 2022)</description>
+		</selection>
+		<selection code="ES41">
+			<description>Castilla y León (2021 and 2022)</description>
+		</selection>
+		<selection code="ES42">
+			<description>Castilla-La Mancha (2021 and 2022)</description>
+		</selection>
+		<selection code="ES43">
+			<description>Extremadura (2021 and 2022)</description>
+		</selection>
+		<selection code="ES51">
+			<description>Cataluña (2021 and 2022)</description>
+		</selection>
+		<selection code="ES52">
+			<description>Comunitat Valenciana (2021 and 2022)</description>
+		</selection>
+		<selection code="ES53">
+			<description>Illes Balears (2021 and 2022)</description>
+		</selection>
+		<selection code="ES61">
+			<description>Andalucía (2021 and 2022)</description>
+		</selection>
+		<selection code="ES62">
+			<description>Región de Murcia (2021 and 2022)</description>
+		</selection>
+		<selection code="ES63">
+			<description>Ciudad de Ceuta (2021 and 2022)</description>
+		</selection>
+		<selection code="ES64">
+			<description>Ciudad de Melilla (2021 and 2022)</description>
+		</selection>
+		<selection code="ES70">
+			<description>Canarias (2021 and 2022)</description>
+		</selection>
+		<selection code="ESZZ">
+			<description>Extra-Regio NUTS 2 (2021 and 2022)</description>
+		</selection>
+	</selectionList>
+	<selectionList id="FI">
+		<selection code="FI19">
+			<description>Länsi-Suomi (2021 and 2022)</description>
+		</selection>
+		<selection code="FI1B">
+			<description>Helsinki-Uusimaa (2021 and 2022)</description>
+		</selection>
+		<selection code="FI1C">
+			<description>Etelä-Suomi (2021 and 2022)</description>
+		</selection>
+		<selection code="FI1D">
+			<description>Pohjois- ja Itä-Suomi (2021 and 2022)</description>
+		</selection>
+		<selection code="FI20">
+			<description>Åland (2021 and 2022)</description>
+		</selection>
+		<selection code="FIZZ">
+			<description>Extra-Regio NUTS 2 (2021 and 2022)</description>
+		</selection>
+	</selectionList>
+	<selectionList id="FR">
+		<selection code="FR10">
+			<description>Île de France (2021 and 2022)</description>
+		</selection>
+		<selection code="FRB0">
+			<description>Centre - Val de Loire (2021 and 2022)</description>
+		</selection>
+		<selection code="FRC1">
+			<description>Bourgogne (2021 and 2022)</description>
+		</selection>
+		<selection code="FRC2">
+			<description>Franche-Comté (2021 and 2022)</description>
+		</selection>
+		<selection code="FRD1">
+			<description>Basse-Normandie (2021 and 2022)</description>
+		</selection>
+		<selection code="FRD2">
+			<description>Haute-Normandie (2021 and 2022)</description>
+		</selection>
+		<selection code="FRE1">
+			<description>Nord-Pas de Calais (2021 and 2022)</description>
+		</selection>
+		<selection code="FRE2">
+			<description>Picardie (2021 and 2022)</description>
+		</selection>
+		<selection code="FRF1">
+			<description>Alsace (2021 and 2022)</description>
+		</selection>
+		<selection code="FRF2">
+			<description>Champagne-Ardenne (2021 and 2022)</description>
+		</selection>
+		<selection code="FRF3">
+			<description>Lorraine (2021 and 2022)</description>
+		</selection>
+		<selection code="FRG0">
+			<description>Pays de la Loire NUTS 2 (2021 and 2022)</description>
+		</selection>
+		<selection code="FRH0">
+			<description>Bretagne NUTS 2 (2021 and 2022)</description>
+		</selection>
+		<selection code="FRI1">
+			<description>Aquitaine (2021 and 2022)</description>
+		</selection>
+		<selection code="FRI2">
+			<description>Limousin (2021 and 2022)</description>
+		</selection>
+		<selection code="FRI3">
+			<description>Poitou-Charentes (2021 and 2022)</description>
+		</selection>
+		<selection code="FRJ1">
+			<description>Languedoc-Roussillon (2021 and 2022)</description>
+		</selection>
+		<selection code="FRJ2">
+			<description>Midi-Pyrénées (2021 and 2022)</description>
+		</selection>
+		<selection code="FRK1">
+			<description>Auvergne (2021 and 2022)</description>
+		</selection>
+		<selection code="FRK2">
+			<description>Rhône-Alpes (2021 and 2022)</description>
+		</selection>
+		<selection code="FRL0">
+			<description>Provence-Alpes-Côte d’Azur NUTS 2 (2021 and 2022)</description>
+		</selection>
+		<selection code="FRM0">
+			<description>Corse NUTS 2 (2021 and 2022)</description>
+		</selection>
+		<selection code="FRY1">
+			<description>Guadeloupe NUTS 2 (2021 and 2022)</description>
+		</selection>
+		<selection code="FRY2">
+			<description>Martinique NUTS 2 (2021 and 2022)</description>
+		</selection>
+		<selection code="FRY3">
+			<description>Guyane NUTS 2 (2021 and 2022)</description>
+		</selection>
+		<selection code="FRY4">
+			<description>La Réunion NUTS 2 (2021 and 2022)</description>
+		</selection>
+		<selection code="FRY5">
+			<description>Mayotte NUTS 2 (2021 and 2022)</description>
+		</selection>
+		<selection code="FRZZ">
+			<description>Extra-Regio NUTS 2 (2021 and 2022)</description>
+		</selection>
+	</selectionList>
+	<selectionList id="GB">
+		<selection code="UKC1">
+			<description>Tees Valley and Durham (2021 and 2022)</description>
+		</selection>
+		<selection code="UKC2">
+			<description>Northumberland and Tyne and Wear (2021 and 2022)</description>
+		</selection>
+		<selection code="UKD1">
+			<description>Cumbria (2021 and 2022)</description>
+		</selection>
+		<selection code="UKD3">
+			<description>Greater Manchester (2021 and 2022)</description>
+		</selection>
+		<selection code="UKD4">
+			<description>Lancashire (2021 and 2022)</description>
+		</selection>
+		<selection code="UKD6">
+			<description>Cheshire (2021 and 2022)</description>
+		</selection>
+		<selection code="UKD7">
+			<description>Merseyside (2021 and 2022)</description>
+		</selection>
+		<selection code="UKE1">
+			<description>East Yorkshire and Northern Lincolnshire (2021 and 2022)</description>
+		</selection>
+		<selection code="UKE2">
+			<description>North Yorkshire (2021 and 2022)</description>
+		</selection>
+		<selection code="UKE3">
+			<description>South Yorkshire (2021 and 2022)</description>
+		</selection>
+		<selection code="UKE4">
+			<description>West Yorkshire (2021 and 2022)</description>
+		</selection>
+		<selection code="UKF1">
+			<description>Derbyshire and Nottinghamshire (2021 and 2022)</description>
+		</selection>
+		<selection code="UKF2">
+			<description>Leicestershire, Rutland and Northamptonshire (2021 and 2022)</description>
+		</selection>
+		<selection code="UKF3">
+			<description>Lincolnshire (2021 and 2022)</description>
+		</selection>
+		<selection code="UKG1">
+			<description>Herefordshire, Worcestershire and Warwickshire (2021 and 2022)</description>
+		</selection>
+		<selection code="UKG2">
+			<description>Shropshire and Staffordshire (2021 and 2022)</description>
+		</selection>
+		<selection code="UKG3">
+			<description>West Midlands (2021 and 2022)</description>
+		</selection>
+		<selection code="UKH1">
+			<description>East Anglia (2021 and 2022)</description>
+		</selection>
+		<selection code="UKH2">
+			<description>Bedfordshire and Hertfordshire (2021 and 2022)</description>
+		</selection>
+		<selection code="UKH3">
+			<description>Essex (2021 and 2022)</description>
+		</selection>
+		<selection code="UKI3">
+			<description>Inner London - West (2021 and 2022)</description>
+		</selection>
+		<selection code="UKI4">
+			<description>Inner London - East (2021 and 2022)</description>
+		</selection>
+		<selection code="UKI5">
+			<description>Outer London - East and North East (2021 and 2022)</description>
+		</selection>
+		<selection code="UKI6">
+			<description>Outer London - South (2021 and 2022)</description>
+		</selection>
+		<selection code="UKI7">
+			<description>Outer London - West and North West (2021 and 2022)</description>
+		</selection>
+		<selection code="UKJ1">
+			<description>Berkshire, Buckinghamshire and Oxfordshire (2021 and 2022)</description>
+		</selection>
+		<selection code="UKJ2">
+			<description>Surrey, East and West Sussex (2021 and 2022)</description>
+		</selection>
+		<selection code="UKJ3">
+			<description>Hampshire and Isle of Wight (2021 and 2022)</description>
+		</selection>
+		<selection code="UKJ4">
+			<description>Kent (2021 and 2022)</description>
+		</selection>
+		<selection code="UKK1">
+			<description>Gloucestershire, Wiltshire and Bristol/Bath area (2021 and 2022)</description>
+		</selection>
+		<selection code="UKK2">
+			<description>Dorset and Somerset (2021 and 2022)</description>
+		</selection>
+		<selection code="UKK3">
+			<description>Cornwall and Isles of Scilly (2021 and 2022)</description>
+		</selection>
+		<selection code="UKK4">
+			<description>Devon (2021 and 2022)</description>
+		</selection>
+		<selection code="UKL1">
+			<description>West Wales and The Valleys (2021 and 2022)</description>
+		</selection>
+		<selection code="UKL2">
+			<description>East Wales (2021 and 2022)</description>
+		</selection>
+		<selection code="UKM5">
+			<description>North Eastern Scotland (2021 and 2022)</description>
+		</selection>
+		<selection code="UKM6">
+			<description>Highlands and Islands (2021 and 2022)</description>
+		</selection>
+		<selection code="UKM7">
+			<description>Eastern Scotland (2021 and 2022)</description>
+		</selection>
+		<selection code="UKM8">
+			<description>West Central Scotland (2021 and 2022)</description>
+		</selection>
+		<selection code="UKM9">
+			<description>Southern Scotland (2021 and 2022)</description>
+		</selection>
+		<selection code="UKN0">
+			<description>Northern Ireland (2021 and 2022)</description>
+		</selection>
+		<selection code="UKZZ">
+			<description>Extra-Regio NUTS 2 (2021 and 2022)</description>
+		</selection>
+	</selectionList>
+	<selectionList id="XU">
+		<selection code="UKC1">
+			<description>Tees Valley and Durham (2021 and 2022)</description>
+		</selection>
+		<selection code="UKC2">
+			<description>Northumberland and Tyne and Wear (2021 and 2022)</description>
+		</selection>
+		<selection code="UKD1">
+			<description>Cumbria (2021 and 2022)</description>
+		</selection>
+		<selection code="UKD3">
+			<description>Greater Manchester (2021 and 2022)</description>
+		</selection>
+		<selection code="UKD4">
+			<description>Lancashire (2021 and 2022)</description>
+		</selection>
+		<selection code="UKD6">
+			<description>Cheshire (2021 and 2022)</description>
+		</selection>
+		<selection code="UKD7">
+			<description>Merseyside (2021 and 2022)</description>
+		</selection>
+		<selection code="UKE1">
+			<description>East Yorkshire and Northern Lincolnshire (2021 and 2022)</description>
+		</selection>
+		<selection code="UKE2">
+			<description>North Yorkshire (2021 and 2022)</description>
+		</selection>
+		<selection code="UKE3">
+			<description>South Yorkshire (2021 and 2022)</description>
+		</selection>
+		<selection code="UKE4">
+			<description>West Yorkshire (2021 and 2022)</description>
+		</selection>
+		<selection code="UKF1">
+			<description>Derbyshire and Nottinghamshire (2021 and 2022)</description>
+		</selection>
+		<selection code="UKF2">
+			<description>Leicestershire, Rutland and Northamptonshire (2021 and 2022)</description>
+		</selection>
+		<selection code="UKF3">
+			<description>Lincolnshire (2021 and 2022)</description>
+		</selection>
+		<selection code="UKG1">
+			<description>Herefordshire, Worcestershire and Warwickshire (2021 and 2022)</description>
+		</selection>
+		<selection code="UKG2">
+			<description>Shropshire and Staffordshire (2021 and 2022)</description>
+		</selection>
+		<selection code="UKG3">
+			<description>West Midlands (2021 and 2022)</description>
+		</selection>
+		<selection code="UKH1">
+			<description>East Anglia (2021 and 2022)</description>
+		</selection>
+		<selection code="UKH2">
+			<description>Bedfordshire and Hertfordshire (2021 and 2022)</description>
+		</selection>
+		<selection code="UKH3">
+			<description>Essex (2021 and 2022)</description>
+		</selection>
+		<selection code="UKI3">
+			<description>Inner London - West (2021 and 2022)</description>
+		</selection>
+		<selection code="UKI4">
+			<description>Inner London - East (2021 and 2022)</description>
+		</selection>
+		<selection code="UKI5">
+			<description>Outer London - East and North East (2021 and 2022)</description>
+		</selection>
+		<selection code="UKI6">
+			<description>Outer London - South (2021 and 2022)</description>
+		</selection>
+		<selection code="UKI7">
+			<description>Outer London - West and North West (2021 and 2022)</description>
+		</selection>
+		<selection code="UKJ1">
+			<description>Berkshire, Buckinghamshire and Oxfordshire (2021 and 2022)</description>
+		</selection>
+		<selection code="UKJ2">
+			<description>Surrey, East and West Sussex (2021 and 2022)</description>
+		</selection>
+		<selection code="UKJ3">
+			<description>Hampshire and Isle of Wight (2021 and 2022)</description>
+		</selection>
+		<selection code="UKJ4">
+			<description>Kent (2021 and 2022)</description>
+		</selection>
+		<selection code="UKK1">
+			<description>Gloucestershire, Wiltshire and Bristol/Bath area (2021 and 2022)</description>
+		</selection>
+		<selection code="UKK2">
+			<description>Dorset and Somerset (2021 and 2022)</description>
+		</selection>
+		<selection code="UKK3">
+			<description>Cornwall and Isles of Scilly (2021 and 2022)</description>
+		</selection>
+		<selection code="UKK4">
+			<description>Devon (2021 and 2022)</description>
+		</selection>
+		<selection code="UKL1">
+			<description>West Wales and The Valleys (2021 and 2022)</description>
+		</selection>
+		<selection code="UKL2">
+			<description>East Wales (2021 and 2022)</description>
+		</selection>
+		<selection code="UKM5">
+			<description>North Eastern Scotland (2021 and 2022)</description>
+		</selection>
+		<selection code="UKM6">
+			<description>Highlands and Islands (2021 and 2022)</description>
+		</selection>
+		<selection code="UKM7">
+			<description>Eastern Scotland (2021 and 2022)</description>
+		</selection>
+		<selection code="UKM8">
+			<description>West Central Scotland (2021 and 2022)</description>
+		</selection>
+		<selection code="UKM9">
+			<description>Southern Scotland (2021 and 2022)</description>
+		</selection>
+		<selection code="UKZZ">
+			<description>Extra-Regio NUTS 2 (2021 and 2022)</description>
+		</selection>
+	</selectionList>
+	<selectionList id="XI">
+		<selection code="UKN0">
+			<description>Northern Ireland (2021 and 2022)</description>
+		</selection>
+	</selectionList>
+	<selectionList id="GR">
+		<selection code="EL30">
+			<description>Aττική (2021 and 2022)</description>
+		</selection>
+		<selection code="EL41">
+			<description>Βόρειο Αιγαίο (2021 and 2022)</description>
+		</selection>
+		<selection code="EL42">
+			<description>Νότιο Αιγαίο (2021 and 2022)</description>
+		</selection>
+		<selection code="EL43">
+			<description>Κρήτη (2021 and 2022)</description>
+		</selection>
+		<selection code="EL51">
+			<description>Aνατολική Μακεδονία, Θράκη (2021 and 2022)</description>
+		</selection>
+		<selection code="EL52">
+			<description>Κεντρική Μακεδονία (2021 and 2022)</description>
+		</selection>
+		<selection code="EL53">
+			<description>Δυτική Μακεδονία (2021 and 2022)</description>
+		</selection>
+		<selection code="EL54">
+			<description>Ήπειρος (2021 and 2022)</description>
+		</selection>
+		<selection code="EL61">
+			<description>Θεσσαλία (2021 and 2022)</description>
+		</selection>
+		<selection code="EL62">
+			<description>Ιόνια Νησιά (2021 and 2022)</description>
+		</selection>
+		<selection code="EL63">
+			<description>Δυτική Ελλάδα (2021 and 2022)</description>
+		</selection>
+		<selection code="EL64">
+			<description>Στερεά Ελλάδα (2021 and 2022)</description>
+		</selection>
+		<selection code="EL65">
+			<description>Πελοπόννησος (2021 and 2022)</description>
+		</selection>
+		<selection code="ELZZ">
+			<description>Extra-Regio NUTS 2 (2021 and 2022)</description>
+		</selection>
+	</selectionList>
+	<selectionList id="HR">
+		<selection code="HR02">
+			<description>Panonska Hrvatska (2022)</description>
+		</selection>
+		<selection code="HR03">
+			<description>Jadranska Hrvatska (2021 and 2022)</description>
+		</selection>
+		<selection code="HR04">
+			<description>Kontinentalna Hrvatska (2021)</description>
+		</selection>
+		<selection code="HR05">
+			<description>Grad Zagreb (2022)</description>
+		</selection>
+		<selection code="HR06">
+			<description>Sjeverna Hrvatska (2022)</description>
+		</selection>
+		<selection code="HRZZ">
+			<description>Extra-Regio NUTS 2 (2021 and 2022)</description>
+		</selection>
+	</selectionList>
+	<selectionList id="HU">
+		<selection code="HU11">
+			<description>Budapest (NUTS 2) (2021 and 2022)</description>
+		</selection>
+		<selection code="HU12">
+			<description>Pest (NUTS 2) (2021 and 2022)</description>
+		</selection>
+		<selection code="HU21">
+			<description>Közép-Dunántúl (2021 and 2022)</description>
+		</selection>
+		<selection code="HU22">
+			<description>Nyugat-Dunántúl (2021 and 2022)</description>
+		</selection>
+		<selection code="HU23">
+			<description>Dél-Dunántúl (2021 and 2022)</description>
+		</selection>
+		<selection code="HU31">
+			<description>Észak-Magyarország (2021 and 2022)</description>
+		</selection>
+		<selection code="HU32">
+			<description>Észak-Alföld (2021 and 2022)</description>
+		</selection>
+		<selection code="HU33">
+			<description>Dél-Alföld (2021 and 2022)</description>
+		</selection>
+		<selection code="HUZZ">
+			<description>Extra-Regio NUTS 2 (2021 and 2022)</description>
+		</selection>
+	</selectionList>
+	<selectionList id="IE">
+		<selection code="IE04">
+			<description>Northern and Western (2021 and 2022)</description>
+		</selection>
+		<selection code="IE05">
+			<description>Southern (2021 and 2022)</description>
+		</selection>
+		<selection code="IE06">
+			<description>Eastern and Midland (2021 and 2022)</description>
+		</selection>
+		<selection code="IEZZ">
+			<description>Extra-Regio NUTS 2 (2021 and 2022)</description>
+		</selection>
+	</selectionList>
+	<selectionList id="IS">
+		<selection code="IS00">
+			<description>Island (2021 and 2022)</description>
+		</selection>
+	</selectionList>
+	<selectionList id="IT">
+		<selection code="ITC1">
+			<description>Piemonte (2021 and 2022)</description>
+		</selection>
+		<selection code="ITC2">
+			<description>Valle d'Aosta/Vallée d'Aoste (2021 and 2022)</description>
+		</selection>
+		<selection code="ITC3">
+			<description>Liguria (2021 and 2022)</description>
+		</selection>
+		<selection code="ITC4">
+			<description>Lombardia (2021 and 2022)</description>
+		</selection>
+		<selection code="ITF1">
+			<description>Abruzzo (2021 and 2022)</description>
+		</selection>
+		<selection code="ITF2">
+			<description>Molise (2021 and 2022)</description>
+		</selection>
+		<selection code="ITF3">
+			<description>Campania (2021 and 2022)</description>
+		</selection>
+		<selection code="ITF4">
+			<description>Puglia (2021 and 2022)</description>
+		</selection>
+		<selection code="ITF5">
+			<description>Basilicata (2021 and 2022)</description>
+		</selection>
+		<selection code="ITF6">
+			<description>Calabria (2021 and 2022)</description>
+		</selection>
+		<selection code="ITG1">
+			<description>Sicilia (2021 and 2022)</description>
+		</selection>
+		<selection code="ITG2">
+			<description>Sardegna (2021 and 2022)</description>
+		</selection>
+		<selection code="ITH1">
+			<description>Provincia Autonoma di Bolzano/Bozen (2021 and 2022)</description>
+		</selection>
+		<selection code="ITH2">
+			<description>Provincia Autonoma di Trento (2021 and 2022)</description>
+		</selection>
+		<selection code="ITH3">
+			<description>Veneto (2021 and 2022)</description>
+		</selection>
+		<selection code="ITH4">
+			<description>Friuli-Venezia Giulia (2021 and 2022)</description>
+		</selection>
+		<selection code="ITH5">
+			<description>Emilia-Romagna (2021 and 2022)</description>
+		</selection>
+		<selection code="ITI1">
+			<description>Toscana (2021 and 2022)</description>
+		</selection>
+		<selection code="ITI2">
+			<description>Umbria (2021 and 2022)</description>
+		</selection>
+		<selection code="ITI3">
+			<description>Marche (2021 and 2022)</description>
+		</selection>
+		<selection code="ITI4">
+			<description>Lazio (2021 and 2022)</description>
+		</selection>
+		<selection code="ITZZ">
+			<description>Extra-Regio NUTS 2 (2021 and 2022)</description>
+		</selection>
+	</selectionList>
+	<selectionList id="LI">
+		<selection code="LI00">
+			<description>Liechtenstein (2021 and 2022)</description>
+		</selection>
+	</selectionList>
+	<selectionList id="LT">
+		<selection code="LT01">
+			<description>Sostinės regionas (2021 and 2022)</description>
+		</selection>
+		<selection code="LT02">
+			<description>Vidurio ir vakarų Lietuvos regionas (2021 and 2022)</description>
+		</selection>
+		<selection code="LTZZ">
+			<description>Extra-Regio NUTS 2 (2021 and 2022)</description>
+		</selection>
+	</selectionList>
+	<selectionList id="LU">
+		<selection code="LU00">
+			<description>Luxembourg (2021 and 2022)</description>
+		</selection>
+		<selection code="LUZZ">
+			<description>Extra-Regio NUTS 2 (2021 and 2022)</description>
+		</selection>
+	</selectionList>
+	<selectionList id="LV">
+		<selection code="LV00">
+			<description>Latvija (2021 and 2022)</description>
+		</selection>
+		<selection code="LVZZ">
+			<description>Extra-Regio NUTS 2 (2021 and 2022)</description>
+		</selection>
+	</selectionList>
+	<selectionList id="ME">
+		<selection code="ME00">
+			<description>Црна Гора (Crna Gora) (NUTS level 2) (2021 and 2022)</description>
+		</selection>
+	</selectionList>
+	<selectionList id="MK">
+		<selection code="MK00">
+			<description>Северна Македонија (North Macedonia) (2021 and 2022)</description>
+		</selection>
+	</selectionList>
+	<selectionList id="MT">
+		<selection code="MT00">
+			<description>Malta (2021 and 2022)</description>
+		</selection>
+		<selection code="MTZZ">
+			<description>Extra-Regio NUTS 2 (2021 and 2022)</description>
+		</selection>
+	</selectionList>
+	<selectionList id="NL">
+		<selection code="NL11">
+			<description>Groningen (2021 and 2022)</description>
+		</selection>
+		<selection code="NL12">
+			<description>Friesland (NL) (2021 and 2022)</description>
+		</selection>
+		<selection code="NL13">
+			<description>Drenthe (2021 and 2022)</description>
+		</selection>
+		<selection code="NL21">
+			<description>Overijssel (2021 and 2022)</description>
+		</selection>
+		<selection code="NL22">
+			<description>Gelderland (2021 and 2022)</description>
+		</selection>
+		<selection code="NL23">
+			<description>Flevoland (2021 and 2022)</description>
+		</selection>
+		<selection code="NL31">
+			<description>Utrecht (2021 and 2022)</description>
+		</selection>
+		<selection code="NL32">
+			<description>Noord-Holland (2021 and 2022)</description>
+		</selection>
+		<selection code="NL33">
+			<description>Zuid-Holland (2021 and 2022)</description>
+		</selection>
+		<selection code="NL34">
+			<description>Zeeland (2021 and 2022)</description>
+		</selection>
+		<selection code="NL41">
+			<description>Noord-Brabant (2021 and 2022)</description>
+		</selection>
+		<selection code="NL42">
+			<description>Limburg (NL) (2021 and 2022)</description>
+		</selection>
+		<selection code="NLZZ">
+			<description>Extra-Regio NUTS 2 (2021 and 2022)</description>
+		</selection>
+	</selectionList>
+	<selectionList id="NO">
+		<selection code="NO01">
+			<description>Oslo Og Akershus (2021)</description>
+		</selection>
+		<selection code="NO02">
+			<description>Innlandet (2021 and 2022)</description>
+		</selection>
+		<selection code="NO03">
+			<description>Sør-Østlandet (2021)</description>
+		</selection>
+		<selection code="NO04">
+			<description>Agder Og Rogaland (2021)</description>
+		</selection>
+		<selection code="NO05">
+			<description>Vestlandet (2021)</description>
+		</selection>
+		<selection code="NO06">
+			<description>Trøndelag (2021 and 2022)</description>
+		</selection>
+		<selection code="NO07">
+			<description>Nord-Norge (2021 and 2022)</description>
+		</selection>
+		<selection code="NO08">
+			<description>Oslo og Viken (2022)</description>
+		</selection>
+		<selection code="NO09">
+			<description>Agder og Sør-Østlandet (2022)</description>
+		</selection>
+		<selection code="NO0A">
+			<description>Vestlandet (2022)</description>
+		</selection>
+		<selection code="NO0B">
+			<description>Jan Mayen and Svalbard (2022)</description>
+		</selection>
+	</selectionList>
+	<selectionList id="PL">
+		<selection code="PL21">
+			<description>Małopolskie (2021 and 2022)</description>
+		</selection>
+		<selection code="PL22">
+			<description>Śląskie (2021 and 2022)</description>
+		</selection>
+		<selection code="PL41">
+			<description>Wielkopolskie (2021 and 2022)</description>
+		</selection>
+		<selection code="PL42">
+			<description>Zachodniopomorskie (2021 and 2022)</description>
+		</selection>
+		<selection code="PL43">
+			<description>Lubuskie (2021 and 2022)</description>
+		</selection>
+		<selection code="PL51">
+			<description>Dolnośląskie (2021 and 2022)</description>
+		</selection>
+		<selection code="PL52">
+			<description>Opolskie (2021 and 2022)</description>
+		</selection>
+		<selection code="PL61">
+			<description>Kujawsko-Pomorskie (2021 and 2022)</description>
+		</selection>
+		<selection code="PL62">
+			<description>Warmińsko-Mazurskie (2021 and 2022)</description>
+		</selection>
+		<selection code="PL63">
+			<description>Pomorskie (2021 and 2022)</description>
+		</selection>
+		<selection code="PL71">
+			<description>Łódzkie (NUTS 2016) (2021 and 2022)</description>
+		</selection>
+		<selection code="PL72">
+			<description>Świętokrzyskie (2021 and 2022)</description>
+		</selection>
+		<selection code="PL81">
+			<description>Lubelskie (2021 and 2022)</description>
+		</selection>
+		<selection code="PL82">
+			<description>Podkarpackie (2021 and 2022)</description>
+		</selection>
+		<selection code="PL84">
+			<description>Podlaskie (2021 and 2022)</description>
+		</selection>
+		<selection code="PL91">
+			<description>Warszawski stołeczny (2021 and 2022)</description>
+		</selection>
+		<selection code="PL92">
+			<description>Mazowiecki regionalny (2021 and 2022)</description>
+		</selection>
+		<selection code="PLZZ">
+			<description>Extra-Regio NUTS 2 (2021 and 2022)</description>
+		</selection>
+	</selectionList>
+	<selectionList id="PT">
+		<selection code="PT11">
+			<description>Norte (2021 and 2022)</description>
+		</selection>
+		<selection code="PT15">
+			<description>Algarve (2021 and 2022)</description>
+		</selection>
+		<selection code="PT16">
+			<description>Centro (PT) (2021 and 2022)</description>
+		</selection>
+		<selection code="PT17">
+			<description>Lisboa (2021 and 2022)</description>
+		</selection>
+		<selection code="PT18">
+			<description>Alentejo (2021 and 2022)</description>
+		</selection>
+		<selection code="PT20">
+			<description>Região Autónoma dos Açores (2021 and 2022)</description>
+		</selection>
+		<selection code="PT30">
+			<description>Região Autónoma da Madeira (2021 and 2022)</description>
+		</selection>
+		<selection code="PTZZ">
+			<description>Extra-Regio NUTS 2 (2021 and 2022)</description>
+		</selection>
+	</selectionList>
+	<selectionList id="RO">
+		<selection code="RO11">
+			<description>Nord-Vest (2021 and 2022)</description>
+		</selection>
+		<selection code="RO12">
+			<description>Centru (2021 and 2022)</description>
+		</selection>
+		<selection code="RO21">
+			<description>Nord-Est (2021 and 2022)</description>
+		</selection>
+		<selection code="RO22">
+			<description>Sud-Est (2021 and 2022)</description>
+		</selection>
+		<selection code="RO31">
+			<description>Sud - Muntenia (2021 and 2022)</description>
+		</selection>
+		<selection code="RO32">
+			<description>Bucureşti - Ilfov (2021 and 2022)</description>
+		</selection>
+		<selection code="RO41">
+			<description>Sud-Vest Oltenia (2021 and 2022)</description>
+		</selection>
+		<selection code="RO42">
+			<description>Vest (2021 and 2022)</description>
+		</selection>
+		<selection code="ROZZ">
+			<description>Extra-Regio NUTS 2 (2021 and 2022)</description>
+		</selection>
+	</selectionList>
+	<selectionList id="RS">
+		<selection code="RS">
+			<description>Serbia</description>
+		</selection>
+	</selectionList>
+	<selectionList id="SE">
+		<selection code="SE11">
+			<description>Stockholm (2021 and 2022)</description>
+		</selection>
+		<selection code="SE12">
+			<description>Östra Mellansverige (2021 and 2022)</description>
+		</selection>
+		<selection code="SE21">
+			<description>Småland med öarna (2021 and 2022)</description>
+		</selection>
+		<selection code="SE22">
+			<description>Sydsverige (2021 and 2022)</description>
+		</selection>
+		<selection code="SE23">
+			<description>Västsverige (2021 and 2022)</description>
+		</selection>
+		<selection code="SE31">
+			<description>Norra Mellansverige (2021 and 2022)</description>
+		</selection>
+		<selection code="SE32">
+			<description>Mellersta Norrland (2021 and 2022)</description>
+		</selection>
+		<selection code="SE33">
+			<description>Övre Norrland (2021 and 2022)</description>
+		</selection>
+		<selection code="SEZZ">
+			<description>Extra-Regio NUTS 2 (2021 and 2022)</description>
+		</selection>
+	</selectionList>
+	<selectionList id="SI">
+		<selection code="SI03">
+			<description>Vzhodna Slovenija (2021 and 2022)</description>
+		</selection>
+		<selection code="SI04">
+			<description>Zahodna Slovenija (2021 and 2022)</description>
+		</selection>
+		<selection code="SIZZ">
+			<description>Extra-Regio NUTS 2 (2021 and 2022)</description>
+		</selection>
+	</selectionList>
+	<selectionList id="SK">
+		<selection code="SK01">
+			<description>Bratislavský kraj (2021 and 2022)</description>
+		</selection>
+		<selection code="SK02">
+			<description>Západné Slovensko (2021 and 2022)</description>
+		</selection>
+		<selection code="SK03">
+			<description>Stredné Slovensko (2021 and 2022)</description>
+		</selection>
+		<selection code="SK04">
+			<description>Východné Slovensko (2021 and 2022)</description>
+		</selection>
+		<selection code="SKZZ">
+			<description>Extra-Regio NUTS 2 (2021 and 2022)</description>
+		</selection>
+	</selectionList>
+	<selectionList id="TR">
+		<selection code="TR10">
+			<description>Istanbul (NUTS level 2) (2021 and 2022)</description>
+		</selection>
+		<selection code="TR21">
+			<description>Tekirdag, Edirne, Kirklareli (2021 and 2022)</description>
+		</selection>
+		<selection code="TR22">
+			<description>Balikesir, Çanakkale (2021 and 2022)</description>
+		</selection>
+		<selection code="TR31">
+			<description>Izmir (NUTS level 2) (2021 and 2022)</description>
+		</selection>
+		<selection code="TR41">
+			<description>Bursa, Eskisehir, Bilecik (2021 and 2022)</description>
+		</selection>
+		<selection code="TR42">
+			<description>Kocaeli, Sakarya, Düzce, Bolu, Yalova (2021 and 2022)</description>
+		</selection>
+		<selection code="TR51">
+			<description>Ankara (NUTS level 2) (2021 and 2022)</description>
+		</selection>
+		<selection code="TR52">
+			<description>Konya, Karaman (2021 and 2022)</description>
+		</selection>
+		<selection code="TR61">
+			<description>Antalya, Isparta, Burdur (2021 and 2022)</description>
+		</selection>
+		<selection code="TR62">
+			<description>Adana, Mersin (2021 and 2022)</description>
+		</selection>
+		<selection code="TR63">
+			<description>Hatay, Kahramanmaras, Osmaniye (2021 and 2022)</description>
+		</selection>
+		<selection code="TR71">
+			<description>Kirikkale, Aksaray, Nigde, Nevsehir, Kirsehir (2021 and 2022)</description>
+		</selection>
+		<selection code="TR72">
+			<description>Kayseri, Sivas, Yozgat (2021 and 2022)</description>
+		</selection>
+		<selection code="TR81">
+			<description>Zonguldak, Karabük, Bartin (2021 and 2022)</description>
+		</selection>
+		<selection code="TR82">
+			<description>Kastamonu, Çankiri, Sinop (2021 and 2022)</description>
+		</selection>
+		<selection code="TR83">
+			<description>Samsun, Tokat, Çorum, Amasya (2021 and 2022)</description>
+		</selection>
+		<selection code="TR90">
+			<description>Trabzon, Ordu, Giresun, Rize, Artvin, Gümüshane (2021 and 2022)</description>
+		</selection>
+		<selection code="TRA1">
+			<description>Erzurum, Erzincan, Bayburt (2021 and 2022)</description>
+		</selection>
+		<selection code="TRA2">
+			<description>Ağrı, Kars, Iğdır, Ardahan (2021 and 2022)</description>
+		</selection>
+		<selection code="TRB1">
+			<description>Malatya, Elazig, Bingöl, Tunceli (2021 and 2022)</description>
+		</selection>
+		<selection code="TRB2">
+			<description>Van, Muş, Bitlis, Hakkari (2021 and 2022)</description>
+		</selection>
+		<selection code="TRC1">
+			<description>Gaziantep, Adiyaman, Kilis (2021 and 2022)</description>
+		</selection>
+		<selection code="TRC2">
+			<description>Sanliurfa, Diyarbakir (2021 and 2022)</description>
+		</selection>
+		<selection code="TRC3">
+			<description>Mardin, Batman, Sirnak, Siirt (2021 and 2022)</description>
+		</selection>
+	</selectionList>
+	<selectionList id="EU">
+	<selection code="MTZZ">
+		<description>Extra-Regio NUTS 2</description>
+	</selection>
+	</selectionList>
+	<selectionList id="XE">
+	<selection code="MTZZ">
+		<description>Extra-Regio NUTS 2</description>
+	</selection>
+	</selectionList>
+	<selectionList id="XX">
+	<selection code="MTZZ">
+		<description>Extra-Regio NUTS 2</description>
+	</selection>
+	</selectionList>
+</sampAreaLists>

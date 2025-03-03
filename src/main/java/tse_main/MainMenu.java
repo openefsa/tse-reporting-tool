@@ -39,6 +39,7 @@ import table_database.TableDao;
 import table_skeleton.TableRow;
 import table_skeleton.TableVersion;
 import test_case.EnumPicker;
+import tse_areaselector.AreaListSelectorDialog;
 import tse_config.CustomStrings;
 import tse_config.DebugConfig;
 import tse_main.listeners.CopySelectionListener;
@@ -75,6 +76,7 @@ public class MainMenu {
 	private MenuItem preferences;
 	private MenuItem settings;
 	private MenuItem proxyConfig;
+	private MenuItem catalogueSelector;
 
 	protected MenuItem newReport;
 	protected MenuItem openReport;
@@ -145,6 +147,27 @@ public class MainMenu {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				ProxySettingsDialog dialog = new ProxySettingsDialog(shell, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+				try {
+					dialog.open();
+				} catch (Exception e) {
+					LOGGER.error("Cannot open proxy dialog", e);
+					e.printStackTrace();
+
+					Message m = Warnings.createFatal(
+							TSEMessages.get("proxy.config.file.not.found.error", PropertiesReader.getSupportEmail()));
+
+					m.open(shell);
+				}
+			}
+		});
+		
+		catalogueSelector = new MenuItem(main, SWT.PUSH);
+		catalogueSelector.setText(TSEMessages.get("arealist.config.item"));
+
+		catalogueSelector.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				AreaListSelectorDialog dialog = new AreaListSelectorDialog(shell, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
 				try {
 					dialog.open();
 				} catch (Exception e) {
