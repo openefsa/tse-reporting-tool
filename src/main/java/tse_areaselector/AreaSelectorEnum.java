@@ -5,8 +5,8 @@ import org.apache.logging.log4j.Logger;
 
 public enum AreaSelectorEnum {
 	
-	NEW_SELECTOR(0, "New Area Selector (2024)"),
-	OLD_SELECTOR(1, "Old Area Selector (2023)");
+	NEW_SELECTOR(0, "2024"),
+	OLD_SELECTOR(1, "2021-2022");
 	
 	private static final Logger LOGGER = LogManager.getLogger(AreaSelectorEnum.class);
 	private Integer index;

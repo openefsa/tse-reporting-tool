@@ -27,6 +27,7 @@ import org.eclipse.swt.widgets.Text;
 import config.ProxyConfig;
 import global_utils.Message;
 import global_utils.Warnings;
+import i18n_messages.TSEMessages;
 import tse_areaselector.AreaSelectorEnum;
 import user_interface.Actions;
 import user_interface.ProxySettingsDialog;
@@ -114,7 +115,7 @@ public class AreaListSelectorDialog extends Dialog {
 				try {
 					AreaSelectorConfig config = new AreaSelectorConfig();
 					config.setAreaSelectorIndex(mode.getIndex());
-					Message m = Warnings.create("Info", "To see changes the application needs to be restarted.");
+					Message m = Warnings.create("Info", TSEMessages.get("arealist.dialog.inforestart"));
 					m.open(shell);
 				} catch (IOException e) {
 					LOGGER.error("There is an error upon saving the configuration ", e);
@@ -126,7 +127,7 @@ public class AreaListSelectorDialog extends Dialog {
 			}
 		});
 		
-		shell.setText("Area Selection Settings");
+		shell.setText(TSEMessages.get("arealist.config.item"));
 		
 		AreaSelectorConfig config = new AreaSelectorConfig();
 		
