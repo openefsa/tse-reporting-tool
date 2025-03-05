@@ -193,6 +193,7 @@ public class StartUI {
 	public static void main(String args[]) throws IOException {
 
 		try {
+			System.setProperty("user.home", System.getenv("ProgramFiles").concat("\\TSE_Libs"));
 			StartUI main = new StartUI();
 			Database db = main.launch();
 			main.shutdown(db);
