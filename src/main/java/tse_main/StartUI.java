@@ -1,11 +1,18 @@
 package tse_main;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.stream.Stream;
+
+import javax.swing.JOptionPane;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.poi.sl.usermodel.ObjectMetaData.Application;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
@@ -14,6 +21,8 @@ import org.eclipse.swt.widgets.Shell;
 import app_config.AppPaths;
 import app_config.PropertiesReader;
 import dataset.IDataset;
+import dll_preloader.ProjectsNames;
+import dll_preloader.StartInstallationChecker;
 import formula.FormulaException;
 import global_utils.EFSARCL;
 import global_utils.FileUtils;
@@ -193,10 +202,17 @@ public class StartUI {
 	public static void main(String args[]) throws IOException {
 
 		try {
-			System.setProperty("user.home", System.getenv("ProgramFiles").concat("\\TSE_Libs"));
-			StartUI main = new StartUI();
-			Database db = main.launch();
-			main.shutdown(db);
+			//System.setProperty("user.home", System.getenv("ProgramFiles").concat("\\JavaTools_Lib"));
+			//System.setProperty("swt.library.path", System.getenv("ProgramFiles").concat("\\JavaTools_Lib"));
+			
+			StartInstallationChecker.StartChecker(() -> {
+				StartUI main = new StartUI();
+				Database db = main.launch();
+				main.shutdown(db);
+			}, ProjectsNames.TSE);
+		
+			
+			
 		} catch (Throwable e) {
 			LOGGER.fatal("Generic error occurred", e);
 			e.printStackTrace();
