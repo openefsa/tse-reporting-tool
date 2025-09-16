@@ -80,7 +80,7 @@ public class ReportCreatorDialog extends TableDialog {
 		row.setVersion(TableVersion.getFirstVersion());
 		
 		// by default the report status is draft for new reports
-		row.setStatus(RCLDatasetStatus.DRAFT.getStatus());
+		row.setRCLStatus(RCLDatasetStatus.DRAFT.getStatus());
 		
 		// update the formulas of the report
 		// to compute the sender id

@@ -8,6 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import dataset.Dataset;
+import dataset.DatasetList;
 import dataset.IDataset;
 import dataset.RCLDatasetStatus;
 import formula.Formula;
@@ -16,7 +17,9 @@ import formula.FormulaException;
 import formula.FormulaSolver;
 import message.MessageConfigBuilder;
 import report.Report;
+import report.ReportType;
 import report_downloader.TSEFormulaDecomposer;
+import soap.DetailedSOAPException;
 import soap_interface.IGetAck;
 import soap_interface.IGetDataset;
 import soap_interface.IGetDatasetsList;
@@ -272,6 +275,66 @@ public class TseReportService extends ReportService {
 		return tseReport;
 	}
 
+	public TseReport createAggregatedReport(List<TseReport> reportList) {
+		TseReport template = reportList.get(0);
+		String senderId = String.format("%s00", new Object[] { template.getYear().substring(2) });
+  
+		String newVersion = null;
+		try {
+			newVersion = Optional.<DatasetList>ofNullable(getDatasetsOf(senderId, template.getYear()))
+			.map(list -> list.getLastVersion(paramString))
+			.map(dataset -> dataset.getVersion())
+			.map(ver -> Integer.valueOf(Integer.parseInt(ver)))
+			.map(ver -> Integer.valueOf(ver.intValue() + 1))
+			.map(ver -> (ver.intValue() > 9) ? String.valueOf(ver) : ("0" + String.valueOf(ver))).orElse("01");
+		}
+		catch (DetailedSOAPException e) {
+			throw new RuntimeException(e);
+		} 
+  
+		getBySenderId(senderId).forEach(existingAggrReport -> {
+      
+			}); TseReport aggrRepV1 = createAggregatedReport(
+			senderId, 
+			"00", 
+			(List<TseReport>)reportList.stream().map(r -> (TseReport)r.getPreviousVersion(this.daoService)).collect(Collectors.toList()));
+
+  
+		TseReport aggrRepV2 = createAggregatedReport(senderId, newVersion, reportList);
+  
+		reportList.forEach(report -> {
+        	report.setAggregatorId(Integer.valueOf(paramTseReport1.getDatabaseId()));
+        
+        	this.daoService.update((TableRow)report);
+		});
+		return aggrRepV2;
+	}
+
+	private TseReport createAggregatedReport(String senderId, String version, List<TseReport> reports) {
+		Report templateReport = (Report)reports.get(0);
+		TseReport aggrRep = new TseReport();
+  
+		try {
+			Relation.injectGlobalParent((TableRow)aggrRep, "Preferences");
+		} catch (Exception e) {
+			LOGGER.error("Cannot inject global parent=Preferences", e);
+			e.printStackTrace();
+		} 
+		aggrRep.setSenderId(senderId);
+		aggrRep.setDcCode(templateReport.getDcCode());
+		aggrRep.setRCLStatus(RCLDatasetStatus.LOCALLY_VALIDATED);
+		aggrRep.setType(ReportType.COLLECTION_AGGREGATION);
+		aggrRep.setYear(templateReport.getYear());
+		aggrRep.setVersion(version);
+
+		this.daoService.add((TableRow)aggrRep);
+
+		reports.forEach(r -> {
+
+			}); this.daoService.update((TableRow)aggrRep);
+		return aggrRep;
+	}
+
 	/**
 	 * Copy a report and then generate the required fields of the new report
 	 *
@@ -285,7 +348,7 @@ public class TseReportService extends ReportService {
 			daoService.deleteByParentId(rel.getChildSchema(), target.getSchema().getSheetName(), target.getDatabaseId());
 		}
 
-		target.setStatus(RCLDatasetStatus.DRAFT);
+		target.setRCLStatus(RCLDatasetStatus.DRAFT);
 		target.setMessageId("");
 		daoService.update(target);
 
@@ -348,7 +411,7 @@ public class TseReportService extends ReportService {
 		String newVersion = TableVersion.createNewVersion(source.getVersion());
 		target.setVersion(newVersion);
 
-		target.setStatus(RCLDatasetStatus.DRAFT);
+		target.setRCLStatus(RCLDatasetStatus.DRAFT);
 		target.setId("");
 		target.setMessageId("");
 		getDaoService().add(target);
@@ -442,6 +505,7 @@ public class TseReportService extends ReportService {
 	public TseReport reportFromDataset(Dataset dataset) {
 		TseReport report = new TseReport();
 		report.setId(dataset.getId());
+		report.setDcCode(dataset.getOperation().getDcCode());
 
 		String senderDatasetId = dataset.getOperation().getSenderDatasetId();
 		String[] split = Dataset.splitSenderId(senderDatasetId);
@@ -455,7 +519,7 @@ public class TseReportService extends ReportService {
 		}
 
 		report.setSenderId(senderId);
-		report.setStatus(dataset.getRCLStatus() != null ? dataset.getRCLStatus() : RCLDatasetStatus.DRAFT);
+		report.setRCLStatus(dataset.getRCLStatus() != null ? dataset.getRCLStatus() : RCLDatasetStatus.DRAFT);
 
 		// split FR1705... into country year and month
 		if (senderId.length() < 6) {
@@ -617,5 +681,19 @@ public class TseReportService extends ReportService {
 		PredefinedResultService r = new PredefinedResultService(daoService, formulaService1);
 		TableRowList results = r.createDefaultResults(report, summInfo, caseInfo);
 		return results;
+	}
+
+	public List<TseReport> getByDatasetId(String datasetId) {
+		return (List<TseReport>)this.daoService.getByStringField(TableSchemaList.getByName("Report"), "reportDatasetId", datasetId)
+			.stream()
+	    	.map(TseReport::new)
+	    	.collect(Collectors.toList());
+	}
+
+	public List<TseReport> getBySenderId(String senderId) {
+		return (List<TseReport>)this.daoService.getByStringField(TableSchemaList.getByName("Report"), "reportSenderId", senderId)
+	    	.stream()
+	    	.map(TseReport::new)
+	    	.collect(Collectors.toList());
 	}
 }

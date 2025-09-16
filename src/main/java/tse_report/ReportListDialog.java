@@ -57,7 +57,9 @@ public class ReportListDialog extends TableDialog {
 		DatasetList tseReports = new DatasetList();
 		for (TableRow r : reports) {
 			TseReport report = new TseReport(r);
-			tseReports.add(report);
+			if (report.isVisible()) {
+				tseReports.add(report);
+			}
 		}
 
 		// get only last versions

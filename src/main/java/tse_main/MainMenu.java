@@ -12,6 +12,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.widgets.Decorations;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.MessageBox;
@@ -28,8 +30,11 @@ import i18n_messages.TSEMessages;
 import message.MessageConfigBuilder;
 import message_creator.OperationType;
 import providers.IFormulaService;
+import providers.IReportService;
 import providers.ITableDaoService;
 import providers.TseReportService;
+import report.EFSAReport;
+import report.Report;
 import report.ReportException;
 import report.ReportSendOperation;
 import report_downloader.TseReportDownloader;
@@ -39,6 +44,7 @@ import table_database.TableDao;
 import table_skeleton.TableRow;
 import table_skeleton.TableVersion;
 import test_case.EnumPicker;
+import tse_amend_report.ReportAmendDialog;
 import tse_areaselector.AreaListSelectorDialog;
 import tse_config.CustomStrings;
 import tse_config.DebugConfig;
@@ -84,6 +90,7 @@ public class MainMenu {
 	protected MenuItem importReport;
 	protected MenuItem copyReport;
 	protected MenuItem downloadReport;
+	protected MenuItem amendReports;
 	protected MenuItem exportReport;
 	protected MenuItem exitApplication;
 
@@ -374,6 +381,27 @@ public class MainMenu {
 					e.printStackTrace();
 					Warnings.showSOAPWarning(shell, e);
 				}
+			}
+		});
+
+		amendReports = new MenuItem(fileMenu, SWT.PUSH);
+		amendReports.setText(TSEMessages.get("amend.report.item"));
+	    amendReports.addSelectionListener(new SelectionListener() {
+			@Override
+	        public void widgetSelected(SelectionEvent arg0) {
+	            MainMenu.LOGGER.debug("Opening submit amendments dialog");
+	            ReportAmendDialog dataCollectionAmender = new ReportAmendDialog(shell, reportService, daoService);
+	            try {
+	              dataCollectionAmender.open();
+	            } catch (DetailedSOAPException e) {
+	              MainMenu.LOGGER.error("Amend reports failed", (Throwable)e);
+	              e.printStackTrace();
+	              Warnings.showSOAPWarning(shell, e);
+	            } 
+	          }
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
 			}
 		});
 

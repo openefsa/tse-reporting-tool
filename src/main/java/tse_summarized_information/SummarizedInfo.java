@@ -45,6 +45,10 @@ public class SummarizedInfo extends TableRow {
 		return this.getCode(CustomStrings.SUMMARIZED_INFO_TYPE);
 	}
 	
+	public String getSamplingMonth() {
+		return this.getCode(CustomStrings.SUMMARIZED_INFO_SAMPLING_MONTH);
+	}
+
 	public boolean isRGT() {
 		return this.getType().equals(CustomStrings.SUMMARIZED_INFO_RGT_TYPE);
 	}

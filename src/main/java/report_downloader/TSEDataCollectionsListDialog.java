@@ -14,14 +14,14 @@ public class TSEDataCollectionsListDialog extends DataCollectionsListDialog {
 	private static final String WINDOW_CODE = "DataCollectionsListDialog";
 	private RestoreableWindow window;
 	
-	public TSEDataCollectionsListDialog(Shell parent, IDcfDataCollectionsList<IDcfDataCollection> list) {
-		super(parent, list, SWT.SHELL_TRIM | SWT.APPLICATION_MODAL);
+	public TSEDataCollectionsListDialog(Shell parent, IDcfDataCollectionsList<IDcfDataCollection> list, String buttonTextKey) {
+		super(parent, list, SWT.SHELL_TRIM | SWT.APPLICATION_MODAL, buttonTextKey);
 	}
 	
 	@Override
-	protected void createContents(Shell shell) {
+	protected void createContents(Shell shell, String buttonTextKey) {
 		
-		super.createContents(shell);
+		super.createContents(shell, buttonTextKey);
 		
 		window = new RestoreableWindow(shell, WINDOW_CODE);
 		window.restore(TSERestoreableWindowDao.class);

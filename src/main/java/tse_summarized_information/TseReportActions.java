@@ -44,11 +44,9 @@ public class TseReportActions extends ReportActions {
 	 */
 	public TseReport amend() {
 		
-		boolean confirm = askConfirmation(ReportAction.AMEND);
-		
-		if (!confirm)
+		if (!askConfirmation(ReportActions.ReportAction.AMEND) || !askBulkAmendmentConfirmation()) {
 			return null;
-		
+		}
 		shell.setCursor(shell.getDisplay().getSystemCursor(SWT.CURSOR_WAIT));
 		
 		// create a new version of the report in the db
@@ -359,5 +357,14 @@ public class TseReportActions extends ReportActions {
 				SWT.ICON_WARNING | SWT.YES | SWT.NO);
 		
 		return val == SWT.YES;
+	}
+
+	public boolean askBulkAmendmentConfirmation() {
+	  	String title = TSEMessages.get("info.title", new String[0]);
+	 	String message = TSEMessages.get("bulk.amend.confirm", new String[0]);
+	  	int val = Warnings.warnUser(this.shell, title, 
+	    	message, 
+	      	SWT.OK | SWT.ICON_ERROR);
+	  	return val == SWT.OK = 32;
 	}
 }

@@ -54,7 +54,7 @@ public class TseReport extends Report {
 		TseReport report = new TseReport();
 		report.setCountry("Default");
 		report.setSenderId("Default");
-		report.setStatus(RCLDatasetStatus.DRAFT);
+		report.setRCLStatus(RCLDatasetStatus.DRAFT);
 		report.setMonth("");
 		report.setYear("");
 		report.setVersion(TableVersion.getFirstVersion());
@@ -258,5 +258,12 @@ public class TseReport extends Report {
 		}
 
 		return null;
+	}
+
+	@Override
+	public boolean notAmended() {
+	  	return !((getRCLStatus().equals(RCLDatasetStatus.LOCALLY_VALIDATED) || 
+	    	getRCLStatus().equals(RCLDatasetStatus.UPLOAD_FAILED)) && 
+	    	Integer.parseInt(getVersion()) != 0);
 	}
 }

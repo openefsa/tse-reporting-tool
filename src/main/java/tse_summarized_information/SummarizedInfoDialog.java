@@ -33,7 +33,6 @@ import providers.ITableDaoService;
 import providers.TseReportService;
 import report.DisplayAckResult;
 import report.DisplayAckThread;
-import report.RefreshStatusThread;
 import report.Report;
 import report.ReportActions;
 import report.ReportActions.ReportAction;
@@ -58,6 +57,7 @@ import tse_config.CatalogLists;
 import tse_config.CustomStrings;
 import tse_config.DebugConfig;
 import tse_main.TseFileDialog;
+import tse_report.RefreshStatusThread;
 import tse_report.TseReport;
 import tse_validator.SummarizedInfoValidator;
 import tse_validator.TseReportValidator;
@@ -280,7 +280,7 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 						SWT.APPLICATION_MODAL, TSEMessages.get("refresh.status.progress.bar.label"));
 				progressBar.open();
 
-				RefreshStatusThread refreshStatus = new RefreshStatusThread(report, reportService);
+				RefreshStatusThread refreshStatus = new RefreshStatusThread(report, reportService, daoService);
 				refreshStatus.setListener(new ThreadFinishedListener() {
 					@Override
 					public void finished(Runnable thread) {
@@ -352,7 +352,7 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 
 					// if no errors update report status
 					if (errors.isEmpty()) {
-						report.setStatus(RCLDatasetStatus.LOCALLY_VALIDATED);
+						report.setRCLStatus(RCLDatasetStatus.LOCALLY_VALIDATED);
 						report.update();
 						updateUI();
 						warnUser(TSEMessages.get("success.title"), TSEMessages.get("check.success"), SWT.ICON_INFORMATION);
@@ -552,7 +552,7 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 				}
 
 				// update the report status and UI
-				report.setStatus(status);
+				report.setRCLStatus(status);
 				report.update();
 				updateUI();
 			}
@@ -776,7 +776,7 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 
 		// add version if possible
 		if (!TableVersion.isFirstVersion(report.getVersion())) {
-			int revisionInt = Integer.valueOf(report.getVersion()); // remove 0 from 01..
+			int revisionInt = Integer.parseInt(this.report.getVersion()); // remove 0 from 01..
 			String revision = String.valueOf(revisionInt);
 			reportRow = TSEMessages.get("si.report.opened.revision", reportYear, reportMonth, revision);
 		} else {
@@ -805,9 +805,9 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 
 		panel.setEnabled("editBtn", !DebugConfig.disableMainPanel && datasetStatus.canBeMadeEditable());
 		panel.setEnabled("validateBtn", !DebugConfig.disableMainPanel && datasetStatus.canBeChecked());
-		panel.setEnabled("sendBtn", !DebugConfig.disableMainPanel && datasetStatus.canBeSent());
+		panel.setEnabled("sendBtn", !DebugConfig.disableMainPanel && datasetStatus.canBeSent() && this.report.notAmended());
 		panel.setEnabled("amendBtn", !DebugConfig.disableMainPanel && datasetStatus.canBeAmended());
-		panel.setEnabled("submitBtn", !DebugConfig.disableMainPanel && datasetStatus.canBeSubmitted());
+		panel.setEnabled("submitBtn", !DebugConfig.disableMainPanel && datasetStatus.canBeSubmitted() && this.report.notAmended());
 		// panel.setEnabled("rejectBtn", !DebugConfig.disableMainPanel &&
 		// datasetStatus.canBeRejected());
 		panel.setEnabled("displayAckBtn", !DebugConfig.disableMainPanel && datasetStatus.canDisplayAck());

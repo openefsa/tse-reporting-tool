@@ -158,7 +158,7 @@ public class SettingsDialog extends OptionsDialog {
 		TseReport report = new TseReport();
 		report.setCountry("TEST");
 		report.setSenderId("TEST");
-		report.setStatus(RCLDatasetStatus.DRAFT);
+		report.setRCLStatus(RCLDatasetStatus.DRAFT);
 		report.setMonth("1");
 		report.setYear("2010");
 		report.setVersion(TableVersion.getFirstVersion());
