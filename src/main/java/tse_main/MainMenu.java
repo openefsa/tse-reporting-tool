@@ -39,6 +39,7 @@ import table_database.TableDao;
 import table_skeleton.TableRow;
 import table_skeleton.TableVersion;
 import test_case.EnumPicker;
+import tse_amend_report.ReportAmendDialog;
 import tse_areaselector.AreaListSelectorDialog;
 import tse_config.CustomStrings;
 import tse_config.DebugConfig;
@@ -84,6 +85,7 @@ public class MainMenu {
 	protected MenuItem importReport;
 	protected MenuItem copyReport;
 	protected MenuItem downloadReport;
+	protected MenuItem amendReports;
 	protected MenuItem exportReport;
 	protected MenuItem exitApplication;
 
@@ -374,6 +376,29 @@ public class MainMenu {
 					e.printStackTrace();
 					Warnings.showSOAPWarning(shell, e);
 				}
+			}
+		});
+
+		this.amendReports = new MenuItem(this.fileMenu, 8);
+		this.amendReports.setText(TSEMessages.get("amend.report.item"));
+		this.amendReports.addSelectionListener(new SelectionListener() {
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				MainMenu.LOGGER.debug("Opening submit amendments dialog");
+				ReportAmendDialog dataCollectionAmender = new ReportAmendDialog(MainMenu.this.shell,
+						MainMenu.this.reportService, MainMenu.this.daoService);
+
+				try {
+					dataCollectionAmender.open();
+				} catch (DetailedSOAPException var4) {
+					MainMenu.LOGGER.error("Amend reports failed", (Throwable) var4);
+					var4.printStackTrace();
+					Warnings.showSOAPWarning(MainMenu.this.shell, var4);
+				}
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
 			}
 		});
 

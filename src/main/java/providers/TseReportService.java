@@ -3,6 +3,7 @@ package providers;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,7 +17,9 @@ import formula.FormulaException;
 import formula.FormulaSolver;
 import message.MessageConfigBuilder;
 import report.Report;
+import report.ReportType;
 import report_downloader.TSEFormulaDecomposer;
+import soap.DetailedSOAPException;
 import soap_interface.IGetAck;
 import soap_interface.IGetDataset;
 import soap_interface.IGetDatasetsList;
@@ -59,6 +62,43 @@ public class TseReportService extends ReportService {
 		this.formulaService1 = formulaService;
 	}
 
+	public List<TseReport> getBySenderId(String senderId) {
+	      return this.daoService
+	         .getByStringField(TableSchemaList.getByName("Report"), "reportSenderId", senderId)
+	         .stream()
+	         .map(TseReport::new)
+	         .collect(Collectors.toList());
+	  }
+	
+	public TseReport createAggregatedReport(List<TseReport> reportList) {
+	      TseReport template = reportList.get(0);
+	      String senderId = String.format("%s00", template.getYear().substring(2));
+	      String newVersion = null;
+
+	      try {
+	         newVersion = Optional.ofNullable(this.getDatasetsOf(senderId, template.getYear()))
+	            .map(list -> list.getLastVersion(senderId))
+	            .map(dataset -> dataset.getVersion())
+	            .map(ver -> Integer.parseInt(ver))
+	            .map(ver -> ver + 1)
+	            .map(ver -> ver > 9 ? String.valueOf(ver) : "0" + String.valueOf(ver))
+	            .orElse("01");
+	      } catch (DetailedSOAPException var7) {
+	         throw new RuntimeException(var7);
+	      }
+
+	      this.getBySenderId(senderId).forEach(existingAggrReport -> this.daoService.delete(existingAggrReport));
+	      TseReport aggrRepV1 = this.createAggregatedReport(
+	         senderId, "00", reportList.stream().map(r -> (TseReport)r.getPreviousVersion(this.daoService)).collect(Collectors.toList())
+	      );
+	      TseReport aggrRepV2 = this.createAggregatedReport(senderId, newVersion, reportList);
+	      reportList.forEach(report -> {
+	         report.setAggregatorId(aggrRepV2.getDatabaseId());
+	         this.daoService.update(report);
+	      });
+	      return aggrRepV2;
+	   }
+	
 	/**
 	 * get sampId field in row
 	 * 
@@ -81,6 +121,29 @@ public class TseReportService extends ReportService {
 		return null;
 	}
 
+	   private TseReport createAggregatedReport(String senderId, String version, List<TseReport> reports) {
+	      Report templateReport = reports.get(0);
+	      TseReport aggrRep = new TseReport();
+
+	      try {
+	         Relation.injectGlobalParent(aggrRep, "Preferences");
+	      } catch (Exception var7) {
+	         LOGGER.error("Cannot inject global parent=Preferences", (Throwable)var7);
+	         var7.printStackTrace();
+	      }
+
+	      aggrRep.setSenderId(senderId);
+	      aggrRep.setDcCode(templateReport.getDcCode());
+	      aggrRep.setRCLStatus(RCLDatasetStatus.LOCALLY_VALIDATED);
+	      aggrRep.setType(ReportType.COLLECTION_AGGREGATION);
+	      aggrRep.setYear(templateReport.getYear());
+	      aggrRep.setVersion(version);
+	      this.daoService.add(aggrRep);
+	      reports.forEach(r -> this.copyReportChildren(r, aggrRep, false));
+	      this.daoService.update(aggrRep);
+	      return aggrRep;
+	   }
+	
 	/**
 	 * Check if the analytical result is related to random genotyping
 	 * 
