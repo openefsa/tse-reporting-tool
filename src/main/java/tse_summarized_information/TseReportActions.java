@@ -44,17 +44,15 @@ public class TseReportActions extends ReportActions {
 	 */
 	public TseReport amend() {
 		
-		boolean confirm = askConfirmation(ReportAction.AMEND);
+		boolean confirm = askConfirmation(ReportAction.AMEND) && this.askBulkAmendmentConfirmation();
 		
 		if (!confirm)
 			return null;
 		
 		shell.setCursor(shell.getDisplay().getSystemCursor(SWT.CURSOR_WAIT));
-		
 		// create a new version of the report in the db
 		// it affects directly the current object
 		TseReport amendedReport = reportService.amend(report);
-		
 		shell.setCursor(shell.getDisplay().getSystemCursor(SWT.CURSOR_ARROW));
 		
 		// we can returned the modified object
@@ -360,4 +358,12 @@ public class TseReportActions extends ReportActions {
 		
 		return val == SWT.YES;
 	}
+	
+	@Override
+	   public boolean askBulkAmendmentConfirmation() {
+	      String title = TSEMessages.get("info.title");
+	      String message = TSEMessages.get("bulk.amend.confirm");
+	      int val = Warnings.warnUser(this.shell, title, message, 34);
+	      return val == 32;
+	   }
 }

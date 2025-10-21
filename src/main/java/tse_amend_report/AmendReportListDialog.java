@@ -25,6 +25,7 @@ import org.eclipse.swt.widgets.Dialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import progress_bar.IndeterminateProgressDialog;
+import providers.IReportService;
 import providers.ITableDaoService;
 import providers.TseReportService;
 import report.Report;

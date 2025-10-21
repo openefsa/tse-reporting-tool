@@ -505,7 +505,7 @@ public class TseReportService extends ReportService {
 	public TseReport reportFromDataset(Dataset dataset) {
 		TseReport report = new TseReport();
 		report.setId(dataset.getId());
-
+		report.setDcCode(dataset.getOperation().getDcCode());
 		String senderDatasetId = dataset.getOperation().getSenderDatasetId();
 		String[] split = Dataset.splitSenderId(senderDatasetId);
 		String senderId = senderDatasetId;

@@ -52,27 +52,15 @@ public class ReportAmendDialog {
    }
 
    private IDcfDataCollectionsList<IDcfDataCollection> getDataCollectionsWithAmendedReports() throws DetailedSOAPException {
-      IDcfDataCollectionsList var3;
-      try {
-         List<String> dcCodes = this.reportService
-            .getAllReports()
-            .stream()
-            .map(TseReport::new)
-            .filter(r -> Integer.parseInt(r.getVersion()) > 0)
-            .filter(r -> Boolean.FALSE.equals(r.getRCLStatus().isFinalized()))
-            .filter(r -> Boolean.FALSE.equals(RCLDatasetStatus.DRAFT.equals(r.getRCLStatus())))
-            .map(Report::getDcCode)
-            .distinct()
-            .collect(Collectors.toList());
-         var3 = GetAvailableDataCollections.getAvailableDcList()
-            .stream()
-            .filter(dc -> dcCodes.contains(dc.getCode()))
-            .collect(Collectors.toCollection(DcfDataCollectionsList::new));
-      } finally {
-         this.shell.setCursor(this.shell.getDisplay().getSystemCursor(0));
-      }
+       IDcfDataCollectionsList var3;
+       try {
+           List<String> dcCodes = (List)this.reportService.getAllReports().stream().map(TseReport::new).filter((r) -> Integer.parseInt(r.getVersion()) > 0).filter((r) -> Boolean.FALSE.equals(r.getRCLStatus().isFinalized())).filter((r) -> Boolean.FALSE.equals(RCLDatasetStatus.DRAFT.equals(r.getRCLStatus()))).map(Report::getDcCode).distinct().collect(Collectors.toList());
+           var3 = (IDcfDataCollectionsList)GetAvailableDataCollections.getAvailableDcList().stream().filter((dc) -> dcCodes.contains(dc.getCode())).collect(Collectors.toCollection(DcfDataCollectionsList::new));
+       } finally {
+           this.shell.setCursor(this.shell.getDisplay().getSystemCursor(0));
+       }
 
-      return var3;
+       return var3;
    }
 
    public IDataCollectionsDialog getDataCollectionsDialog(Shell shell1, IDcfDataCollectionsList<IDcfDataCollection> list, String buttonTextKey) {

@@ -805,9 +805,9 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 
 		panel.setEnabled("editBtn", !DebugConfig.disableMainPanel && datasetStatus.canBeMadeEditable());
 		panel.setEnabled("validateBtn", !DebugConfig.disableMainPanel && datasetStatus.canBeChecked());
-		panel.setEnabled("sendBtn", !DebugConfig.disableMainPanel && datasetStatus.canBeSent());
+		panel.setEnabled("sendBtn", !DebugConfig.disableMainPanel && datasetStatus.canBeSent() && report.notAmended());
 		panel.setEnabled("amendBtn", !DebugConfig.disableMainPanel && datasetStatus.canBeAmended());
-		panel.setEnabled("submitBtn", !DebugConfig.disableMainPanel && datasetStatus.canBeSubmitted());
+		panel.setEnabled("submitBtn", !DebugConfig.disableMainPanel && datasetStatus.canBeSubmitted() && report.notAmended());
 		// panel.setEnabled("rejectBtn", !DebugConfig.disableMainPanel &&
 		// datasetStatus.canBeRejected());
 		panel.setEnabled("displayAckBtn", !DebugConfig.disableMainPanel && datasetStatus.canDisplayAck());

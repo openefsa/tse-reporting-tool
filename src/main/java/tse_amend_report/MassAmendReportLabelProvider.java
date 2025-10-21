@@ -2,12 +2,19 @@ package tse_amend_report;
 
 import java.time.LocalDate;
 import java.util.Objects;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.swt.graphics.Image;
 import table_skeleton.TableRow;
+import tse_main.MainMenu;
 
 public class MassAmendReportLabelProvider extends ColumnLabelProvider {
+	
+	static final Logger LOGGER = LogManager.getLogger(MassAmendReportLabelProvider.class);
+	
    private String key;
 
    public MassAmendReportLabelProvider(String key) {
@@ -49,9 +56,16 @@ public class MassAmendReportLabelProvider extends ColumnLabelProvider {
          case 104080000:
             if (var4.equals("month")) {
                String text = String.valueOf(tableRow.getCode("reportMonth"));
-               if (Objects.nonNull(text)) {
+               if (Objects.nonNull(text) && !text.isEmpty()) {
                   text = LocalDate.of(2000, Integer.parseInt(text), 1).getMonth().toString();
                   text = text.substring(0, 1) + text.substring(1).toLowerCase();
+               }
+               else
+               {
+            	   LOGGER.warn("Malformed Report with incorrect Month detected!");
+                   LOGGER.info("--------- More Info Below ---------");
+                   LOGGER.info("\n" + tableRow.toString());
+                   LOGGER.info("--------- End of Info ---------");
                }
 
                return text;
