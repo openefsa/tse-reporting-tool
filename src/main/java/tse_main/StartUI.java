@@ -50,6 +50,7 @@ import table_skeleton.TableCell;
 import table_skeleton.TableRow;
 import tse_config.CustomStrings;
 import tse_config.DebugConfig;
+import tse_database_utils.DatabaseSanityChecker;
 import tse_options.PreferencesDialog;
 import tse_options.SettingsDialog;
 import tse_report.ReportCreatorDialog;
@@ -282,7 +283,12 @@ public class StartUI {
 				return db;
 			}
 		}
-
+		
+		LOGGER.info("Performing sanity checks on Database...");
+		DatabaseSanityChecker dbChecker = new DatabaseSanityChecker(db);
+		dbChecker.performSanityCheck();
+		LOGGER.info("Sanity Checks ended.");
+		
 		// create the main panel
 		display = new Display();
 		final Shell shell = new Shell(display);
