@@ -76,7 +76,6 @@ public class DatabaseTableUtil {
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			LOGGER.error("Error while getting connection: (".concat(e.getLocalizedMessage().concat(")")));
 			return false;
 		}
