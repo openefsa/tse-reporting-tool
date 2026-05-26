@@ -36,7 +36,6 @@ import report.ReportException;
 import soap.DetailedSOAPException;
 import table_dialog.DialogBuilder;
 import table_dialog.RowValidatorLabelProvider;
-import table_relations.Relation;
 import table_skeleton.TableCell;
 import table_skeleton.TableRow;
 import table_skeleton.TableVersion;
@@ -153,25 +152,6 @@ public class SettingsDialog extends OptionsDialog {
 		return new SimpleRowValidatorLabelProvider();
 	}
 	
-	private static TseReport createTestReport() throws IOException {
-		
-		TseReport report = new TseReport();
-		report.setCountry("TEST");
-		report.setSenderId("TEST");
-		report.setStatus(RCLDatasetStatus.DRAFT);
-		report.setMonth("1");
-		report.setYear("2010");
-		report.setVersion(TableVersion.getFirstVersion());
-		report.setMessageId("TEST");
-		report.setId("");  // empty
-		report.setLastMessageId("TEST");
-		report.setLastModifyingMessageId("TEST");
-		report.setLastValidationMessageId("TEST");
-		
-		Relation.injectGlobalParent(report, CustomStrings.PREFERENCES_SHEET);
-		
-		return report;
-	}
 
 	/**
 	 * Test the connection with the inserted credentials
@@ -224,75 +204,18 @@ public class SettingsDialog extends OptionsDialog {
 		// change the cursor to wait
 		getDialog().setCursor(getDialog().getDisplay().getSystemCursor(SWT.CURSOR_WAIT));
 		
-		Message msg = null;
+		Message msg = ActionsTestConnection.manageTestConnectionWithReport(reportService, daoService);
 
-		TseReport report = null;
-		try {
-			
-			report = createTestReport();
-			
-			// save report in db in order to perform send
-			daoService.add(report);
-			
-			MessageConfigBuilder config = reportService.getSendMessageConfiguration(report);
-			config.setOpType(OperationType.TEST);
-			
-			reportService.exportAndSend(report, config);
-
-			// here is success
-			String title = TSEMessages.get("success.title");
-			String message = TSEMessages.get("test.connection.success");
-			int style = SWT.ICON_INFORMATION;
-			
-			msg = Warnings.create(title, message, style);
-			
-			LOGGER.info("Test connection successfully completed");
-			
-		} catch (DetailedSOAPException e) {
-			LOGGER.error("Test connection failed", e);
-			e.printStackTrace();
-
-			msg = Warnings.createSOAPWarning(e);
-		} catch (ParserConfigurationException | SAXException | IOException e) {			
-			LOGGER.error("Test connection failed", e);
-			e.printStackTrace();
-			
-			msg = Warnings.createFatal(TSEMessages.get("test.connection.fail3", 
-					PropertiesReader.getSupportEmail()), report);
-			
-		} catch (SendMessageException e) {
-			LOGGER.error("Test connection failed", e);
-			// here we got TRXKO
-			e.printStackTrace();
-			
-			msg = TSEWarnings.getSendMessageWarning(e, report);
-			
-		} catch (ReportException e) {
-			LOGGER.error("Test connection failed", e);
-			// There an invalid operation was used
-			e.printStackTrace();
-			
-			msg = Warnings.createFatal(TSEMessages.get("test.connection.fail2",
-					PropertiesReader.getSupportEmail()), report);
-		} catch (AmendException e) {
-			LOGGER.error("This should never happen (amendments are not processed in the test connection)", e);
-			e.printStackTrace();
-		}
-		finally {
-			
-			// change the cursor to old cursor
-			getDialog().setCursor(getDialog().getDisplay().getSystemCursor(SWT.CURSOR_ARROW));
-			
-			// delete the report from the db
-			if (report != null)
-				report.delete();
-		}
+		LOGGER.info("Test connection successfully completed");
 		
+		getDialog().setCursor(getDialog().getDisplay().getSystemCursor(SWT.CURSOR_ARROW));
+			
 		// if we have an error message stop and show the error
 		if (msg != null) {
 			msg.open(getDialog());
 		}
 	}
+
 	
 	@Override
 	public void addWidgets(DialogBuilder viewer) {

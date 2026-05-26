@@ -45,11 +45,11 @@ import tse_config.CustomStrings;
 import tse_config.DebugConfig;
 import tse_main.listeners.CopySelectionListener;
 import tse_options.PreferencesDialog;
+import tse_options.ProxySettingsDialogTSE;
 import tse_options.SettingsDialog;
 import tse_report.ReportCreatorDialog;
 import tse_report.ReportListDialog;
 import tse_report.TseReport;
-import user_interface.ProxySettingsDialog;
 import xlsx_reader.TableSchema;
 import xlsx_reader.TableSchemaList;
 
@@ -148,7 +148,10 @@ public class MainMenu {
 		proxyConfig.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				ProxySettingsDialog dialog = new ProxySettingsDialog(shell, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+				ProxySettingsDialogTSE dialog = new ProxySettingsDialogTSE(shell,
+						daoService,
+						reportService,
+						SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
 				try {
 					dialog.open();
 				} catch (Exception e) {
