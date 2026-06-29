@@ -12,6 +12,7 @@ import amend_manager.AmendException;
 import app_config.AppPaths;
 import app_config.PropertiesReader;
 import dataset.Dataset;
+import exception_manager.ExceptionManager;
 import global_utils.Message;
 import global_utils.Warnings;
 import i18n_messages.TSEMessages;
@@ -118,7 +119,9 @@ public class TseReportActions extends ReportActions {
 			msg = Warnings.create(title, message, SWT.ICON_ERROR);
 		}
 		else {
-			msg = Warnings.createFatal(TSEMessages.get("generic.error", PropertiesReader.getSupportEmail()), getReport());
+//			msg = Warnings.createFatal(TSEMessages.get("generic.error", PropertiesReader.getSupportEmail()), getReport());
+			ExceptionManager manager = new ExceptionManager();
+			msg = manager.manageException(e);
 		}
 		
 		if (msg != null)
@@ -155,7 +158,9 @@ public class TseReportActions extends ReportActions {
 			msg = Warnings.create(TSEMessages.get("report.send.empty.error"));
 		}
 		else {
-			msg = Warnings.createFatal(TSEMessages.get("generic.error", PropertiesReader.getSupportEmail()), getReport());
+//			msg = Warnings.createFatal(TSEMessages.get("generic.error", PropertiesReader.getSupportEmail()), getReport());
+			ExceptionManager manager = new ExceptionManager();
+			msg = manager.manageException(e);
 		}
 		
 		if (msg != null)

@@ -57,6 +57,7 @@ import tse_report.ReportCreatorDialog;
 import user.User;
 import xlsx_reader.TableSchema;
 import xlsx_reader.TableSchemaList;
+import exception_manager.ExceptionManager;
 
 public class StartUI {
 
@@ -81,7 +82,6 @@ public class StartUI {
 			LOGGER.info("There are no data to check");
 			return false;
 		}
-			
 
 		TableRow firstRow = data.iterator().next();
 
@@ -127,13 +127,13 @@ public class StartUI {
 			LOGGER.info("There are no settings to login");
 			return;
 		}
-	
+
 		// get credentials
 		TableCell usernameVal = settings.get(CustomStrings.SETTINGS_USERNAME);
 		TableCell passwordVal = settings.get(CustomStrings.SETTINGS_PASSWORD);
 		TableCell orgVal = settings.get(CustomStrings.SETTINGS_ORG_CODE);
 
-		if (usernameVal == null || passwordVal == null){
+		if (usernameVal == null || passwordVal == null) {
 			LOGGER.info("The username or the password is empty");
 			return;
 		}
@@ -189,7 +189,8 @@ public class StartUI {
 				SWT.YES | SWT.NO | SWT.ICON_WARNING);
 
 		shell.dispose();
-		display.dispose();
+		if (display != null)
+			display.dispose();
 
 		return val;
 	}
@@ -203,23 +204,23 @@ public class StartUI {
 	public static void main(String args[]) throws IOException {
 
 		try {
-			//System.setProperty("user.home", System.getenv("ProgramFiles").concat("\\JavaTools_Lib"));
-			//System.setProperty("swt.library.path", System.getenv("ProgramFiles").concat("\\JavaTools_Lib"));
-			
+			// System.setProperty("user.home",
+			// System.getenv("ProgramFiles").concat("\\JavaTools_Lib"));
+			// System.setProperty("swt.library.path",
+			// System.getenv("ProgramFiles").concat("\\JavaTools_Lib"));
+
 			StartInstallationChecker.StartChecker(() -> {
 				StartUI main = new StartUI();
 				Database db = main.launch();
 				main.shutdown(db);
 			}, ProjectsNames.TSE);
-		
-			
-			
-		} catch (Throwable e) {
-			LOGGER.fatal("Generic error occurred", e);
-			e.printStackTrace();
 
-			Warnings.createFatal(TSEMessages.get("generic.error", PropertiesReader.getSupportEmail()))
-					.open(new Shell());
+		} catch (Throwable e) {
+			
+			ExceptionManager manager = new ExceptionManager();
+			
+			manager.manageThrowable(e).open(new Shell());
+
 		}
 	}
 
@@ -277,18 +278,18 @@ public class StartUI {
 			} catch (IOException e1) {
 				LOGGER.fatal("Unable to delete database", e1);
 				e1.printStackTrace();
-				
+
 				showInitError(TSEMessages.get("db.removal.error"));
 
 				return db;
 			}
 		}
-		
+
 		LOGGER.info("Performing sanity checks on Database...");
 		DatabaseSanityChecker dbChecker = new DatabaseSanityChecker(db);
 		dbChecker.performSanityCheck();
 		LOGGER.info("Sanity Checks ended.");
-		
+
 		// create the main panel
 		display = new Display();
 		final Shell shell = new Shell(display);
@@ -315,10 +316,9 @@ public class StartUI {
 			MainPanel mainPanel = new MainPanel(shell, reportService, daoService, formulaService);
 			mainPanel.create();
 		} catch (Throwable e) {
-			LOGGER.fatal("Generic error occurred", e);
-			e.printStackTrace();
-
-			Warnings.createFatal(TSEMessages.get("generic.error", PropertiesReader.getSupportEmail())).open(shell);
+			ExceptionManager manager = new ExceptionManager();
+			
+			manager.manageThrowable(e).open(shell);
 
 			return null;
 		}
