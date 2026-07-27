@@ -12,8 +12,11 @@ import org.eclipse.swt.widgets.Display;
 
 import i18n_messages.TSEMessages;
 import providers.ITableDaoService;
+import table_skeleton.TableCell;
+import table_skeleton.TableColumn;
 import table_skeleton.TableRow;
 import tse_config.CustomStrings;
+import tse_report.TseReport;
 import xlsx_reader.TableSchema;
 import xlsx_reader.TableSchemaList;
 
@@ -191,6 +194,7 @@ public class SummarizedInfoValidator extends SimpleRowValidatorLabelProvider {
 		return level;
 	}
 
+
 	@Override
 	public String getText(TableRow row) {
 
@@ -204,6 +208,11 @@ public class SummarizedInfoValidator extends SimpleRowValidatorLabelProvider {
 			return parentText;
 
 		String text = parentText;
+
+		if(level < getLevelStringFieldsWithSpecialCharacters(row)) {
+			text = TSEMessages.get("si.special.character.found");
+			return text;
+		}
 
 		Collection<SampleCheck> checks = isSampleCorrect(row);
 
@@ -231,6 +240,9 @@ public class SummarizedInfoValidator extends SimpleRowValidatorLabelProvider {
 		default:
 			break;
 		}
+		
+		
+		
 
 		return text;
 	}
@@ -245,6 +257,12 @@ public class SummarizedInfoValidator extends SimpleRowValidatorLabelProvider {
 
 		if (parentLevel > level)
 			return color;
+
+		if(level < getLevelStringFieldsWithSpecialCharacters(row)) {
+			Display display = Display.getDefault();
+			color = display.getSystemColor(SWT.COLOR_DARK_GRAY);
+			return color;
+		}
 
 		Collection<SampleCheck> checks = isSampleCorrect(row);
 

@@ -190,6 +190,11 @@ public class CaseReportValidator extends SimpleRowValidatorLabelProvider {
 		if (parentLevel > 1)
 			return super.getText(row);
 
+		if(parentLevel < getLevelStringFieldsWithSpecialCharacters(row)) {
+			text = TSEMessages.get("si.special.character.found");
+			return text;
+		}
+
 		try {
 
 			Collection<Check> checks = isRecordCorrect(row);
@@ -250,6 +255,13 @@ public class CaseReportValidator extends SimpleRowValidatorLabelProvider {
 			return super.getForeground(row);
 
 		Color color = null;
+
+		if(level < getLevelStringFieldsWithSpecialCharacters(row)) {
+			Display display = Display.getDefault();
+			color = display.getSystemColor(SWT.COLOR_DARK_GRAY);
+			return color;
+		}
+
 
 		try {
 

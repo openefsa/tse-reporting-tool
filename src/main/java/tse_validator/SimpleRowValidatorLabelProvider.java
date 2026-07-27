@@ -1,18 +1,24 @@
 package tse_validator;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
 
 import i18n_messages.TSEMessages;
 import table_dialog.RowValidatorLabelProvider;
+import table_skeleton.TableCell;
+import table_skeleton.TableColumn;
+import table_skeleton.TableColumn.ColumnType;
 import table_skeleton.TableRow;
 
 public class SimpleRowValidatorLabelProvider extends RowValidatorLabelProvider {
-	
+
 	@Override
 	public String getText(TableRow row) {
-		
+
 		String text = "";
 
 		switch (row.getRowStatus()) {
@@ -31,11 +37,11 @@ public class SimpleRowValidatorLabelProvider extends RowValidatorLabelProvider {
 
 		return text;
 	}
-	
+
 	public int getWarningLevel(TableRow row) {
-		
+
 		int level = 0;
-		
+
 		switch (row.getRowStatus()) {
 		case OK:
 			level = 0;
@@ -49,46 +55,69 @@ public class SimpleRowValidatorLabelProvider extends RowValidatorLabelProvider {
 		default:
 			break;
 		}
-		
+
 		return level;
 	}
-	
+
 	@Override
 	public Color getForeground(TableRow row) {
 		return getRowColor(row);
 	}
-	
+
 	/**
 	 * Row color based on row status
+	 * 
 	 * @param row
 	 * @return
 	 */
 	private static Color getRowColor(TableRow row) {
-		
+
 		Display display = Display.getDefault();
-		
+
 		Color red = display.getSystemColor(SWT.COLOR_RED);
-	    Color green = display.getSystemColor(SWT.COLOR_DARK_GREEN);
-	    Color yellow = display.getSystemColor(SWT.COLOR_DARK_YELLOW);
-	    Color magenta = display.getSystemColor(SWT.COLOR_MAGENTA);
-	    
-	    Color rowColor = green;
-	    
-	    switch (row.getRowStatus()) {
-	    case OK:
-	    	rowColor = green;
-	    	break;
-	    case CONDITIONAL_MISSING:
-	    	rowColor = magenta;
-	    	break;
-	    case MANDATORY_MISSING:
-	    	rowColor = red;
-	    	break;
-	    default:
-	    	rowColor = yellow;  // default for general warnings
-	    	break;
-	    }
-	    
-	    return rowColor;
+		Color green = display.getSystemColor(SWT.COLOR_DARK_GREEN);
+		Color yellow = display.getSystemColor(SWT.COLOR_DARK_YELLOW);
+		Color magenta = display.getSystemColor(SWT.COLOR_MAGENTA);
+
+		Color rowColor = green;
+
+		switch (row.getRowStatus()) {
+		case OK:
+			rowColor = green;
+			break;
+		case CONDITIONAL_MISSING:
+			rowColor = magenta;
+			break;
+		case MANDATORY_MISSING:
+			rowColor = red;
+			break;
+		default:
+			rowColor = yellow; // default for general warnings
+			break;
+		}
+
+		return rowColor;
+	}
+
+	public Collection<String> getStringFieldsWithSpecialCharacters(TableRow row) {
+
+		Collection<String> notFilled = new ArrayList<>();
+
+		for (TableColumn column : row.getSchema()) {
+
+			TableCell value = row.get(column.getId());
+			if (column.getType().equals(ColumnType.STRING) && column.isEditable(row)
+					&& (value != null && value.hasSpecialCharacters()))
+				notFilled.add(column.getId());
+		}
+
+		return notFilled;
+	}
+
+	public int getLevelStringFieldsWithSpecialCharacters(TableRow row) {
+		if (!getStringFieldsWithSpecialCharacters(row).isEmpty()) {
+			return 3;
+		}
+		return 0;
 	}
 }

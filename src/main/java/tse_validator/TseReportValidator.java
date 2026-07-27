@@ -20,6 +20,7 @@ import table_relations.Relation;
 import table_skeleton.TableCell;
 import table_skeleton.TableColumn;
 import table_skeleton.TableRow;
+import table_skeleton.TableColumn.ColumnType;
 import tse_analytical_result.AnalyticalResult;
 import tse_case_report.CaseReport;
 import tse_config.CustomStrings;
@@ -75,6 +76,7 @@ public class TseReportValidator extends ReportValidator {
 		for (TableRow row : reportRecords) {
 			try {
 				errors.addAll(checkMandatoryFields(row));
+				errors.addAll(checkSpecialCharactersFields(row));
 			} catch (FormulaException e) {
 				LOGGER.error("Error occurred", e);
 				e.printStackTrace();
@@ -279,6 +281,21 @@ public class TseReportValidator extends ReportValidator {
 			errors.add(new MissingMandatoryFieldError(fieldName, rowId));
 		}
 
+		return errors;
+	}
+	public Collection<ReportError> checkSpecialCharactersFields(TableRow row) throws FormulaException {
+		Collection<ReportError> errors = new ArrayList<>();
+		String rowId = getStackTrace(row);
+		for (TableColumn column : row.getSchema()) {
+
+				TableCell value = row.get(column.getId());
+				String label = column.getLabel();
+				String fieldName = label == null || label.isEmpty() ? column.getId() : label;
+				if(column.getType().equals(ColumnType.STRING)
+						&& column.isEditable(row) 
+						&& (value != null && value.hasSpecialCharacters()))
+						errors.add(new SpecialCharacterFieldError(fieldName, rowId));
+		}
 		return errors;
 	}
 
