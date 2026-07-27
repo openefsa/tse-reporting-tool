@@ -530,7 +530,7 @@ public class SummarizedInfoDialog extends TableDialogWithMenu {
 					LOGGER.info("There is no new version to continue");
 					return;
 				}
-
+				LOGGER.info("Create new version to amend of report databaseId = {}",newVersion.getDatabaseId());
 				// open the new version in the tool
 				setParentFilter(newVersion);
 			}

@@ -21,13 +21,13 @@ public class DatabaseTableUtil {
 	}
 	
 	public boolean checkColumnExists(String columnName) throws SQLException {
-		LOGGER.info("-------------------");
+		LOGGER.debug("-------------------");
 		LOGGER.info("Executing check query with params:\ncol: ".concat(columnName).concat("\ntabName: ".concat(tableName)));
-		LOGGER.info("Getting DB Connection...");
+		LOGGER.debug("Getting DB Connection...");
 		
 		Connection conn = Database.getConnection();
 		
-		LOGGER.info("Checking existance of col: ".concat(columnName));		
+		LOGGER.debug("Checking existance of col: ".concat(columnName));		
 	    String sql = "SELECT c.columnname " +
 	                 "FROM sys.syscolumns c " +
 	                 "JOIN sys.systables t ON c.referenceid = t.tableid " +

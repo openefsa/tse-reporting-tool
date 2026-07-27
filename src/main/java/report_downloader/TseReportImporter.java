@@ -90,7 +90,6 @@ public class TseReportImporter extends ReportImporter {
 					// add in the cache in order to avoid to save the same summInfo
 					// for the different results
 					summInfos.add(summInfo);
-
 					LOGGER.info("Created fake RGT summarized information");
 				} else {
 					SummarizedInfo si = extractSummarizedInfo(report1, row, false);
@@ -101,8 +100,9 @@ public class TseReportImporter extends ReportImporter {
 
 					// save it in the cache
 					summInfos.add(si);
+					LOGGER.info("Imported id="+si.getDatabaseId());
 				}
-				LOGGER.info(summInfos);
+				LOGGER.debug(summInfos);
 			}
 		}
 	}

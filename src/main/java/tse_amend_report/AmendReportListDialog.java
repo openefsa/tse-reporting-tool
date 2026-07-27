@@ -41,6 +41,8 @@ import tse_report.TseReport;
 import tse_summarized_information.TseReportActions;
 import window_restorer.RestoreableWindow;
 import xlsx_reader.TableSchemaList;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class AmendReportListDialog extends Dialog {
    private final String windowCode;
@@ -51,6 +53,7 @@ public class AmendReportListDialog extends Dialog {
    private DialogBuilder viewer;
    private TseReportService reportService;
    private ITableDaoService daoService;
+	private static final Logger LOGGER = LogManager.getLogger(AmendReportListDialog.class);
 
    public AmendReportListDialog(Shell parent, String windowCode, String dcCode, TseReportService reportService, ITableDaoService daoService) {
       super(new Shell(parent), 66800);
@@ -62,6 +65,7 @@ public class AmendReportListDialog extends Dialog {
    }
 
    private void loadAmendedMonthlyReports() {
+	   LOGGER.info("LoadAmmendMonthlyReport");
       this.aggrReport = this.reportService
          .getAllReports()
          .stream()
@@ -73,6 +77,7 @@ public class AmendReportListDialog extends Dialog {
          .findAny()
          .orElse(null);
       if (Objects.nonNull(this.aggrReport)) {
+		   LOGGER.info("Found aggrReport");
          this.reports = this.reportService
             .getAllReports()
             .stream()
@@ -85,6 +90,7 @@ public class AmendReportListDialog extends Dialog {
             .filter(r -> Boolean.FALSE.equals(r.getRCLStatus().isFinalized()))
             .collect(Collectors.toList());
       } else {
+		   LOGGER.info("Not Found aggrReport");
          this.reports = this.reportService
             .getAllReports()
             .stream()
@@ -95,6 +101,7 @@ public class AmendReportListDialog extends Dialog {
             .filter(r -> Boolean.FALSE.equals(RCLDatasetStatus.DRAFT.equals(r.getRCLStatus())))
             .collect(Collectors.toList());
       }
+	   LOGGER.debug("Reports found = {}", this.reports);
    }
 
    protected void createContents(Shell shell) {
@@ -237,11 +244,13 @@ public class AmendReportListDialog extends Dialog {
       }
 
       TseReport report = Objects.isNull(this.aggrReport) ? this.reports.get(0) : this.aggrReport;
+      LOGGER.info("sendReports = {}",report);
       ReportActions actions = new TseReportActions(this.getParent(), report, this.reportService);
       actions.send(this.reportService.getSendMessageConfiguration(report), arg01 -> this.onSendReportComplete(report));
    }
 
    private void onSendReportComplete(TseReport report) {
+      LOGGER.info("onSendReportComplete = {}",report);
       if (Boolean.FALSE.equals(ReportType.COLLECTION_AGGREGATION.equals(report.getType()))) {
          this.loadAmendedMonthlyReports();
          this.updateUI();
@@ -262,6 +271,7 @@ public class AmendReportListDialog extends Dialog {
    }
 
    private void refreshStatuses() {
+      LOGGER.info("refreshStatuses");
       final Shell shell = this.getParent();
       final TseReport report = this.reports.get(0);
       final IndeterminateProgressDialog progressBar = new IndeterminateProgressDialog(shell, 65536, TSEMessages.get("refresh.status.progress.bar.label"));
@@ -271,6 +281,7 @@ public class AmendReportListDialog extends Dialog {
          new ThreadFinishedListener() {
             @Override
             public void finished(Runnable thread) {
+			   LOGGER.info("finished correctly");
                shell.getDisplay().asyncExec(() -> {
                   progressBar.close();
                   AmendReportListDialog.this.loadAmendedMonthlyReports();
@@ -288,6 +299,7 @@ public class AmendReportListDialog extends Dialog {
 
             @Override
             public void terminated(Runnable thread, Exception e) {
+			   LOGGER.info("Terminated refresh status ");
                shell.getDisplay()
                   .asyncExec(
                      () -> {
@@ -315,6 +327,7 @@ public class AmendReportListDialog extends Dialog {
          ReportActions actions = new TseReportActions(this.getParent(), report, this.reportService);
          MessageConfigBuilder config = this.reportService.getSendMessageConfiguration(report);
          config.setOpType(OperationType.SUBMIT);
+		 LOGGER.info("submit report = {}",report);
          actions.perform(config, arg01 -> {
             this.reports.forEach(r -> {
                r.setRCLStatus(report.getRCLStatus());

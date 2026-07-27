@@ -32,7 +32,7 @@ public class RefreshStatusThread extends Thread {
       if (this.report.isAggregated()) {
          this.result = this.refreshAggregatedReport(this.report);
       } else {
-         this.result = this.reportService.refreshStatus(this.report);
+		  this.result = this.reportService.refreshStatus(this.report);
       }
 
       if (this.listener != null) {

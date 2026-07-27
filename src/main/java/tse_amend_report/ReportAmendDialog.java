@@ -39,6 +39,7 @@ public class ReportAmendDialog {
    public void open() throws DetailedSOAPException {
       this.shell.setCursor(this.shell.getDisplay().getSystemCursor(1));
       IDcfDataCollectionsList<IDcfDataCollection> dcWithAmends = this.getDataCollectionsWithAmendedReports();
+      LOGGER.info("Data collections with amended Reports = {}",dcWithAmends);
       if (dcWithAmends.isEmpty()) {
          Warnings.create(Messages.get("dc.no.amends.found")).open(this.shell);
       } else {
