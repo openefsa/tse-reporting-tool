@@ -23,7 +23,7 @@ In order to correctly import the project into the IDE it is firstly required to 
 		<module>efsa-rcl</module>
 		<module>email-generator</module>
 		<module>dcf-webservice-framework</module>
-		<dependency>dll_preloader</dependency>
+		<module>dll_preloader</module>
 		<module>exceptions-manager</module>
 		<module>http-manager</module>
 		<module>http-manager-gui</module>
